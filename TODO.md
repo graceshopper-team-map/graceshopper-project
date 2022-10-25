@@ -12,7 +12,6 @@
     - [x] Contains description -> text, null: false, empty: fasle
     - [x] Contains quanity -> null: false, int
   - [ ] API Routes
-  - [ ] Redux Slices
 
 ## FRONT-END
 
@@ -21,3 +20,4 @@
 - Products (Videogames)
   - [ ] All Products Component
   - [ ] Single Products Component
+  - [ ] Product Slices
