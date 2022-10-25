@@ -1,5 +1,5 @@
 "use strict";
-
+//test commit
 const {
   db,
   models: { User, Product },
@@ -36,7 +36,8 @@ async function seed() {
         "https://w7.pngwing.com/pngs/730/380/png-transparent-football-ball-game-football-white-sport-sports-equipment-thumbnail.png",
       price: 1599,
       quantity: 30,
-      description: "Neverending soccer action — see how long you can keep the ball going! ",
+      description:
+        "Neverending soccer action — see how long you can keep the ball going! ",
       genre: "Sport",
     }),
     Product.create({
@@ -45,7 +46,8 @@ async function seed() {
         "https://w7.pngwing.com/pngs/949/268/png-transparent-dice-game-dice-game-graphy-playing-card-dice-thumbnail.png",
       price: 999,
       quantity: 25,
-      description: "EA Digital Illusions CE AB is a Swedish video game developer based in Stockholm. The company was founded in 1992 and has been a subsidiary of Electronic Arts since 2006. Its releases include the Battlefield, Mirror's Edge and Star Wars: Battlefront series.",
+      description:
+        "EA Digital Illusions CE AB is a Swedish video game developer based in Stockholm. The company was founded in 1992 and has been a subsidiary of Electronic Arts since 2006. Its releases include the Battlefield, Mirror's Edge and Star Wars: Battlefront series.",
       genre: "Party",
     }),
     Product.create({
@@ -54,16 +56,18 @@ async function seed() {
         "https://e7.pngegg.com/pngimages/220/110/png-clipart-tetris-block-illustration-tetris-blocks-green-games-tetris-thumbnail.png",
       price: 599,
       quantity: 52,
-      description: "Tetris is a puzzle video game created by Soviet software engineer Alexey Pajitnov in 1984. It has been published by several companies for multiple platforms, most prominently during a dispute over the appropriation of the rights in the late 1980s.",
+      description:
+        "Tetris is a puzzle video game created by Soviet software engineer Alexey Pajitnov in 1984. It has been published by several companies for multiple platforms, most prominently during a dispute over the appropriation of the rights in the late 1980s.",
       genre: "Puzzle",
     }),
     Product.create({
       name: "Zelda",
       imageUrl:
         "https://freepngimg.com/thumb/the_legend_of_zelda/21552-3-zelda-link-thumb.png",
-      price: 5199,  
+      price: 5199,
       quantity: 8,
-      description: "The Legend of Zelda: Breath of the Wild is a 2017 action-adventure game developed and published by Nintendo for the Nintendo Switch and Wii U consoles. The game is an installment of The Legend of Zelda series and is set at the end of its timeline.",
+      description:
+        "The Legend of Zelda: Breath of the Wild is a 2017 action-adventure game developed and published by Nintendo for the Nintendo Switch and Wii U consoles. The game is an installment of The Legend of Zelda series and is set at the end of its timeline.",
       genre: "Action",
     }),
     Product.create({
@@ -72,7 +76,8 @@ async function seed() {
         "https://www.freepnglogos.com/uploads/fortnite-png/fortnite-png-logo-download-clip-art-clip-art-0.jpg",
       price: 2599,
       quantity: 13,
-      description: "Fortnite is an online video game developed by Epic Games and released in 2017. It is available in three distinct game mode versions that otherwise share the same general gameplay and game engine.",
+      description:
+        "Fortnite is an online video game developed by Epic Games and released in 2017. It is available in three distinct game mode versions that otherwise share the same general gameplay and game engine.",
       genre: "Survival",
     }),
     Product.create({
@@ -150,8 +155,8 @@ async function seed() {
       Game3: products[8],
       Game4: products[9],
       Game5: products[10],
-      Game6: products[11]
-    }
+      Game6: products[11],
+    },
   };
 }
 
