@@ -1,13 +1,14 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Route, Routes } from 'react-router-dom';
-import AuthForm from '../features/auth/AuthForm';
-import Home from '../features/home/Home';
-import { me } from './store';
+import React, { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Route, Routes } from "react-router-dom";
+import AuthForm from "../features/auth/AuthForm";
+import Home from "../features/home/Home";
+import { me } from "./store";
 
 /**
- * COMPONENT
+ * COMPONENTS
  */
+import AllProducts from "../components/AllProducts";
 
 const AppRoutes = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
@@ -38,6 +39,7 @@ const AppRoutes = () => {
             path="/signup"
             element={<AuthForm name="signup" displayName="Sign Up" />}
           />
+          <Route path="/products" element={<AllProducts />} />
         </Routes>
       )}
     </div>

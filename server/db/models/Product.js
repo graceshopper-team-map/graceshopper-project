@@ -9,7 +9,8 @@ const Product = db.define("product", {
   },
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue: "",
+    defaultValue:
+      "https://images.nintendolife.com/games/nes/super_mario_bros/cover_large.jpg",
   },
   price: {
     type: Sequelize.INTEGER,
