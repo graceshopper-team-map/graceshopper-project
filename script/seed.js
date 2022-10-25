@@ -2,25 +2,8 @@
 
 const {
   db,
-  models: { User, Product },
+  models: { User },
 } = require("../server/db");
-
-const products = [
-  {
-    name: "testing",
-    price: 3,
-    quantity: 5,
-    description: "A valid game",
-    genre: "Classic",
-  },
-  {
-    name: "mario",
-    price: 30,
-    quantity: 5,
-    description: "A valid game",
-    genre: "Classic",
-  },
-];
 
 /**
  * seed - this function clears the database, updates tables to
@@ -35,12 +18,6 @@ async function seed() {
     User.create({ username: "cody", password: "123" }),
     User.create({ username: "murphy", password: "123" }),
   ]);
-
-  await Promise.all(
-    products.map((product) => {
-      return Product.create(product);
-    })
-  );
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
