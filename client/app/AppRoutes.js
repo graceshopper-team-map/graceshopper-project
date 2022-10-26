@@ -9,6 +9,7 @@ import { me } from "./store";
  * COMPONENTS
  */
 import AllProducts from "../components/AllProducts";
+import SingleProduct from "../components/SingleProduct";
 
 const AppRoutes = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
@@ -40,6 +41,7 @@ const AppRoutes = () => {
             element={<AuthForm name="signup" displayName="Sign Up" />}
           />
           <Route path="/products" element={<AllProducts />} />
+          <Route path="/products/:productId" element={<SingleProduct />} />
         </Routes>
       )}
     </div>
