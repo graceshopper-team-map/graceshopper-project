@@ -54,3 +54,5 @@
   - [ ] Likewise, add a bunch of users with products in their carts so editing the cart can be worked on without already having the “add to cart” functionality built out.
 
 - [ ] user data to be secure so that no one can unrightfully manipulate information.
+
+- [ ] hi
