@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "../features/slices/productSlice";
-import Loading from "./Loading.js";
+import { fetchProducts } from "../../features/slices/productSlice";
+import Loading from "../Loading.js";
 
 const AllProducts = () => {
   const products = useSelector((state) => state.product.products);

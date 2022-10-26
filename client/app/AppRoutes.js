@@ -2,14 +2,14 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import AuthForm from "../features/auth/AuthForm";
-import Home from "../features/home/Home";
+import Home from "../components/home/Home";
 import { me } from "./store";
 
 /**
  * COMPONENTS
  */
-import AllProducts from "../components/AllProducts";
-import SingleProduct from "../components/SingleProduct";
+import AllProducts from "../components/products/AllProducts";
+import SingleProduct from "../components/products/SingleProduct";
 
 const AppRoutes = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);

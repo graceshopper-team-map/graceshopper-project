@@ -5,14 +5,14 @@ import { fetchSingleProduct } from "../features/slices/productSlice";
 import Loading from "./Loading.js";
 
 const SingleProduct = () => {
-  const product = useSelector((state) => state.product.products);
-  const { id } = useParams();
+  const product = useSelector((state) => state.product.product);
+  const { productId } = useParams();
   const dispatch = useDispatch();
   console.log(product);
 
-  //   useEffect(() => {
-  //     dispatch(fetchSingleProduct(id));
-  //   }, []);
+  useEffect(() => {
+    dispatch(fetchSingleProduct(productId));
+  }, []);
 
   return <div>Hi</div>;
 };
