@@ -1,3 +1,4 @@
-export { default as AllProducts } from './AllProducts';
-export { default as Loading } from './Loading';
-export { default as Cart } from './Cart';
+export { default as AllProducts } from "./products/AllProducts";
+export { default as SingleProduct } from "./products/SingleProduct";
+export { default as Loading } from "./Loading";
+export { default as Navbar } from "./navbar/Navbar";
