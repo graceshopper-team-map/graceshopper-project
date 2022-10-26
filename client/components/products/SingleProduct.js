@@ -10,9 +10,9 @@ const SingleProduct = () => {
   const dispatch = useDispatch();
   console.log(product);
 
-  useEffect(() => {
-    dispatch(fetchSingleProduct(productId));
-  }, []);
+    useEffect(() => {
+      dispatch(fetchSingleProduct(productId));
+    }, []);
 
   return <div>Hi</div>;
 };

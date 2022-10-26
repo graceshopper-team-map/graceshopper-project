@@ -2,7 +2,7 @@
 //test commit
 const {
   db,
-  models: { User, Product },
+  models: { User, Product, Order, OrderProducts },
 } = require("../server/db");
 
 /**
@@ -136,6 +136,52 @@ async function seed() {
     }),
   ]);
 
+  const orders = await Promise.all([
+    Order.create({
+      status: "unfullfilled",
+    }),
+    Order.create({
+      status: "fullfilled",
+    }),
+    Order.create({
+    })
+  ]);
+
+  const orderproducts = await Promise.all([
+    OrderProducts.create({
+      productId: 1,
+      orderId: 1,
+    }),
+    OrderProducts.create({
+      productId: 5,
+      orderId: 1,
+    }),
+    OrderProducts.create({
+      productId: 8,
+      orderId: 1,
+    }),
+    OrderProducts.create({
+      productId: 2,
+      orderId: 1,
+    }),
+    OrderProducts.create({
+      productId: 3,
+      orderId: 1,
+    }),
+    OrderProducts.create({
+      productId: 1,
+      orderId: 2,
+    }),
+    OrderProducts.create({
+      productId: 2,
+      orderId: 3,
+    }),
+  ]);
+
+  await orders[0].setUser(users[1].id);
+  await orders[1].setUser(users[0].id);
+  await orders[2].setUser(users[1].id);
+
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
   return {
@@ -156,6 +202,20 @@ async function seed() {
       Game4: products[9],
       Game5: products[10],
       Game6: products[11],
+    },
+    orders: {
+      order1: orders[0],
+      order2: orders[1],
+      order3: orders[2],
+    },
+    orderproducts: {
+      orderproducts1: orderproducts[0],
+      orderproducts2: orderproducts[1],
+      orderproducts3: orderproducts[2],
+      orderproducts4: orderproducts[3],
+      orderproducts5: orderproducts[4],
+      orderproducts6: orderproducts[5],
+      orderproducts7: orderproducts[6],
     },
   };
 }
