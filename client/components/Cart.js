@@ -14,7 +14,7 @@ const Cart = (props) => {
     <div>
       {orders &&
         orders.map((order) => {
-          return <p>{order.status}</p>;
+          return <p key = {order.id} >{order.status}</p>;
         })}
     </div>
   );

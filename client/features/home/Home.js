@@ -8,6 +8,7 @@ import { Cart } from '../../components';
 const Home = (props) => {
   const username = useSelector((state) => state.auth.me.username);
   const id = useSelector((state) => state.auth.me.id);
+  
   return (
     <div>
       <h3>Welcome, {username}</h3>
