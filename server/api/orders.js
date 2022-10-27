@@ -1,12 +1,20 @@
-const router = require('express').Router();
+const router = require("express").Router();
 const {
-  models: { Order },
-} = require('../db');
-const OrderProducts = require('../db/models/OrderProducts');
-const Product = require('../db/models/Product');
+  models: { Order, Product, OrderProducts, User },
+} = require("../db");
 module.exports = router;
 
-router.get('/:id', async (req, res, next) => {
+// *GET /orders
+router.get("/", async (req, res, next) => {
+  try {
+    const orders = await Order.findAll({ include: [User, Product] });
+    res.json(orders);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/:id", async (req, res, next) => {
   try {
     const order = await Order.findAll({
       where: {
@@ -20,7 +28,7 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-router.get('/:userId/:orderId', async (req, res, next) => {
+router.get("/:userId/:orderId", async (req, res, next) => {
   try {
     const order = await Order.findByPk(req.params.orderId);
     if (order) res.json(order);

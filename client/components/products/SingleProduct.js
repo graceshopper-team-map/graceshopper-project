@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSingleProduct } from "../features/slices/productSlice";
-import Loading from "./Loading.js";
+import { fetchSingleProduct } from "../../features/slices/productSlice.js";
+import Loading from "../Loading.js";
 
 const SingleProduct = () => {
   const product = useSelector((state) => state.product.product);
@@ -10,11 +10,24 @@ const SingleProduct = () => {
   const dispatch = useDispatch();
   console.log(product);
 
-    useEffect(() => {
-      dispatch(fetchSingleProduct(productId));
-    }, []);
+  const { name, imageUrl, description, price } = product;
 
-  return <div>Hi</div>;
+  useEffect(() => {
+    dispatch(fetchSingleProduct(productId));
+  }, []);
+
+  return (
+    <div className="single-product-wrapper">
+      <div className="product-image-container">
+        <img className="product-image" src={imageUrl} />
+      </div>
+      <div className="product-info">
+        <h3>{name + "    " + `$${price / 100}`}</h3>
+        <p>{description}</p>
+        <button>Add to Cart</button>
+      </div>
+    </div>
+  );
 };
 
 export default SingleProduct;

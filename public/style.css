@@ -1,5 +1,7 @@
 body {
   font-family: "Lato", sans-serif;
+  background-color: #0d1117;
+  color: #c9d1d9;
 }
 
 a {
@@ -13,9 +15,65 @@ label {
 nav a {
   display: inline-block;
   margin: 1em;
+  color: #c9d1d9;
 }
 
 form div {
   margin: 1em;
   display: inline-block;
 }
+
+/* START OF CARD CSS*/
+.product-wrapper {
+  padding-top: 50px;
+  padding-bottom: 30px;
+}
+
+.MuiCard-root.custom-card {
+  background-color: #21262d;
+  color: #c9d1d9;
+  transition: all 0.5s ease-in-out;
+}
+
+.MuiCard-root.custom-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 0px 10px 5px #dba44e;
+}
+
+.custom-card .content {
+  padding-bottom: 0;
+}
+
+.custom-card .title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* .custom-card .card-image {
+  padding: 10px 10px 0px 10px;
+} */
+
+.custom-card .price {
+  color: #03dac5;
+  margin-bottom: 0;
+}
+
+.actions-content {
+  display: flex;
+}
+
+.actions-content h2 {
+  flex-grow: 1;
+}
+
+.custom-card .custom-button {
+  color: #03dac5;
+}
+
+.custom-card .custom-button:hover {
+  background-color: #8b0000;
+  color: #c9d1d9;
+}
+
+/*END OF CARD CSS*/

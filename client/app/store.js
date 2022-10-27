@@ -3,7 +3,7 @@ import logger from 'redux-logger';
 import authReducer from '../features/auth/authSlice';
 import productReducer from '../features/slices/productSlice';
 import orderReducer from '../features/slices/ordersSlice';
-import orderproductsReducer from '../features/slices/orderproductsSlice'
+import orderproductsReducer from '../features/slices/orderProductsSlice'
 
 const store = configureStore({
   reducer: {

@@ -1,13 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../features/slices/productSlice";
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Typography,
+  CardActionArea,
+  Button,
+  Grid,
+  Container,
+} from "@mui/material";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+
+/*COMPS */
 import Loading from "../Loading.js";
 
 const AllProducts = () => {
   const products = useSelector((state) => state.product.products);
   const dispatch = useDispatch();
-  console.log(products);
+  const [loading, setLoading] = useState(false);
+  // console.log(products);
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -15,20 +30,66 @@ const AllProducts = () => {
 
   if (!products) return <Loading message="BRB Loading Games..." />;
   return (
-    <div className="product-wrapper">
-      <div>
+    <Container className="product-wrapper">
+      <Grid container spacing={4}>
         {products &&
           products.map((product) => (
-            <div className="product-card" key={product.id}>
-              <Link to={`/products/${product.id}`}>
-                <img src={product.imageUrl} width="150px" height="150px" />
-              </Link>
-              <p>{product.price / 100}</p>
-              <p>{product.name}</p>
-            </div>
+            <Grid
+              className="product-card"
+              key={product.id}
+              item
+              xs={12}
+              sm={6}
+              md={4}
+            >
+              <Card className="custom-card">
+                <CardActionArea>
+                  <Link to={`/products/${product.id}`}>
+                    <CardMedia
+                      component="img"
+                      src={product.imageUrl}
+                      alt={`${product.name}`}
+                      title={`${product.name}`}
+                      className="card-image"
+                      height="260"
+                    />
+                  </Link>
+
+                  <CardContent className="content">
+                    <Typography
+                      className="title"
+                      gutterBottom
+                      variant="h5"
+                      component="h2"
+                    >
+                      {product.name}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+                <CardActions className="actions-content">
+                  <>
+                    <Typography
+                      className="price"
+                      gutterBottom
+                      variant="h5"
+                      component="h2"
+                    >
+                      {"$" + product.price / 100}
+                    </Typography>
+                    <Button
+                      size="large"
+                      className="custom-button"
+                      onClick={() => console.log("clicked")}
+                    >
+                      <ShoppingCartIcon /> Add to Cart
+                    </Button>
+                  </>
+                </CardActions>
+              </Card>
+            </Grid>
           ))}
-      </div>
-    </div>
+      </Grid>
+    </Container>
   );
 };
 
