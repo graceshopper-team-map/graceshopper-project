@@ -32,62 +32,59 @@ const AllProducts = () => {
   return (
     <Container className="product-wrapper">
       <Grid container spacing={4}>
-        {products &&
-          products.map((product) => (
-            <Grid
-              className="product-card"
-              key={product.id}
-              item
-              xs={12}
-              sm={6}
-              md={4}
-            >
-              <Card className="custom-card">
-                <CardActionArea>
-                  <Link to={`/products/${product.id}`}>
-                    <CardMedia
-                      component="img"
-                      src={product.imageUrl}
-                      alt={`${product.name}`}
-                      title={`${product.name}`}
-                      className="card-image"
-                      height="260"
-                    />
-                  </Link>
+        {products?.map((product) => (
+          <Grid
+            className="product-card"
+            key={product.id}
+            item
+            xs={12}
+            sm={6}
+            md={4}
+          >
+            <Card className="custom-card">
+              <CardActionArea>
+                <Link to={`/products/${product.id}`}>
+                  <CardMedia
+                    component="img"
+                    src={product.imageUrl}
+                    alt={`${product.name}`}
+                    title={`${product.name}`}
+                    className="card-image"
+                    height="260"
+                  />
+                </Link>
 
-                  <CardContent className="content">
-                    <Typography
-                      className="title"
-                      gutterBottom
-                      variant="h5"
-                      component="h2"
-                    >
-                      {product.name}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions className="actions-content">
-                  <>
-                    <Typography
-                      className="price"
-                      gutterBottom
-                      variant="h5"
-                      component="h2"
-                    >
-                      {"$" + product.price / 100}
-                    </Typography>
-                    <Button
-                      size="large"
-                      className="custom-button"
-                      onClick={() => console.log("clicked")}
-                    >
-                      <ShoppingCartIcon /> Add to Cart
-                    </Button>
-                  </>
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
+                <CardContent className="content">
+                  <Typography
+                    className="title"
+                    gutterBottom
+                    variant="h5"
+                    component="h2"
+                  >
+                    {product.name}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions className="actions-content">
+                <Typography
+                  className="price"
+                  gutterBottom
+                  variant="h5"
+                  component="h2"
+                >
+                  {"$" + product.price / 100}
+                </Typography>
+                <Button
+                  size="large"
+                  className="custom-button"
+                  onClick={() => console.log("clicked")}
+                >
+                  <ShoppingCartIcon /> Add to Cart
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
+        ))}
       </Grid>
     </Container>
   );

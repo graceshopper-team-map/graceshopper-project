@@ -5,7 +5,7 @@ const {
 
 module.exports = router;
 
-// GET api/orderproducts/:id
+// GET api/orderProducts/:id
 router.get("/:id", async (req, res, next) => {
   try {
     const orderProducts = await OrderProducts.findAll({
@@ -13,6 +13,7 @@ router.get("/:id", async (req, res, next) => {
         orderId: req.params.id,
       },
     });
+    
     if (orderProducts) res.json(orderProducts);
     else res.sendStatus(404);
   } catch (err) {
