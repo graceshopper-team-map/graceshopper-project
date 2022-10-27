@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 /**
  * COMPONENT
  */
-import AllProducts from "../products/AllProducts.js";
+import AllProducts from "../products/AllProducts";
 
 const Home = (props) => {
   const username = useSelector((state) => state.auth.me.username);
