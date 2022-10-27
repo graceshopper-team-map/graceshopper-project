@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { fetchAllOrders } from '../features/slices/ordersSlice';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { fetchAllOrders } from "../features/slices/ordersSlice";
+import { useSelector, useDispatch } from "react-redux";
+
 
 const Cart = (props) => {
   const dispatch = useDispatch();
@@ -14,7 +15,7 @@ const Cart = (props) => {
     <div>
       {orders &&
         orders.map((order) => {
-          return <p key = {order.id} >{order.status}</p>;
+          return <p key={order.id}>{order.status}</p>;
         })}
     </div>
   );
