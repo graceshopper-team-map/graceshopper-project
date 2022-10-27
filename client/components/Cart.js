@@ -1,28 +1,37 @@
 import React, { useEffect, useState } from "react";
-import { fetchAllOrders } from "../features/slices/ordersSlice";
+import { fetchUserOrders } from "../features/slices/ordersSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 
-const Cart = (prop) => {
+const Cart = () => {
+  const userId = useSelector((state) => state.auth.me.id);
   const dispatch = useDispatch();
 
-  const orders = useSelector((state) => state.order.orders);
-  console.log(orders);
+  let userOrder = useSelector((state) => state.order.userOrders);
 
   useEffect(() => {
-    dispatch(fetchAllOrders());
-  }, []);
+    if (userId) {
+      dispatch(fetchUserOrders(userId));
+    }
+  }, [userId]);
+
+  const currentOrder = userOrder.filter(
+    (order) => order.status === "unfullfilled"
+  );
 
   return (
     <div className="cart-wrapper">
       <div>
         <h2>My Cart:</h2>
       </div>
-      {/* <h1>{`Cart ${id}`}</h1> */}
-      {orders &&
-        orders.map((order) => {
-          return <p key={order.id}>{order.status + " " + order.userId}</p>;
+      <div>
+        {currentOrder[0]?.products?.map((product) => {
+          return (
+            <div key={product.id}>
+              <p>{product.name}</p>
+            </div>
+          );
         })}
+      </div>
     </div>
   );
 };

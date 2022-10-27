@@ -8,7 +8,6 @@ const SingleProduct = () => {
   const product = useSelector((state) => state.product.product);
   const { productId } = useParams();
   const dispatch = useDispatch();
-  console.log(product);
 
   const { name, imageUrl, description, price } = product;
 
@@ -22,7 +21,7 @@ const SingleProduct = () => {
         <img className="product-image" src={imageUrl} />
       </div>
       <div className="product-info">
-        <h3>{name + "    " + `$${price / 100}`}</h3>
+        <h3>{name + "    " + `$${price}`}</h3>
         <p>{description}</p>
         <button>Add to Cart</button>
       </div>

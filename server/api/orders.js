@@ -14,12 +14,25 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-router.get("/:id", async (req, res, next) => {
+// POST /orders
+router.post("/", async (req, res, next) => {
+  try {
+    const orders = await Order.create({});
+    res.json(orders);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/:userId", async (req, res, next) => {
   try {
     const order = await Order.findAll({
       where: {
-        userId: req.params.id,
+        userId: req.params.userId,
       },
+      include: {
+        model: Product
+      }
     });
     if (order) res.json(order);
     else res.sendStatus(404);
