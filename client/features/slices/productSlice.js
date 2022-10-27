@@ -27,7 +27,7 @@ export const fetchSingleProduct = createAsyncThunk(
 //*createSlice for products and all products
 export const productSlice = createSlice({
   name: "product",
-  initialState: { products: [], product: {}, test: null },
+  initialState: { products: [], product: {} },
   reducers: {},
   extraReducers: (builder) => {
     builder

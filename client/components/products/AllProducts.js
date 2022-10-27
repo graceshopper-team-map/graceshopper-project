@@ -22,7 +22,6 @@ const AllProducts = () => {
   const products = useSelector((state) => state.product.products);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-  // console.log(products);
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -74,7 +73,7 @@ const AllProducts = () => {
                       variant="h5"
                       component="h2"
                     >
-                      {"$" + product.price / 100}
+                      {"$" + product.price}
                     </Typography>
                     <Button
                       size="large"

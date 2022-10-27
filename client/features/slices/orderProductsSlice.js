@@ -13,6 +13,21 @@ export const fetchProductsId = createAsyncThunk(
   }
 );
 
+export const addProduct = createAsyncThunk(
+  "/orderProducts/:orderId",
+  async (orderId, productId) => {
+    try {
+      const { data } = await axios.post(`/api/orderProducts/${orderId}`, {
+        orderId,
+        productId
+      });
+      return data;
+    } catch (e) {
+      console.log("oops");
+    }
+  }
+);
+
 export const orderProductsSlice = createSlice({
   name: "orderProducts",
   initialState: [],
@@ -21,6 +36,9 @@ export const orderProductsSlice = createSlice({
     builder.addCase(fetchProductsId.fulfilled, (state, action) => {
       return action.payload;
     });
+    builder.addCase(addProduct.fulfilled, (state, action) => {
+      state.push(action.payload)
+    })
   },
 });
 
