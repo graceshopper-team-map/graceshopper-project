@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "../../features/slices/productSlice";
+import { fetchProducts } from "./productSlice";
 import {
   Card,
   CardMedia,
@@ -16,7 +16,7 @@ import {
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 /*COMPS */
-import Loading from "../Loading.js";
+import Loading from "../loading/Loading.js";
 
 const AllProducts = () => {
   const products = useSelector((state) => state.product.products);
@@ -53,39 +53,39 @@ const AllProducts = () => {
                   />
                 </Link>
 
-                  <CardContent className="content">
-                    <Typography
-                      className="title"
-                      gutterBottom
-                      variant="h5"
-                      component="h2"
-                    >
-                      {product.name}
-                    </Typography>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions className="actions-content">
-                  <>
-                    <Typography
-                      className="price"
-                      gutterBottom
-                      variant="h5"
-                      component="h2"
-                    >
-                      {"$" + product.price}
-                    </Typography>
-                    <Button
-                      size="large"
-                      className="custom-button"
-                      onClick={() => console.log("clicked")}
-                    >
-                      <ShoppingCartIcon /> Add to Cart
-                    </Button>
-                  </>
-                </CardActions>
-              </Card>
-            </Grid>
-          ))}
+                <CardContent className="content">
+                  <Typography
+                    className="title"
+                    gutterBottom
+                    variant="h5"
+                    component="h2"
+                  >
+                    {product.name}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions className="actions-content">
+                <>
+                  <Typography
+                    className="price"
+                    gutterBottom
+                    variant="h5"
+                    component="h2"
+                  >
+                    {"$" + product.price}
+                  </Typography>
+                  <Button
+                    size="large"
+                    className="custom-button"
+                    onClick={() => console.log("clicked")}
+                  >
+                    <ShoppingCartIcon /> Add to Cart
+                  </Button>
+                </>
+              </CardActions>
+            </Card>
+          </Grid>
+        ))}
       </Grid>
     </Container>
   );

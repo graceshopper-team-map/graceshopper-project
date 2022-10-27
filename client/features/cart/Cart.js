@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchUserOrders } from "../features/slices/ordersSlice";
+import { fetchUserOrders } from "./ordersSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 const Cart = () => {
