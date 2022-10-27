@@ -13,6 +13,7 @@ import {
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const logoutAndRedirectHome = () => {
@@ -33,6 +34,7 @@ const Navbar = () => {
                   Logout
                 </button>
                 <Link to="/products">Products</Link>
+                <Link to="/cart">Cart</Link>
               </div>
             ) : (
               <div>
