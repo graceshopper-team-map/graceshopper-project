@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../features/slices/productSlice";
@@ -21,7 +21,8 @@ import Loading from "../Loading.js";
 const AllProducts = () => {
   const products = useSelector((state) => state.product.products);
   const dispatch = useDispatch();
-  console.log(products);
+  const [loading, setLoading] = useState(false);
+  // console.log(products);
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -43,11 +44,17 @@ const AllProducts = () => {
             >
               <Card className="custom-card">
                 <CardActionArea>
-                  <CardMedia>
-                    <Link to={`/products/${product.id}`}>
-                      <img className="card-image" src={product.imageUrl} />
-                    </Link>
-                  </CardMedia>
+                  <Link to={`/products/${product.id}`}>
+                    <CardMedia
+                      component="img"
+                      src={product.imageUrl}
+                      alt={`${product.name}`}
+                      title={`${product.name}`}
+                      className="card-image"
+                      height="260"
+                    />
+                  </Link>
+
                   <CardContent className="content">
                     <Typography
                       className="title"
@@ -59,7 +66,7 @@ const AllProducts = () => {
                     </Typography>
                   </CardContent>
                 </CardActionArea>
-                <CardActionArea className="actions-content">
+                <CardActions className="actions-content">
                   <>
                     <Typography
                       className="price"
@@ -72,12 +79,12 @@ const AllProducts = () => {
                     <Button
                       size="large"
                       className="custom-button"
-                      onClick={() => "clicked"}
+                      onClick={() => console.log("clicked")}
                     >
                       <ShoppingCartIcon /> Add to Cart
                     </Button>
                   </>
-                </CardActionArea>
+                </CardActions>
               </Card>
             </Grid>
           ))}

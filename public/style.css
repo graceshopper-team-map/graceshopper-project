@@ -15,6 +15,7 @@ label {
 nav a {
   display: inline-block;
   margin: 1em;
+  color: #c9d1d9;
 }
 
 form div {
@@ -22,6 +23,7 @@ form div {
   display: inline-block;
 }
 
+/* START OF CARD CSS*/
 .product-wrapper {
   padding-top: 50px;
   padding-bottom: 30px;
@@ -48,18 +50,30 @@ form div {
   text-overflow: ellipsis;
 }
 
-.custom-card .card-image {
+/* .custom-card .card-image {
   padding: 10px 10px 0px 10px;
-  width: 260px;
-  height: 260px;
-  align-items: center;
-}
+} */
 
 .custom-card .price {
-  color: #c9d1d9;
+  color: #03dac5;
   margin-bottom: 0;
 }
 
 .actions-content {
   display: flex;
 }
+
+.actions-content h2 {
+  flex-grow: 1;
+}
+
+.custom-card .custom-button {
+  color: #03dac5;
+}
+
+.custom-card .custom-button:hover {
+  background-color: #8b0000;
+  color: #c9d1d9;
+}
+
+/*END OF CARD CSS*/

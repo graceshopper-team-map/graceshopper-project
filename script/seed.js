@@ -129,7 +129,7 @@ async function seed() {
       name: "Game6",
       imageUrl:
         "https://png.pngtree.com/element_our/20190528/ourmid/pngtree-gamepad-for-playing-video-games-image_1132236.jpg",
-      price: 1850,
+      price: 1899,
       quantity: 1,
       description: "Game6 is a random game that's just created.",
       genre: "Adventure",
@@ -143,8 +143,7 @@ async function seed() {
     Order.create({
       status: "fullfilled",
     }),
-    Order.create({
-    })
+    Order.create({}),
   ]);
 
   const orderproducts = await Promise.all([
