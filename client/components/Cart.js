@@ -7,6 +7,7 @@ const Cart = (prop) => {
   const dispatch = useDispatch();
 
   const orders = useSelector((state) => state.order.orders);
+  console.log(orders);
 
   useEffect(() => {
     dispatch(fetchAllOrders());
@@ -20,7 +21,7 @@ const Cart = (prop) => {
       {/* <h1>{`Cart ${id}`}</h1> */}
       {orders &&
         orders.map((order) => {
-          return <p key={order.id}>{order.status}</p>;
+          return <p key={order.id}>{order.status + " " + order.userId}</p>;
         })}
     </div>
   );
