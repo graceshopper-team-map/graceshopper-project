@@ -4,6 +4,8 @@ import { ColorRing } from "react-loader-spinner";
 const Loading = ({ message }) => {
   return (
     <div className="">
+      {/* o: instead of hardcoding these styles, try using an object
+            👉 https://css-tricks.com/different-ways-to-write-css-in-react/#aa-write-inline-styles */}
       <ColorRing
         type="ColorRing"
         color="#7E7F81"

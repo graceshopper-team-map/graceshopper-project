@@ -8,6 +8,8 @@ const SingleProduct = () => {
   const product = useSelector((state) => state.product.product);
   const { productId } = useParams();
   const dispatch = useDispatch();
+
+  // o: if it works, do you need this code anymore?
   console.log(product);
 
   const { name, imageUrl, description, price } = product;

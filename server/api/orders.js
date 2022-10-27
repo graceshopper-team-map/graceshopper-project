@@ -21,6 +21,8 @@ router.get("/:id", async (req, res, next) => {
         userId: req.params.id,
       },
     });
+    // o: genuine question, when would you NOT get data from the db on this query 🤔
+    //  let's chat about this in our Sprint Meeting
     if (order) res.json(order);
     else res.sendStatus(404);
   } catch (err) {
@@ -30,6 +32,7 @@ router.get("/:id", async (req, res, next) => {
 
 router.get("/:userId/:orderId", async (req, res, next) => {
   try {
+    // o: good working catching this case
     const order = await Order.findByPk(req.params.orderId);
     if (order) res.json(order);
     else res.sendStatus(404);

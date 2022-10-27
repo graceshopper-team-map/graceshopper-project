@@ -16,6 +16,8 @@ router.get("/", async (req, res, next) => {
 router.get("/:id", async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.id);
+    
+    // o: good working catching this case
     if (product) res.json(product);
     else res.sendStatus(404);
   } catch (err) {

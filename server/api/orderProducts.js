@@ -13,6 +13,8 @@ router.get("/:id", async (req, res, next) => {
         orderId: req.params.id,
       },
     });
+    // o: genuine question, when would you NOT get data from the db on this query 🤔
+    //  let's chat about this in our Sprint Meeting
     if (orderProducts) res.json(orderProducts);
     else res.sendStatus(404);
   } catch (err) {

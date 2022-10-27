@@ -26,6 +26,7 @@ const Product = db.define("product", {
     allowNull: false,
     validate: { notEmpty: true },
   },
+  // o: let's chat about this in our Sprint Meeting
   genre: {
     type: Sequelize.STRING,
     allowNull: false,

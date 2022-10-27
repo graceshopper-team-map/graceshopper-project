@@ -22,6 +22,7 @@ const AllProducts = () => {
   const products = useSelector((state) => state.product.products);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+  // o: please remove unused code
   // console.log(products);
 
   useEffect(() => {
@@ -32,6 +33,8 @@ const AllProducts = () => {
   return (
     <Container className="product-wrapper">
       <Grid container spacing={4}>
+        {/* o: you can simplify this code to products?.map and it will do this
+          check for you 👉 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining */}
         {products &&
           products.map((product) => (
             <Grid
@@ -67,6 +70,9 @@ const AllProducts = () => {
                   </CardContent>
                 </CardActionArea>
                 <CardActions className="actions-content">
+                  {/* o: you don't need the react fragment here, this is only
+                        necessary when you have no top level container that you 
+                        are placing your components in 👉 https://reactjs.org/docs/fragments.html */}
                   <>
                     <Typography
                       className="price"

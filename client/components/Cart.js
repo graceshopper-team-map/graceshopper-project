@@ -18,7 +18,9 @@ const Cart = (prop) => {
       <div>
         <h2>My Cart:</h2>
       </div>
+      {/* o: please remove unused code */}
       {/* <h1>{`Cart ${id}`}</h1> */}
+      {/* o: please see my other comment about optional chaining */}
       {orders &&
         orders.map((order) => {
           return <p key={order.id}>{order.status + " " + order.userId}</p>;

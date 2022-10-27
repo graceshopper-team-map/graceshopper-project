@@ -26,6 +26,7 @@ export const fetchSingleOrder = createAsyncThunk(
 
 export const orderSlice = createSlice({
   name: "order",
+  // o: test? 🤔
   initialState: { orders: [], order: {}, test: null },
   reducers: {},
   extraReducers: (builder) => {
