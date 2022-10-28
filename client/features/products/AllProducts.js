@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "./productSlice";
 import {
@@ -13,7 +13,7 @@ import {
   Grid,
   Container,
 } from "@mui/material";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 /*COMPS */
 import Loading from "../loading/Loading.js";
@@ -22,6 +22,8 @@ const AllProducts = () => {
   const products = useSelector((state) => state.product.products);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+
+  const addToCart = (orderId, productId) => {};
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -65,23 +67,21 @@ const AllProducts = () => {
                 </CardContent>
               </CardActionArea>
               <CardActions className="actions-content">
-                <>
-                  <Typography
-                    className="price"
-                    gutterBottom
-                    variant="h5"
-                    component="h2"
-                  >
-                    {"$" + product.price}
-                  </Typography>
-                  <Button
-                    size="large"
-                    className="custom-button"
-                    onClick={() => console.log("clicked")}
-                  >
-                    <ShoppingCartIcon /> Add to Cart
-                  </Button>
-                </>
+                <Typography
+                  className="price"
+                  gutterBottom
+                  variant="h5"
+                  component="h2"
+                >
+                  {"$" + product.price}
+                </Typography>
+                <Button
+                  size="large"
+                  className="custom-button"
+                  onClick={() => console.log("clicked")}
+                >
+                  <AddShoppingCartIcon /> Add to Cart
+                </Button>
               </CardActions>
             </Card>
           </Grid>
