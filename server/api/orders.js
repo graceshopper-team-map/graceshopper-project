@@ -4,7 +4,7 @@ const {
 } = require("../db");
 module.exports = router;
 
-// *GET /orders
+// *GET all /orders
 router.get("/", async (req, res, next) => {
   try {
     const orders = await Order.findAll({ include: [User, Product] });
@@ -14,15 +14,15 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// POST /orders
-router.post("/", async (req, res, next) => {
-  try {
-    const orders = await Order.create({});
-    res.json(orders);
-  } catch (err) {
-    next(err);
-  }
-});
+// *GET /orders/:id
+// router.get("/:id", async (req, res, next) => {
+//   try {
+//     const order = await Order.findByPk(req.params.id);
+//     res.json(order);
+//   } catch (e) {
+//     console.log(e);
+//   }
+// });
 
 router.get("/:userId", async (req, res, next) => {
   try {
@@ -31,8 +31,8 @@ router.get("/:userId", async (req, res, next) => {
         userId: req.params.userId,
       },
       include: {
-        model: Product
-      }
+        model: Product,
+      },
     });
     if (order) res.json(order);
     else res.sendStatus(404);
@@ -40,6 +40,25 @@ router.get("/:userId", async (req, res, next) => {
     next(err);
   }
 });
+
+// POST /orders
+router.post("/", async (req, res, next) => {
+  try {
+    if (req.body.id) {
+      const orders = await Order.create(req.body);
+      res.json(orders);
+    } else {
+      const orders = await Order.create(req.body.id);
+      res.json(orders);
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
+// PUT
+
+// router.put("/:userId/:orderId");
 
 router.get("/:userId/:orderId", async (req, res, next) => {
   try {

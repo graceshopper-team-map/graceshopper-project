@@ -5,16 +5,25 @@ const {
 
 module.exports = router;
 
+router.get("/", async (req, res, next) => {
+  try {
+    const games = await OrderProducts.findAll();
+    res.json(games);
+  } catch (e) {
+    console.log(e);
+  }
+});
+
 // GET api/orderProducts/:id
 router.get("/:id", async (req, res, next) => {
   try {
-    const orderProducts = await OrderProducts.findAll({
+    const game = await OrderProducts.findAll({
       where: {
         orderId: req.params.id,
       },
     });
-    
-    if (orderProducts) res.json(orderProducts);
+
+    if (game) res.json(game);
     else res.sendStatus(404);
   } catch (err) {
     next(err);
@@ -26,7 +35,7 @@ router.post("/:orderId", async (req, res, next) => {
   try {
     const orderProducts = await OrderProducts.create({
       orderId: req.params.orderId,
-      productId
+      productId,
     });
     if (orderProducts) res.json(orderProducts);
     else res.sendStatus(404);
