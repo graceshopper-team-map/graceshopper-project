@@ -10,9 +10,12 @@ import {
   Badge,
   Typography,
 } from "@mui/material";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const userOrder = useSelector((state) => state.order.userOrders);
+  console.log(userOrder);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,31 +26,62 @@ const Navbar = () => {
 
   return (
     <>
-      <nav>
+      <AppBar position="fixed" className="custom-navbar">
         <Container>
           <Toolbar>
+            <Typography
+              component={Link}
+              to="/products"
+              variant="h5"
+              color="inherit"
+              className="custom-title"
+            >
+              GameMap
+            </Typography>
             {isLoggedIn ? (
-              <div>
+              <div className="nav-wrapper">
                 {/* The navbar will show these links after you log in */}
-                <Link to="/home">Home</Link>
+                <Link className="custom-a" to="/home">
+                  Home
+                </Link>
                 <button type="button" onClick={logoutAndRedirectHome}>
                   Logout
                 </button>
-                <Link to="/products">Products</Link>
-                <Link to="/cart">Cart</Link>
+                <Link className="custom-a" to="/products">
+                  Products
+                </Link>
+                <IconButton component={Link} to="/cart">
+                  <Badge badgeContent={"0"} color="secondary">
+                    <ShoppingCartIcon className="custom-cart" />
+                  </Badge>
+                </IconButton>
               </div>
             ) : (
-              <div>
+              <div className="nav-wrapper">
                 {/* The navbar will show these links before you log in */}
-                <Link to="/login">Login</Link>
-                <Link to="/signup">Sign Up</Link>
-                <Link to="/home">Home</Link>
-                <Link to="/products">Products</Link>
+                <Link className="custom-a" to="/home">
+                  Home
+                </Link>
+                <Link className="custom-a" to="/login">
+                  Login
+                </Link>
+                <Link className="custom-a" to="/signup">
+                  Sign Up
+                </Link>
+                {/* <Link to="/cart">Cart</Link> */}
+                <Link className="custom-a" to="/products">
+                  Products
+                </Link>
+                <IconButton component={Link} to="/cart">
+                  <Badge badgeContent={"0"} color="secondary">
+                    <ShoppingCartIcon className="custom-cart" />
+                  </Badge>
+                </IconButton>
               </div>
             )}
           </Toolbar>
         </Container>
-      </nav>
+      </AppBar>
       <hr />
     </>
   );

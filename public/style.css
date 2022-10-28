@@ -1,7 +1,13 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: "Lato", sans-serif;
   background-color: #0d1117;
   color: #c9d1d9;
+  padding-top: 60px;
 }
 
 a {
@@ -12,10 +18,13 @@ label {
   display: block;
 }
 
-nav a {
-  display: inline-block;
-  margin: 1em;
+.MuiAppBar-colorPrimary.custom-navbar {
+  background-color: #121212;
+}
+
+.MuiAppBar-colorPrimary.custom-navbar .custom-a {
   color: #c9d1d9;
+  margin-right: 2%;
 }
 
 form div {
@@ -25,7 +34,7 @@ form div {
 
 /* START OF CARD CSS*/
 .product-wrapper {
-  padding-top: 50px;
+  padding-top: 40px;
   padding-bottom: 30px;
 }
 
@@ -77,3 +86,20 @@ form div {
 }
 
 /*END OF CARD CSS*/
+
+/* NAVBAR */
+.custom-navbar .custom-title {
+  display: flex;
+}
+
+.custom-cart {
+  font-size: 50px;
+  color: #03dac5;
+}
+
+.nav-wrapper {
+  flex-grow: 1;
+  justify-content: flex-end;
+  display: flex;
+}
+/* END OF NAVBAR */
