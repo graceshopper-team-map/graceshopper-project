@@ -11,11 +11,16 @@ import {
   Typography,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useEffect } from "react";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
-  const userOrder = useSelector((state) => state.order.userOrders);
-  console.log(userOrder);
+  const order = useSelector((state) => state.order.userOrders)[0];
+  console.log("iamuser: ", order);
+  // const totalProductCount = () => {
+  //   let total = 0; 
+  //   order.products
+  // }
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,6 +28,12 @@ const Navbar = () => {
     dispatch(logout());
     navigate("/login");
   };
+
+  // useEffect(() => {
+  //   if (userId) {
+  //     dispatch(fetchUserOrders(userId));
+  //   }
+  // }, [userId]);
 
   return (
     <>

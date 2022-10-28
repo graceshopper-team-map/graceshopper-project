@@ -14,6 +14,7 @@ import {
   Typography,
   CardActionArea,
 } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const Cart = ({ isLoggedIn }) => {
   const userId = useSelector((state) => state.auth.me.id);
@@ -79,6 +80,30 @@ const Cart = ({ isLoggedIn }) => {
                     >
                       {"$" + product.price}
                     </Typography>
+                    <Button
+                      size="small"
+                      variant="outlined"
+                      onClick={() => console.log("trash")}
+                    >
+                      <DeleteIcon />
+                    </Button>
+                    <Button
+                      size="small"
+                      variant="outlined"
+                      className="decrease-product-btn"
+                      onClick={() => console.log("+")}
+                    >
+                      -
+                    </Button>
+                    <Typography>{product.quantity}</Typography>
+                    <Button
+                      size="small"
+                      variant="outlined"
+                      className="increase-product-btn"
+                      onClick={() => console.log("-")}
+                    >
+                      +
+                    </Button>
                   </CardActions>
                 </Card>
               </Grid>

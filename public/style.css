@@ -103,3 +103,9 @@ form div {
   display: flex;
 }
 /* END OF NAVBAR */
+
+/*CART STYLING*/
+.custom-card .increase-product-bin {
+  color: #8b0000;
+}
+/*END OF CART STYLING*/

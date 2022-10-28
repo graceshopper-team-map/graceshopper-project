@@ -4,7 +4,7 @@ const db = require("./db");
 const User = require("./models/User");
 const Product = require("./models/Product");
 const Order = require("./models/Order");
-const OrderProducts = require("./models/OrderProducts");
+const OrderProducts = require("./models/GameOrder");
 
 //associations could go here!
 //OTM
