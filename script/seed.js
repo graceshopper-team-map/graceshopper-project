@@ -17,6 +17,7 @@ async function seed() {
   const users = await Promise.all([
     User.create({ username: "cody", password: "123" }),
     User.create({ username: "murphy", password: "123" }),
+    User.create({username: "lucy", password: "123", isAdmin: true})
   ]);
 
   const products = await Promise.all([
@@ -203,6 +204,7 @@ async function seed() {
     users: {
       cody: users[0],
       murphy: users[1],
+      lucy: users[2]
     },
     products: {
       Minecraft: products[0],

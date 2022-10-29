@@ -7,10 +7,18 @@ import { me } from "./store";
 /**
  * COMPONENTS
  */
-import { AllProducts, Cart, Home, SingleProduct } from "../features";
+import {
+  AllProducts,
+  Cart,
+  Home,
+  SingleProduct,
+  AllUsers,
+  SingleUser,
+} from "../features";
 
 const AppRoutes = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,6 +34,8 @@ const AppRoutes = () => {
           <Route path="/cart" element={<Cart isLoggedIn={isLoggedIn} />} />
           <Route path="/products" element={<AllProducts />} />
           <Route path="/products/:productId" element={<SingleProduct />} />
+          <Route path="/profile" element={<SingleUser />} />
+          {user.isAdmin ? <Route path="/users" element={<AllUsers />} /> : null}
         </Routes>
       ) : (
         <Routes>
