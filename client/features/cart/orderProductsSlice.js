@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const fetchProductsId = createAsyncThunk(
+export const fetchGameOrder = createAsyncThunk(
   "/orderProducts/:id",
   async (id) => {
     try {
       const { data } = await axios.get(`/api/orderProducts/${id}`);
+      console.log("axios", data);
       return data;
     } catch (e) {
       console.log("oops");
@@ -19,7 +20,7 @@ export const addProduct = createAsyncThunk(
     try {
       const { data } = await axios.post(`/api/orderProducts/${orderId}`, {
         orderId,
-        productId
+        productId,
       });
       return data;
     } catch (e) {
@@ -28,17 +29,26 @@ export const addProduct = createAsyncThunk(
   }
 );
 
+export const removeProduct = createAsyncThunk(
+  "/orderProducts/:cartProductId",
+  async (id) => {
+    try {
+      const {data} = await axios.delete('/api/order')
+    } catch (e) {}
+  }
+);
+
 export const orderProductsSlice = createSlice({
   name: "orderProducts",
   initialState: [],
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchProductsId.fulfilled, (state, action) => {
+    builder.addCase(fetchGameOrder.fulfilled, (state, action) => {
       return action.payload;
     });
     builder.addCase(addProduct.fulfilled, (state, action) => {
-      state.push(action.payload)
-    })
+      state.push(action.payload);
+    });
   },
 });
 

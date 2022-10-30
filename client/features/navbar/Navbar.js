@@ -15,12 +15,16 @@ import { useEffect } from "react";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
-  const order = useSelector((state) => state.order.userOrders)[0];
-  console.log("iamuser: ", order);
+  // const order = useSelector((state) => state.order.userOrders)[0];
+  // console.log("iamuser: ", order);
   // const totalProductCount = () => {
-  //   let total = 0; 
-  //   order.products
-  // }
+  //   let total = 0;
+  //   order.products.forEach((product) => {
+  //     console.log(product.gameOrder);
+  //   });
+  // };
+
+  // totalProductCount();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-import { fetchUserOrders } from "./ordersSlice";
+import {
+  fetchSingleOrder,
+  fetchUserOrder,
+  decrementQuantity,
+  incrementQuantity,
+  removeItem,
+} from "./ordersSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Grid,
@@ -15,24 +21,38 @@ import {
   CardActionArea,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { fetchGameOrder } from "./orderProductsSlice";
+import { fetchProducts } from "../products/productSlice";
 
 const Cart = ({ isLoggedIn }) => {
   const userId = useSelector((state) => state.auth.me.id);
   const dispatch = useDispatch();
   const userOrder = useSelector((state) => state.order.userOrders);
-  console.log(isLoggedIn);
+
+  console.log("cart info", userOrder[0]?.products[0]);
+  console.log("userOrder: ", userOrder);
+
+  // console.log(localStorage.getItem("token"));
+
+  //help me
+  // const handlers = {
+  //   addToBag
+  // }
 
   useEffect(() => {
     if (userId) {
-      dispatch(fetchUserOrders(userId));
+      dispatch(fetchUserOrder(userId));
     }
   }, [userId]);
 
-  const currentOrder = userOrder.filter(
-    (order) => order.status === "unfullfilled"
-  );
-
-  console.log("this is the current: ", currentOrder);
+  let subTotal = 0;
+  let totalItems = 0;
+  userOrder.forEach((item) => {
+    item.products.forEach((product) => {
+      subTotal += +product.price * product.GameOrder.quantity;
+      totalItems += product.GameOrder.quantity;
+    });
+  });
 
   return (
     <div className="cart-wrapper">
@@ -41,11 +61,8 @@ const Cart = ({ isLoggedIn }) => {
       </div>
       <Container id="custom-cart">
         <Grid container justify="center" spacing={4}>
-          {currentOrder[0]?.products?.map((product) => {
+          {userOrder[0]?.products?.map((product, i) => {
             return (
-              // <div key={product.id}>
-              //   <p>{product.name}</p>
-              // </div>
               <Grid key={product.id} item xs={12} sm={6} md={4}>
                 <Card className="custom-card">
                   <CardActionArea>
@@ -78,12 +95,12 @@ const Cart = ({ isLoggedIn }) => {
                       variant="h5"
                       component="h2"
                     >
-                      {"$" + product.price}
+                      {"$" + product.price * product.GameOrder.quantity}
                     </Typography>
                     <Button
                       size="small"
                       variant="outlined"
-                      onClick={() => console.log("trash")}
+                      onClick={() => dispatch(removeItem(product.GameOrder.id))}
                     >
                       <DeleteIcon />
                     </Button>
@@ -91,16 +108,20 @@ const Cart = ({ isLoggedIn }) => {
                       size="small"
                       variant="outlined"
                       className="decrease-product-btn"
-                      onClick={() => console.log("+")}
+                      onClick={() => product.GameOrder.quantity--}
                     >
                       -
                     </Button>
-                    <Typography>{product.quantity}</Typography>
+                    <Typography>
+                      &nbsp;{product.GameOrder.quantity}&nbsp;
+                    </Typography>
                     <Button
                       size="small"
                       variant="outlined"
                       className="increase-product-btn"
-                      onClick={() => console.log("-")}
+                      onClick={() =>
+                        dispatch(incrementQuantity(product.GameOrder.id))
+                      }
                     >
                       +
                     </Button>
@@ -110,6 +131,10 @@ const Cart = ({ isLoggedIn }) => {
             );
           })}
         </Grid>
+        <div style={{ margin: "25px" }}>
+          <h1>TOTAL ITEMS: {totalItems}</h1>
+          <h1>SUBTOTAL: {`$ ${subTotal}`}</h1>
+        </div>
       </Container>
     </div>
   );

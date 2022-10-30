@@ -6,11 +6,15 @@ const Order = require("./Order");
 const GameOrder = db.define("GameOrder", {
   quantity: {
     type: Sequelize.INTEGER,
+    defaultValue: 1,
     validate: {
       min: 1,
     },
-    price: {
-      type: Sequelize.NUMERIC(10, 2),
+    subtotal: {
+      type: Sequelize.INTEGER,
+      validate: {
+        min: 0,
+      },
     },
   },
 });
