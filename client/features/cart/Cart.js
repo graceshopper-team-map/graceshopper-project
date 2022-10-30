@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
 import {
   fetchSingleOrder,
   fetchUserOrder,
   decrementQuantity,
   incrementQuantity,
   removeItem,
+  removeProduct,
 } from "./ordersSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -21,15 +21,18 @@ import {
   CardActionArea,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { fetchGameOrder } from "./orderProductsSlice";
-import { fetchProducts } from "../products/productSlice";
 
 const Cart = ({ isLoggedIn }) => {
-  const userId = useSelector((state) => state.auth.me.id);
   const dispatch = useDispatch();
+  const userId = useSelector((state) => state.auth.me.id);
   const userOrder = useSelector((state) => state.order.userOrders);
+  console.log("id", userId);
 
-  console.log("cart info", userOrder[0]?.products[0]);
+  // const [cart, setCart] = useState([]);
+
+  console.log("cart info id", userOrder[0]?.GameOrder.orderId);
+  console.log("product id", userOrder[0]?.id);
+  // console.log("cart info", userOrder[1]?.products[0]);
   console.log("userOrder: ", userOrder);
 
   // console.log(localStorage.getItem("token"));
@@ -43,15 +46,15 @@ const Cart = ({ isLoggedIn }) => {
     if (userId) {
       dispatch(fetchUserOrder(userId));
     }
-  }, [userId]);
+    dispatch(removeItem());
+  }, [userId, dispatch]);
 
+  /*Calculate Sub-total */
   let subTotal = 0;
   let totalItems = 0;
-  userOrder.forEach((item) => {
-    item.products.forEach((product) => {
-      subTotal += +product.price * product.GameOrder.quantity;
-      totalItems += product.GameOrder.quantity;
-    });
+  userOrder.forEach((product) => {
+    subTotal += product.price * product.GameOrder.quantity;
+    totalItems += product.GameOrder.quantity;
   });
 
   return (
@@ -61,7 +64,7 @@ const Cart = ({ isLoggedIn }) => {
       </div>
       <Container id="custom-cart">
         <Grid container justify="center" spacing={4}>
-          {userOrder[0]?.products?.map((product, i) => {
+          {userOrder?.map((product) => {
             return (
               <Grid key={product.id} item xs={12} sm={6} md={4}>
                 <Card className="custom-card">
@@ -95,12 +98,13 @@ const Cart = ({ isLoggedIn }) => {
                       variant="h5"
                       component="h2"
                     >
-                      {"$" + product.price * product.GameOrder.quantity}
+                      {"$" +
+                        (product.price * product.GameOrder.quantity).toFixed(2)}
                     </Typography>
                     <Button
                       size="small"
                       variant="outlined"
-                      onClick={() => dispatch(removeItem(product.GameOrder.id))}
+                      onClick={() => dispatch(removeItem(product.id))}
                     >
                       <DeleteIcon />
                     </Button>
@@ -108,7 +112,7 @@ const Cart = ({ isLoggedIn }) => {
                       size="small"
                       variant="outlined"
                       className="decrease-product-btn"
-                      onClick={() => product.GameOrder.quantity--}
+                      onClick={() => dispatch(decrementQuantity(product.id))}
                     >
                       -
                     </Button>
@@ -119,9 +123,7 @@ const Cart = ({ isLoggedIn }) => {
                       size="small"
                       variant="outlined"
                       className="increase-product-btn"
-                      onClick={() =>
-                        dispatch(incrementQuantity(product.GameOrder.id))
-                      }
+                      onClick={() => dispatch(incrementQuantity(product.id))}
                     >
                       +
                     </Button>
@@ -133,7 +135,7 @@ const Cart = ({ isLoggedIn }) => {
         </Grid>
         <div style={{ margin: "25px" }}>
           <h1>TOTAL ITEMS: {totalItems}</h1>
-          <h1>SUBTOTAL: {`$ ${subTotal}`}</h1>
+          <h1>SUBTOTAL: {`$ ${subTotal.toFixed(2)}`}</h1>
         </div>
       </Container>
     </div>

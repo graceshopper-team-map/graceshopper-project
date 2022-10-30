@@ -17,12 +17,12 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 /*COMPS */
 import Loading from "../loading/Loading.js";
+import { addToCart } from "../cart/ordersSlice";
 
 const AllProducts = ({ products }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   console.log(products);
-  const addToCart = (orderId, productId) => {};
 
   if (!products) return <Loading message="BRB Loading Games..." />;
   return (

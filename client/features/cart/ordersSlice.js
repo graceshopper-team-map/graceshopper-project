@@ -1,4 +1,5 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 // Action types
@@ -46,40 +47,61 @@ export const addOrder = createAsyncThunk("addOrder", async () => {
   }
 });
 
+export const removeProduct = createAsyncThunk(
+  "removeItem",
+  async (userId, orderId, productId) => {
+    try {
+      const { data } = await axios.delete(
+        `/api/orders/user/${userId}/${orderId},${productId}`
+      );
+      console.log("iamdata", data);
+      return data;
+    } catch (e) {
+      console.log("oops");
+    }
+  }
+);
+
 export const orderSlice = createSlice({
   name: "order",
   initialState: { orders: [], order: {}, userOrders: [] },
   reducers: {
     addToCart: (state, action) => {
-      const itemInCart = state.userOrders.find(
+      const itemInCart = state.userOrders[0].products.find(
         (item) => item.id === action.payload.id
       );
       if (itemInCart) {
         itemInCart.quantity++;
       } else {
-        state.userOrders.push({ ...action.payload, quantity: 1 });
+        state.userOrders[0].products.push({ ...action.payload, quantity: 1 });
       }
+      console.log("clicked");
     },
     incrementQuantity: (state, action) => {
-      const item = state.userOrders.find(
-        (item) => item.id === action.payload.id
-      );
-      console.log("I am the item: ", action.payload);
-      item.quantity++;
+      const item = state.userOrders.find((item) => item.id === action.payload);
+      console.log("I AM AN ITEM???", current(item));
+      if (item.quantity === 1) {
+        item.GameOrder.quantity = 1;
+      } else {
+        item.GameOrder.quantity++;
+      }
     },
     decrementQuantity: (state, action) => {
       const item = state.userOrders.find((item) => item.id === action.payload);
+      console.log("I AM AN ITEM???", current(item));
       if (item.quantity === 1) {
-        item.quantity = 1;
+        item.GameOrder.quantity = 1;
       } else {
-        item.quantity--;
+        item.GameOrder.quantity--;
       }
     },
     removeItem: (state, action) => {
-      const removeItem = state.userOrders.filter(
-        (item) => item.id !== action.payload
-      );
-      state.userOrders = removeItem;
+      console.log("REMOVE_REDUCER", action.payload, current(state.userOrders));
+      // const removeItem = state.userOrders.filter(
+      //   (item) => item.id !== action.payload
+      // );
+      const removeItem = state.userOrders.splice(action.payload, 1);
+      state.cart = removeItem;
     },
   },
   extraReducers: (builder) => {
@@ -92,9 +114,23 @@ export const orderSlice = createSlice({
     builder.addCase(fetchUserOrder.fulfilled, (state, action) => {
       state.userOrders = action.payload;
     });
-    builder.addCase(addOrder.fulfilled, (state, action) => {
-      state.order = action.payload;
-    });
+    builder
+      .addCase(addOrder.fulfilled, (state, action) => {
+        state.order = action.payload;
+      })
+      .addCase(removeProduct.fulfilled, async (state, action) => {
+        console.log("I tried my best");
+        console.log(
+          "REMOVE_REDUCER",
+          action.payload,
+          current(state.userOrders)
+        );
+        // const removeItem = state.userOrders.filter(
+        //   (item) => item.id !== action.payload
+        // );
+        const removeItem = state.userOrders.splice(action.payload, 1);
+        state.cart = removeItem;
+      });
   },
 });
 

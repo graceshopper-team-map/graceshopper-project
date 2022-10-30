@@ -1,6 +1,6 @@
 const router = require("express").Router();
 const {
-  models: { GameOrder },
+  models: { GameOrder, Order, User, Product },
 } = require("../db");
 
 module.exports = router;
@@ -21,6 +21,7 @@ router.get("/:id", async (req, res, next) => {
       where: {
         orderId: req.params.id,
       },
+      include: Product,
     });
 
     if (game) res.json(game);
@@ -35,7 +36,7 @@ router.post("/:orderId", async (req, res, next) => {
   try {
     const orderProducts = await GameOrder.create({
       orderId: req.params.orderId,
-      productId,
+      productId: req.params.productId,
     });
     if (orderProducts) res.json(orderProducts);
     else res.sendStatus(404);
