@@ -50,4 +50,21 @@ router.get("/user/:userId", async (req, res, next) => {
   }
 });
 
+router.get("/user2/:userId", async (req, res, next) => {
+  try {
+    const order = await Order.findAll({
+      where: {
+        userId: req.params.userId,
+      },
+      include: {
+        model: Product,
+      },
+    });
+    if (order) res.json(order);
+    else res.sendStatus(404);
+  } catch (err) {
+    next(err);
+  }
+});
+
 router.post("/user/:userId", async (req, res, next) => {});
