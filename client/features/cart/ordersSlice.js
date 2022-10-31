@@ -82,8 +82,6 @@ export const orderSlice = createSlice({
       const itemInCart = state.userOrders.find(
         (item) => item.id === action.payload.id
       );
-      // console.log("I AM AN ITEM???", current(itemInCart));
-      console.log("ACTION", action.payload);
       if (itemInCart) {
         itemInCart.quantity--;
         itemInCart.GameOrder.quantity++;
@@ -96,7 +94,6 @@ export const orderSlice = createSlice({
     },
     incrementQuantity: (state, action) => {
       const item = state.userOrders.find((item) => item.id === action.payload);
-      console.log("I AM AN ITEM???", current(item));
       if (item.quantity === 1) {
         item.GameOrder.quantity = 1;
       } else {
@@ -105,7 +102,6 @@ export const orderSlice = createSlice({
     },
     decrementQuantity: (state, action) => {
       const item = state.userOrders.find((item) => item.id === action.payload);
-      console.log("I AM AN ITEM???", current(item));
       if (item.quantity === 1) {
         item.GameOrder.quantity = 1;
       } else {
@@ -120,11 +116,9 @@ export const orderSlice = createSlice({
       }
     },
     removeItem: (state, action) => {
-      console.log("REMOVE_REDUCER", action.payload, current(state.userOrders));
       const removeItem = state.userOrders.filter(
         (item) => item.id !== action.payload
       );
-
       state.userOrders = removeItem;
     },
   },

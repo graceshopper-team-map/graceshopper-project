@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  fetchSingleOrder,
   fetchUserOrder,
   decrementQuantity,
   incrementQuantity,
   removeItem,
-  removeProduct,
 } from "./ordersSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -25,25 +23,7 @@ import Loading from "../loading/Loading";
 
 const Cart = ({ isLoggedIn, userId }) => {
   const dispatch = useDispatch();
-
-  // const userId = useSelector((state) => state.auth.me.id);
   const userOrder = useSelector((state) => state.order.userOrders);
-  console.log("id", userId);
-
-  // const [cart, setCart] = useState([]);
-
-  // console.log("cart info id", userOrder[0]?.GameOrder.orderId);
-  // console.log("product id", userOrder[0]?.id);
-  // console.log("cart info", userOrder[1]?.products[0]);
-
-  console.log("userOrder: ", userOrder);
-
-  // console.log(localStorage.getItem("token"));
-
-  //help me
-  // const handlers = {
-  //   addToBag
-  // }
 
   useEffect(() => {
     if (userId) {

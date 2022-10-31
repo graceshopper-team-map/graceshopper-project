@@ -9,15 +9,11 @@ import { me } from "./store";
  */
 import { AllProducts, Cart, Home, SingleProduct } from "../features";
 import { fetchProducts } from "../features/products/productSlice";
-import { fetchUserOrder } from "../features/cart/ordersSlice";
 
 const AppRoutes = ({ userId, userOrder }) => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
-
-  console.log("iamauser: ", userId);
-  console.log("ue", userOrder);
 
   useEffect(() => {
     dispatch(me());

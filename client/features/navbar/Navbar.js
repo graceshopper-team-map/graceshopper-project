@@ -11,7 +11,6 @@ import {
   Typography,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { useEffect } from "react";
 
 const Navbar = ({ userOrder }) => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);

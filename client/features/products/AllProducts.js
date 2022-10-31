@@ -21,9 +21,6 @@ import { addToCart } from "../cart/ordersSlice";
 
 const AllProducts = ({ products, userOrder }) => {
   const dispatch = useDispatch();
-  // const [loading, setLoading] = useState(false);
-  console.log(products);
-  console.log("usersOrder: ", userOrder);
 
   if (!products) return <Loading message="BRB Loading Games..." />;
   return (

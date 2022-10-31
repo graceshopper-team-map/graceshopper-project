@@ -10,7 +10,7 @@ router.get("/", async (req, res, next) => {
     const games = await GameOrder.findAll();
     res.json(games);
   } catch (e) {
-    console.log(e);
+    next(e);
   }
 });
 
@@ -43,24 +43,6 @@ router.post("/:orderId", async (req, res, next) => {
     });
     if (orderProducts) res.json(orderProducts);
     else res.sendStatus(404);
-  } catch (err) {
-    next(err);
-  }
-});
-
-router.delete("/:id/:productId", async (req, res, next) => {
-  const id = req.params.id;
-  const productId = req.params.productId;
-
-  try {
-    const order = await Order.findOne({
-      where: [{ userId: id }, { status: "unfullfilled" }],
-    });
-
-    const updatedItem = await GameOrder.destroy({
-      where: { productId: productId, orderId: order.id },
-    });
-    res.json(updatedItem);
   } catch (err) {
     next(err);
   }

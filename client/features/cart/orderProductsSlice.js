@@ -6,37 +6,10 @@ export const fetchGameOrder = createAsyncThunk(
   async (id) => {
     try {
       const { data } = await axios.get(`/api/orderProducts/${id}`);
-      console.log("axios", data);
       return data;
     } catch (e) {
       console.log("oops");
     }
-  }
-);
-
-export const addProduct = createAsyncThunk(
-  "/orderProducts/:orderId",
-  async (orderId, productId) => {
-    try {
-      const { data } = await axios.post(`/api/orderProducts/${orderId}`, {
-        orderId,
-        productId,
-      });
-      return data;
-    } catch (e) {
-      console.log("oops");
-    }
-  }
-);
-
-export const removeProduct = createAsyncThunk(
-  "/orderProducts/:cartProductId",
-  async (id) => {
-    try {
-      const { data } = await axios.delete("/api/orderProducts/${orderId}");
-      console.log("bitch deleted");
-      return data;
-    } catch (e) {}
   }
 );
 
@@ -48,15 +21,6 @@ export const orderProductsSlice = createSlice({
     builder.addCase(fetchGameOrder.fulfilled, (state, action) => {
       return action.payload;
     });
-    builder
-      .addCase(addProduct.fulfilled, (state, action) => {
-        state.push(action.payload);
-      })
-      .addCase(removeProduct.fulfilled, (state, action) => {
-        const removeItem = state.filter((item) => item.id !== action.payload);
-        console.log("removed", removeItem);
-        state = removeItem;
-      });
   },
 });
 
