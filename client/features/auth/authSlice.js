@@ -10,7 +10,6 @@ const TOKEN = 'token';
   THUNKS
 */
 export const me = createAsyncThunk('auth/me', async () => {
-  // o: you may have this backwards, this would make sense when logged out
   const token = window.localStorage.getItem(TOKEN);
   try {
     if (token) {
@@ -38,7 +37,6 @@ export const authenticate = createAsyncThunk(
     try {
       const res = await axios.post(`/auth/${method}`, { username, password });
 
-      // o: im a little confused here, this is being done when logged in???
       window.localStorage.setItem(TOKEN, res.data.token);
       thunkAPI.dispatch(me());
     } catch (err) {
