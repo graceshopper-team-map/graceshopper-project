@@ -7,7 +7,14 @@ import { me } from "./store";
 /**
  * COMPONENTS
  */
-import { AllProducts, Cart, Home, SingleProduct } from "../features";
+import {
+  AllProducts,
+  Cart,
+  Home,
+  SingleProduct,
+  AllUsers,
+  SingleUser,
+} from "../features";
 import { fetchProducts } from "../features/products/productSlice";
 
 const AppRoutes = ({ userId, userOrder }) => {
