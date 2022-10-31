@@ -11,9 +11,14 @@ import {
   Typography,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useEffect } from "react";
+import { fetchSingleUser } from "../user/userSlice";
 
 const Navbar = ({ userOrder }) => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const userId = useSelector((state) => state.auth.me.id);
+  const order = useSelector((state) => state.order.userOrders)[0];
+  const user = useSelector((state) => state.user.user);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -21,6 +26,12 @@ const Navbar = ({ userOrder }) => {
     dispatch(logout());
     navigate("/login");
   };
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchSingleUser(userId));
+    }
+  }, [userId, dispatch]);
 
   return (
     <>
@@ -36,18 +47,24 @@ const Navbar = ({ userOrder }) => {
             >
               GameMap
             </Typography>
-            {isLoggedIn ? (
+            { isLoggedIn ? (
               <div className="nav-wrapper">
                 {/* The navbar will show these links after you log in */}
                 <Link className="custom-a" to="/home">
                   Home
                 </Link>
-                <button type="button" onClick={logoutAndRedirectHome}>
-                  Logout
-                </button>
                 <Link className="custom-a" to="/products">
                   Products
                 </Link>
+                <Link className="custom-a" to="/profile">
+                  Profile
+                </Link>
+                {user.isAdmin ? <Link className="custom-a" to="/users">
+                  Users
+                </Link> : null}
+                <button type="button" onClick={logoutAndRedirectHome}>
+                  Logout
+                </button>
                 <IconButton component={Link} to="/cart">
                   <Badge badgeContent={"0"} color="secondary">
                     <ShoppingCartIcon className="custom-cart" />
@@ -66,7 +83,6 @@ const Navbar = ({ userOrder }) => {
                 <Link className="custom-a" to="/signup">
                   Sign Up
                 </Link>
-                {/* <Link to="/cart">Cart</Link> */}
                 <Link className="custom-a" to="/products">
                   Products
                 </Link>

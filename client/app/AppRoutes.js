@@ -12,6 +12,7 @@ import { fetchProducts } from "../features/products/productSlice";
 
 const AppRoutes = ({ userId, userOrder }) => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
 
@@ -47,6 +48,8 @@ const AppRoutes = ({ userId, userOrder }) => {
             }
           />
           <Route path="/products/:productId" element={<SingleProduct />} />
+          <Route path="/profile" element={<SingleUser />} />
+          {user.isAdmin ? <Route path="/users" element={<AllUsers />} /> : null}
         </Routes>
       ) : (
         <Routes>
