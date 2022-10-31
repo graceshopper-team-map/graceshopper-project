@@ -5,6 +5,7 @@ import EditUser from "./EditUser.js";
 
 const SingleUser = () => {
   const user = useSelector((state) => state.user.user);
+  const userId = useSelector((state) => state.auth.me.id);
   const { id } = user;
   const dispatch = useDispatch();
 
@@ -21,7 +22,7 @@ const SingleUser = () => {
   } = user;
 
   useEffect(() => {
-    dispatch(fetchSingleUser(user.id));
+    dispatch(fetchSingleUser(userId));
   }, []);
 
   return (

@@ -28,22 +28,22 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// router.get("/:id", async (req, res, next) => {
-//   try {
-//     const user = await User.findByPk(req.params.id);
-//     if (user) res.json(user);
-//     else res.sendStatus(404);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+router.get("/:id", async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id);
+    if (user) res.json(user);
+    else res.sendStatus(404);
+  } catch (err) {
+    next(err);
+  }
+});
 
-// router.put("/:userId", async (req, res, next) => {
-//   try {
-//     const user = await User.findByPk(req.params.userId);
-//     await user.update(req.body);
-//     res.send(user);
-//   } catch (err) {
-//     next(err);
-//   }
-// });
+router.put("/:userId", async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.userId);
+    await user.update(req.body);
+    res.send(user);
+  } catch (err) {
+    next(err);
+  }
+});
