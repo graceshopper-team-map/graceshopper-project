@@ -3,7 +3,7 @@ import logger from "redux-logger";
 import authReducer from "../features/auth/authSlice";
 import productReducer from "../features/products/productSlice";
 import orderReducer from "../features/cart/ordersSlice";
-import orderproductsReducer from "../features/cart/orderProductsSlice";
+import orderProductsReducer from "../features/cart/orderProductsSlice";
 import userReducer from "../features/user/userSlice";
 
 const store = configureStore({
@@ -11,7 +11,7 @@ const store = configureStore({
     auth: authReducer,
     product: productReducer,
     order: orderReducer,
-    orderproducts: orderproductsReducer,
+    orderProducts: orderProductsReducer,
     user: userReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),

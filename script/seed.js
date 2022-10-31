@@ -2,7 +2,7 @@
 //test commit
 const {
   db,
-  models: { User, Product, Order, OrderProducts },
+  models: { User, Product, Order, GameOrder },
 } = require("../server/db");
 
 /**
@@ -94,7 +94,7 @@ async function seed() {
       name: "Game2",
       imageUrl:
         "https://png.pngtree.com/element_our/20190528/ourmid/pngtree-gamepad-for-playing-video-games-image_1132236.jpg",
-      price: 20.00,
+      price: 20.0,
       quantity: 21,
       description: "Game2 is a random game that's just created.",
       genre: "Puzzle",
@@ -103,7 +103,7 @@ async function seed() {
       name: "Game3",
       imageUrl:
         "https://png.pngtree.com/element_our/20190528/ourmid/pngtree-gamepad-for-playing-video-games-image_1132236.jpg",
-      price: 14.00,
+      price: 14.0,
       quantity: 3,
       description: "Game3 is a random game that's just created.",
       genre: "Sandbox",
@@ -147,54 +147,65 @@ async function seed() {
     Order.create({}),
   ]);
 
-  const orderproducts = await Promise.all([
-    OrderProducts.create({
+  const gameOrder = await Promise.all([
+    GameOrder.create({
       productId: 1,
       orderId: 1,
+      quantity: 2,
     }),
-    OrderProducts.create({
+    GameOrder.create({
       productId: 5,
       orderId: 1,
+      quantity: 4,
     }),
-    OrderProducts.create({
+    GameOrder.create({
       productId: 8,
       orderId: 1,
+      quantity: 2,
     }),
-    OrderProducts.create({
+    GameOrder.create({
       productId: 2,
       orderId: 1,
+      quantity: 6,
     }),
-    OrderProducts.create({
+    GameOrder.create({
       productId: 3,
       orderId: 1,
+      quantity: 5,
     }),
-    OrderProducts.create({
+    GameOrder.create({
       productId: 1,
       orderId: 2,
+      quantity: 1,
     }),
-    OrderProducts.create({
+    GameOrder.create({
       productId: 2,
       orderId: 3,
+      quantity: 8,
     }),
-    OrderProducts.create({
+    GameOrder.create({
       productId: 3,
       orderId: 3,
+      quantity: 4,
     }),
-    OrderProducts.create({
+    GameOrder.create({
       productId: 4,
       orderId: 3,
+      quantity: 1,
     }),
-    OrderProducts.create({
+    GameOrder.create({
       productId: 5,
       orderId: 2,
+      quantity: 6,
     }),
-    OrderProducts.create({
+    GameOrder.create({
       productId: 10,
       orderId: 2,
+      quantity: 4,
     }),
   ]);
 
-  await orders[0].setUser(users[1].id);
+  await orders[0].setUser(users[0].id);
   await orders[1].setUser(users[0].id);
   await orders[2].setUser(users[1].id);
 
@@ -206,34 +217,9 @@ async function seed() {
       murphy: users[1],
       lucy: users[2]
     },
-    products: {
-      Minecraft: products[0],
-      Soccer: products[1],
-      Dice: products[2],
-      Tetris: products[3],
-      Zelda: products[4],
-      Fortnite: products[5],
-      Game1: products[6],
-      Game2: products[7],
-      Game3: products[8],
-      Game4: products[9],
-      Game5: products[10],
-      Game6: products[11],
-    },
-    orders: {
-      order1: orders[0],
-      order2: orders[1],
-      order3: orders[2],
-    },
-    orderproducts: {
-      orderproducts1: orderproducts[0],
-      orderproducts2: orderproducts[1],
-      orderproducts3: orderproducts[2],
-      orderproducts4: orderproducts[3],
-      orderproducts5: orderproducts[4],
-      orderproducts6: orderproducts[5],
-      orderproducts7: orderproducts[6],
-    },
+    products,
+    orders,
+    gameOrder,
   };
 }
 

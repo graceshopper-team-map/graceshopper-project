@@ -14,7 +14,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useEffect } from "react";
 import { fetchSingleUser } from "../user/userSlice";
 
-const Navbar = () => {
+const Navbar = ({ userOrder }) => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
   const userId = useSelector((state) => state.auth.me.id);
   const order = useSelector((state) => state.order.userOrders)[0];

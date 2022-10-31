@@ -18,18 +18,11 @@ import AddProduct from "./AddProduct";
 
 /*COMPS */
 import Loading from "../loading/Loading.js";
+import { addToCart } from "../cart/ordersSlice";
 
-const AllProducts = () => {
-  const products = useSelector((state) => state.product.products);
+const AllProducts = ({ products, userOrder }) => {
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
-
-  const addToCart = (orderId, productId) => {};
-
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, []);
 
   if (!products) return <Loading message="BRB Loading Games..." />;
   return (
@@ -81,7 +74,7 @@ const AllProducts = () => {
                 <Button
                   size="large"
                   className="custom-button"
-                  onClick={() => console.log("clicked")}
+                  onClick={() => dispatch(addToCart(product))}
                 >
                   <AddShoppingCartIcon /> Add to Cart
                 </Button>

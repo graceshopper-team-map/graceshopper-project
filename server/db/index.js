@@ -4,7 +4,7 @@ const db = require("./db");
 const User = require("./models/User");
 const Product = require("./models/Product");
 const Order = require("./models/Order");
-const OrderProducts = require("./models/GameOrder");
+const GameOrder = require("./models/GameOrder");
 
 //associations could go here!
 //OTM
@@ -12,8 +12,8 @@ User.hasMany(Order);
 Order.belongsTo(User);
 
 //M2M
-Order.belongsToMany(Product, { through: OrderProducts });
-Product.belongsToMany(Order, { through: OrderProducts });
+Order.belongsToMany(Product, { through: GameOrder });
+Product.belongsToMany(Order, { through: GameOrder });
 
 module.exports = {
   db,
@@ -21,6 +21,6 @@ module.exports = {
     User,
     Product,
     Order,
-    OrderProducts,
+    GameOrder,
   },
 };

@@ -7,32 +7,46 @@ import { me } from "./store";
 /**
  * COMPONENTS
  */
-import {
-  AllProducts,
-  Cart,
-  Home,
-  SingleProduct,
-  AllUsers,
-  SingleUser,
-} from "../features";
+import { AllProducts, Cart, Home, SingleProduct } from "../features";
+import { fetchProducts } from "../features/products/productSlice";
 
-const AppRoutes = () => {
+const AppRoutes = ({ userId, userOrder }) => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
+  const products = useSelector((state) => state.product.products);
 
   useEffect(() => {
     dispatch(me());
+    dispatch(fetchProducts());
   }, []);
 
   return (
     <div>
       {isLoggedIn ? (
         <Routes>
-          <Route path="/*" element={<Home />} />
-          <Route to="/home" element={<Home />} />
-          <Route path="/cart" element={<Cart isLoggedIn={isLoggedIn} />} />
-          <Route path="/products" element={<AllProducts />} />
+          <Route path="/*" element={<Home products={products} />} />
+          <Route to="/home" element={<Home products={products} />} />
+          <Route
+            path="/cart"
+            element={
+              <Cart
+                isLoggedIn={isLoggedIn}
+                products={products}
+                userOrder={userOrder}
+              />
+            }
+          />
+          <Route
+            path="/products"
+            element={
+              <AllProducts
+                products={products}
+                userId={userId}
+                userOrder={userOrder}
+              />
+            }
+          />
           <Route path="/products/:productId" element={<SingleProduct />} />
           <Route path="/profile" element={<SingleUser />} />
           {user.isAdmin ? <Route path="/users" element={<AllUsers />} /> : null}
@@ -51,9 +65,18 @@ const AppRoutes = () => {
             path="/signup"
             element={<AuthForm name="signup" displayName="Sign Up" />}
           />
-          <Route path="/home" element={<Home />} />
+          <Route path="/home" element={<Home products={products} />} />
           <Route path="/cart" element={<Cart isLoggedIn={isLoggedIn} />} />
-          <Route path="/products" element={<AllProducts />} />
+          <Route
+            path="/products"
+            element={
+              <AllProducts
+                products={products}
+                userId={userId}
+                userOrder={userOrder}
+              />
+            }
+          />
           <Route path="/products/:productId" element={<SingleProduct />} />
         </Routes>
       )}
