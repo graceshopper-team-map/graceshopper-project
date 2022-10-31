@@ -29,8 +29,12 @@ router.get("/:id", async (req, res, next) => {
 // GET /orders/user/id
 router.get("/user/:userId", async (req, res, next) => {
   try {
+    // o: if they are logged in, you can retrieve user object from req.user
     const user = await User.findByPk(req.params.userId);
     //make sure the orders we get back for the user is not completed
+
+    // o: why not retrieve the order from the db by the user id you already 
+    //   have a reference to thru req.user.id
     const order = await user.getOrders({
       where: { status: "unfullfilled" },
       include: [

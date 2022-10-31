@@ -29,6 +29,10 @@ const AllProducts = ({ products, userOrder }) => {
     <Container className="product-wrapper">
       {user.isAdmin ? <AddProduct/> : null}
       <Grid container spacing={4}>
+        {/* 
+          o: you don't need the products && products.length ? check as products?.map already
+              does this for you 
+        */}
         {products && products.length ? products?.map((product) => (
           <Grid
             className="product-card"

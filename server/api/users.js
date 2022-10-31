@@ -4,6 +4,7 @@ const {
 } = require("../db");
 module.exports = router;
 
+// o: protect this route
 router.get("/", async (req, res, next) => {
   try {
     const users = await User.findAll({

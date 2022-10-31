@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+// o: so in the case of thunks, you don't need to wrap in try / catches, I will
+//  explain in CR
 export const fetchAllUsers = createAsyncThunk("/fetchAllUsers", async () => {
   try {
     const { data } = await axios.get("/api/users");

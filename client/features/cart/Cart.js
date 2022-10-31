@@ -35,6 +35,10 @@ const Cart = ({ isLoggedIn, userId }) => {
   /*Calculate Sub-total */
   let subTotal = 0;
   let totalItems = 0;
+
+  // o: be careful with this type of logic because if you send the subtotal to the backend
+  //  then someone can essentially make their subtotal be whatever they want since they 
+  //  have access to the state thru dev tools (more in CR)
   userOrder.forEach((product) => {
     subTotal += product.price * (product.GameOrder.quantity ?? 0);
     totalItems += product.GameOrder.quantity ?? 0;

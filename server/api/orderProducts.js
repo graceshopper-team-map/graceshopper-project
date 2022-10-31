@@ -17,6 +17,7 @@ router.get("/", async (req, res, next) => {
 // GET api/orderProducts/:id
 router.get("/:id", async (req, res, next) => {
   try {
+    // o: if they are logged in, you can retrieve user id from req.user.id
     const order = await Order.findOne({
       where: [{ userId: req.params.id }, { status: "unfullfilled" }],
     });

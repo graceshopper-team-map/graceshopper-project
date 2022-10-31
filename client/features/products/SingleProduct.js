@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchSingleProduct } from "./productSlice.js";
 import EditProduct from "./EditProduct.js";
+// o: remove if not used
 import Loading from "../loading/Loading.js";
 
 const SingleProduct = () => {

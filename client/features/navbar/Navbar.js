@@ -14,6 +14,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useEffect } from "react";
 import { fetchSingleUser } from "../user/userSlice";
 
+// o: remove userOrder if not being used
 const Navbar = ({ userOrder }) => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
   const userId = useSelector((state) => state.auth.me.id);
@@ -47,6 +48,7 @@ const Navbar = ({ userOrder }) => {
             >
               GameMap
             </Typography>
+            {/* o: this could benefit from separating into two other components */}
             {isLoggedIn ? (
               <div className="nav-wrapper">
                 {/* The navbar will show these links after you log in */}
