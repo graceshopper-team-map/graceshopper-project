@@ -19,7 +19,7 @@ const Product = db.define("product", {
   quantity: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    validate: { isInt: true, min: 0 },
+    validate: { isInt: true, min: 0, notEmpty: true },
   },
   description: {
     type: Sequelize.TEXT,

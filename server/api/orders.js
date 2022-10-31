@@ -33,9 +33,16 @@ router.get("/user/:userId", async (req, res, next) => {
     //make sure the orders we get back for the user is not completed
     const order = await user.getOrders({
       where: { status: "unfullfilled" },
-      include: Product,
+      include: [
+        { model: Product },
+        {
+          model: User,
+          attributes: ["username"],
+        },
+      ],
     });
     const cart = order[0].products;
+
     if (cart) res.json(cart);
     else res.sendStatus(404);
   } catch (err) {
@@ -43,27 +50,49 @@ router.get("/user/:userId", async (req, res, next) => {
   }
 });
 
-router.delete("/user/:userId/:orderId/:productId", async (req, res, next) => {
+//POST orders/user/:userId
+router.post("/user/:userId/:orderId", async (req, res, next) => {
+  try {
+    const cartItem = await GameOrder.create({
+      orderId: req.params.orderId,
+      productId: req.params.productId,
+      quanity: req.params.quanity,
+    });
+    res.json(cartItem);
+  } catch (e) {
+    next(e);
+  }
+});
+
+//PUT orders
+// router.put("/user/:userId/add", async (req, res, next) => {
+//   try {
+//     const cartItem = await GameOrder.findOne({where: {orderId: req.params.orderId}})
+//   } catch (e) {
+//     console.log(e);
+//   }
+// });
+
+router.delete("/user/:userId", async (req, res, next) => {
   try {
     if (req.user.id === +req.params.userId) {
       const cartItem = await GameOrder.findOne({
-        where: {
-          orderId: req.params.orderId,
-          productId: req.params.productId,
-        },
+        where: {},
       });
-
-      // const { dataValues: product } = await Product.findByPk(
-      //   cartItem.productId
-      // );
-
-      // const money = cartItem.quanity * product.price;
-
-      // res.json(cartItem);
-      await cartItem.destroy();
-      res.send("deleted");
     }
   } catch (e) {
     next(e);
   }
 });
+
+// router.delete("/user/:productId", async (req, res, next) => {
+//   try {
+//     const productId = req.params.productId;
+//     const cartItem = await GameOrder.findByPk(productId, { include: Order });
+
+//     if (cartItem.order.userId === req.user.id) await cartItem.destroy();
+//     else sendStatus(404);
+//   } catch (e) {
+//     next(e);
+//   }
+// });

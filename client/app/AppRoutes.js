@@ -9,11 +9,15 @@ import { me } from "./store";
  */
 import { AllProducts, Cart, Home, SingleProduct } from "../features";
 import { fetchProducts } from "../features/products/productSlice";
+import { fetchUserOrder } from "../features/cart/ordersSlice";
 
-const AppRoutes = () => {
+const AppRoutes = ({ userId, userOrder }) => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
+
+  console.log("iamauser: ", userId);
+  console.log("ue", userOrder);
 
   useEffect(() => {
     dispatch(me());
@@ -28,11 +32,23 @@ const AppRoutes = () => {
           <Route to="/home" element={<Home products={products} />} />
           <Route
             path="/cart"
-            element={<Cart isLoggedIn={isLoggedIn} products={products} />}
+            element={
+              <Cart
+                isLoggedIn={isLoggedIn}
+                products={products}
+                userOrder={userOrder}
+              />
+            }
           />
           <Route
             path="/products"
-            element={<AllProducts products={products} />}
+            element={
+              <AllProducts
+                products={products}
+                userId={userId}
+                userOrder={userOrder}
+              />
+            }
           />
           <Route path="/products/:productId" element={<SingleProduct />} />
         </Routes>
@@ -54,7 +70,13 @@ const AppRoutes = () => {
           <Route path="/cart" element={<Cart isLoggedIn={isLoggedIn} />} />
           <Route
             path="/products"
-            element={<AllProducts products={products} />}
+            element={
+              <AllProducts
+                products={products}
+                userId={userId}
+                userOrder={userOrder}
+              />
+            }
           />
           <Route path="/products/:productId" element={<SingleProduct />} />
         </Routes>

@@ -19,10 +19,11 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import Loading from "../loading/Loading.js";
 import { addToCart } from "../cart/ordersSlice";
 
-const AllProducts = ({ products }) => {
+const AllProducts = ({ products, userOrder }) => {
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   console.log(products);
+  console.log("usersOrder: ", userOrder);
 
   if (!products) return <Loading message="BRB Loading Games..." />;
   return (
@@ -73,7 +74,7 @@ const AllProducts = ({ products }) => {
                 <Button
                   size="large"
                   className="custom-button"
-                  onClick={() => addToCart(product.id)}
+                  onClick={() => dispatch(addToCart(product))}
                 >
                   <AddShoppingCartIcon /> Add to Cart
                 </Button>

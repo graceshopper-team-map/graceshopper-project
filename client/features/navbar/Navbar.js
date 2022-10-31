@@ -13,18 +13,8 @@ import {
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useEffect } from "react";
 
-const Navbar = () => {
+const Navbar = ({ userOrder }) => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
-  // const order = useSelector((state) => state.order.userOrders)[0];
-  // console.log("iamuser: ", order);
-  // const totalProductCount = () => {
-  //   let total = 0;
-  //   order.products.forEach((product) => {
-  //     console.log(product.gameOrder);
-  //   });
-  // };
-
-  // totalProductCount();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -32,12 +22,6 @@ const Navbar = () => {
     dispatch(logout());
     navigate("/login");
   };
-
-  // useEffect(() => {
-  //   if (userId) {
-  //     dispatch(fetchUserOrders(userId));
-  //   }
-  // }, [userId]);
 
   return (
     <>
