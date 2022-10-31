@@ -11,6 +11,7 @@ const EditProduct = () => {
   const dispatch = useDispatch();
   const { productId } = useParams();
 
+  /*Commit not working */
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(editProduct({ productId, name, price, quantity, description }));
