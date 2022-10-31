@@ -12,15 +12,13 @@ import {
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useEffect } from "react";
+import { fetchSingleUser } from "../user/userSlice";
 
 const Navbar = () => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
+  const userId = useSelector((state) => state.auth.me.id);
   const order = useSelector((state) => state.order.userOrders)[0];
-  console.log("iamuser: ", order);
-  // const totalProductCount = () => {
-  //   let total = 0; 
-  //   order.products
-  // }
+  const user = useSelector((state) => state.user.user);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,11 +27,11 @@ const Navbar = () => {
     navigate("/login");
   };
 
-  // useEffect(() => {
-  //   if (userId) {
-  //     dispatch(fetchUserOrders(userId));
-  //   }
-  // }, [userId]);
+  useEffect(() => {
+    if (userId) {
+      dispatch(fetchSingleUser(userId));
+    }
+  }, [userId, dispatch]);
 
   return (
     <>
@@ -49,18 +47,24 @@ const Navbar = () => {
             >
               GameMap
             </Typography>
-            {isLoggedIn ? (
+            { isLoggedIn ? (
               <div className="nav-wrapper">
                 {/* The navbar will show these links after you log in */}
                 <Link className="custom-a" to="/home">
                   Home
                 </Link>
-                <button type="button" onClick={logoutAndRedirectHome}>
-                  Logout
-                </button>
                 <Link className="custom-a" to="/products">
                   Products
                 </Link>
+                <Link className="custom-a" to="/profile">
+                  Profile
+                </Link>
+                {user.isAdmin ? <Link className="custom-a" to="/users">
+                  Users
+                </Link> : null}
+                <button type="button" onClick={logoutAndRedirectHome}>
+                  Logout
+                </button>
                 <IconButton component={Link} to="/cart">
                   <Badge badgeContent={"0"} color="secondary">
                     <ShoppingCartIcon className="custom-cart" />
@@ -79,7 +83,6 @@ const Navbar = () => {
                 <Link className="custom-a" to="/signup">
                   Sign Up
                 </Link>
-                {/* <Link to="/cart">Cart</Link> */}
                 <Link className="custom-a" to="/products">
                   Products
                 </Link>
