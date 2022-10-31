@@ -5,19 +5,20 @@ import { editProduct } from "./productSlice";
 
 const EditProduct = () => {
   const [name, setName] = useState("");
-  const [price, setPrice] = useState("")
+  const [price, setPrice] = useState("");
   const [quantity, setQuantity] = useState("");
   const [description, setDescription] = useState("");
   const dispatch = useDispatch();
   const { productId } = useParams();
 
+  /*Commit not working */
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(editProduct({ productId, name, price, quantity, description }));
     setName("");
-    setPrice("")
+    setPrice("");
     setQuantity("");
-    setDescription("")
+    setDescription("");
   };
 
   return (
@@ -54,7 +55,10 @@ const EditProduct = () => {
           onChange={(e) => setDescription(e.target.value)}
         />
       </div>
-      <button type="submit" disabled={!name || !price || !quantity || !description }>
+      <button
+        type="submit"
+        disabled={!name || !price || !quantity || !description}
+      >
         Update
       </button>
     </form>
