@@ -27,8 +27,8 @@ const User = db.define("user", {
   email: {
     type: Sequelize.STRING,
     validate: {
-      isEmail: true
-    }
+      isEmail: true,
+    },
   },
   imageUrl: {
     type: Sequelize.STRING,

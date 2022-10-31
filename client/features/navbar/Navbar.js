@@ -17,7 +17,7 @@ import { fetchSingleUser } from "../user/userSlice";
 const Navbar = ({ userOrder }) => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
   const userId = useSelector((state) => state.auth.me.id);
-  const order = useSelector((state) => state.order.userOrders)[0];
+  // const order = useSelector((state) => state.order.userOrders)[0];
   const user = useSelector((state) => state.user.user);
 
   const dispatch = useDispatch();
@@ -47,7 +47,7 @@ const Navbar = ({ userOrder }) => {
             >
               GameMap
             </Typography>
-            { isLoggedIn ? (
+            {isLoggedIn ? (
               <div className="nav-wrapper">
                 {/* The navbar will show these links after you log in */}
                 <Link className="custom-a" to="/home">
@@ -59,9 +59,11 @@ const Navbar = ({ userOrder }) => {
                 <Link className="custom-a" to="/profile">
                   Profile
                 </Link>
-                {user.isAdmin ? <Link className="custom-a" to="/users">
-                  Users
-                </Link> : null}
+                {user.isAdmin ? (
+                  <Link className="custom-a" to="/users">
+                    Users
+                  </Link>
+                ) : null}
                 <button type="button" onClick={logoutAndRedirectHome}>
                   Logout
                 </button>

@@ -24,7 +24,16 @@ export const fetchSingleUser = createAsyncThunk(
 
 export const editUser = createAsyncThunk(
   "editUser",
-  async ({ userId, firstName, lastName, address, email, biography, website, facebook }) => {
+  async ({
+    userId,
+    firstName,
+    lastName,
+    address,
+    email,
+    biography,
+    website,
+    facebook,
+  }) => {
     try {
       const { data } = await axios.put(`/api/users/${userId}`, {
         firstName,
@@ -33,7 +42,7 @@ export const editUser = createAsyncThunk(
         address,
         biography,
         website,
-        facebook
+        facebook,
       });
       return data;
     } catch (e) {
@@ -55,8 +64,8 @@ export const userSlice = createSlice({
         state.user = action.payload;
       })
       .addCase(editUser.fulfilled, (state, action) => {
-        state.user = action.payload
-      })
+        state.user = action.payload;
+      });
   },
 });
 
