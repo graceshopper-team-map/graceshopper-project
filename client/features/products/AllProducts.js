@@ -85,6 +85,7 @@ const AllProducts = ({ products, userOrder }) => {
                         await dispatch(addGameOrder({orderId: cartId,productId: product.id}));
                       }}
                       // onClick={() => console.log(product.id)}
+
                     >
                       <AddShoppingCartIcon /> Add to Cart
                     </Button>

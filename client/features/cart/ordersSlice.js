@@ -76,10 +76,16 @@ export const addOrder = createAsyncThunk(
 export const removeProduct = createAsyncThunk(
   "removeItem",
   async (productId) => {
+    const token = window.localStorage.getItem("TOKEN");
     try {
-      const { data } = await axios.delete(`/api/orders/users/${productId}`);
-      console.log("iamdata", data);
-      return data;
+      if (token) {
+        const { data } = await axios.delete(`/api/orders/${productId}`, {
+          headers: {
+            authorization: token,
+          },
+        });
+        return data;
+      }
     } catch (e) {
       console.log("oops");
     }
@@ -88,7 +94,13 @@ export const removeProduct = createAsyncThunk(
 
 export const orderSlice = createSlice({
   name: "order",
-  initialState: { orders: [], order: {}, userOrders: [], allUserOrders: [] },
+  initialState: {
+    orders: [],
+    order: {},
+    userOrders: [],
+    totalPrice: 0,
+    totalItems: 0,
+  },
   reducers: {
     addToCart: (state, action) => {
       const itemInCart = state.userOrders.find(
@@ -151,9 +163,11 @@ export const orderSlice = createSlice({
       .addCase(addOrder.fulfilled, (state, action) => {
         state.userOrders.push(action.payload);
       })
-      .addCase(removeProduct.fulfilled, async (state, action) => {
+      .addCase(removeProduct.fulfilled, (state, action) => {
+        console.log("ACTION BABY: ", action.payload);
+        console.log("action meta: ", action.meta.arg);
         const removeItem = state.userOrders.filter(
-          (item) => item.id !== action.payload
+          (item) => item.id !== action.meta.arg
         );
         state.userOrders = removeItem;
       });
@@ -163,5 +177,10 @@ export const orderSlice = createSlice({
 export const selectOrder = (state) => state.order;
 export const selectOrders = (state) => state.orders;
 export default orderSlice.reducer;
-export const { addToCart, incrementQuantity, decrementQuantity, removeItem } =
-  orderSlice.actions;
+export const {
+  addToCart,
+  incrementQuantity,
+  decrementQuantity,
+  removeItem,
+  subTotal,
+} = orderSlice.actions;

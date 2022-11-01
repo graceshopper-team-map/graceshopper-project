@@ -3,9 +3,24 @@ import axios from "axios";
 
 export const fetchGameOrder = createAsyncThunk(
   "/orderProducts/:id",
-  async (id) => {
+  async (userId) => {
     try {
-      const { data } = await axios.get(`/api/orderProducts/${id}`);
+      const { data } = await axios.get(`/api/orderProducts/${userId}`);
+      return data;
+    } catch (e) {
+      console.log("oops");
+    }
+  }
+);
+
+export const deleteGameFromCart = createAsyncThunk(
+  "/orderProducts/:userId/:productId",
+  async ({ userId, productId }) => {
+    try {
+      const { data } = await axios.delete(
+        `/api/orderProducts/${userId}/${productId}`
+      );
+
       return data;
     } catch (e) {
       console.log("oops");
@@ -37,6 +52,8 @@ export const orderProductsSlice = createSlice({
     });
     builder.addCase(addGameOrder.fulfilled, (state, action) => {
       state.push(action.payload);
+
+
     });
   },
 });
