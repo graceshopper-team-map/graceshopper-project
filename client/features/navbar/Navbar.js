@@ -31,7 +31,7 @@ const Navbar = ({ userOrder }) => {
     if (userId) {
       dispatch(fetchSingleUser(userId));
     }
-  }, []);
+  }, [userId]);
 
   return (
     <>
@@ -58,6 +58,9 @@ const Navbar = ({ userOrder }) => {
                 </Link>
                 <Link className="custom-a" to="/profile">
                   Profile
+                </Link>
+                <Link className="custom-a" to="/orders">
+                  My Orders
                 </Link>
                 {user.isAdmin ? (
                   <Link className="custom-a" to="/users">

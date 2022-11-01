@@ -145,6 +145,9 @@ async function seed() {
       status: "unfullfilled",
     }),
     Order.create({}),
+    Order.create({
+      status: "fullfilled",
+    }),
   ]);
 
   const gameOrder = await Promise.all([
@@ -203,11 +206,17 @@ async function seed() {
       orderId: 2,
       quantity: 4,
     }),
+    GameOrder.create({
+      productId: 7,
+      orderId: 4,
+      quantity: 1,
+    }),
   ]);
 
   await orders[0].setUser(users[0].id);
   await orders[1].setUser(users[0].id);
   await orders[2].setUser(users[1].id);
+  await orders[3].setUser(users[0].id);
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);

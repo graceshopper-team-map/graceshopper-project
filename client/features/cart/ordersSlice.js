@@ -35,7 +35,19 @@ export const fetchUserOrder = createAsyncThunk(
   "/orders/user/:userId",
   async (userId) => {
     try {
-      const { data } = await axios.get(`/api/orders/${userId}`);
+      const { data } = await axios.get(`/api/orders/user/${userId}`);
+      return data;
+    } catch (e) {
+      console.log("oops");
+    }
+  }
+);
+
+export const fetchAllUserOrders = createAsyncThunk(
+  "orderHistory",
+  async (userId) => {
+    try {
+      const { data } = await axios.get(`/api/orders/user2/${userId}`);
       return data;
     } catch (e) {
       console.log("oops");
@@ -144,6 +156,9 @@ export const orderSlice = createSlice({
     builder.addCase(fetchUserOrder.fulfilled, (state, action) => {
       state.userOrders = action.payload;
     });
+    builder.addCase(fetchAllUserOrders.fulfilled, (state, action) => {
+      state.allUserOrders = action.payload
+    })
     builder
       .addCase(addOrder.fulfilled, (state, action) => {
         state.userOrders.push(action.payload);

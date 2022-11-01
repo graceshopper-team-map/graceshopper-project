@@ -14,6 +14,7 @@ import {
   SingleProduct,
   AllUsers,
   SingleUser,
+  AllOrders
 } from "../features";
 import { fetchProducts } from "../features/products/productSlice";
 
@@ -56,7 +57,10 @@ const AppRoutes = ({ userId, userOrder }) => {
           />
           <Route path="/products/:productId" element={<SingleProduct />} />
           <Route path="/profile" element={<SingleUser />} />
-          {user.isAdmin ? <Route path="/users" element={<AllUsers />} /> : null}
+          <Route path="/orders" element={<AllOrders />} />
+          {user.isAdmin ? (
+            <Route path="/users" element={<AllUsers />} />
+          ) : null}
         </Routes>
       ) : (
         <Routes>
