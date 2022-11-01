@@ -13,28 +13,32 @@ const AllOrders = () => {
     }
   }, []);
 
-  const fullfilledOrders = userOrders.filter(
-    (order) => order.status === "fullfilled"
-  ).reverse();
+  const fullfilledOrders = userOrders
+    .filter((order) => order.status === "fullfilled")
+    .reverse();
 
   return (
     <div>
       <h2>Order History:</h2>
-      {fullfilledOrders[0] ? fullfilledOrders.map((orders) => (
-        <div key={orders.id}>
-          <hr/>
-          <h3>Order Number: {orders.id}</h3>
-          <div>
-            {orders?.products.map((product) => (
-              <div key = {product.id} >
-                <div>Item Purchased: {product.name}</div>
-                <div>Item Price: {product.price}</div>
-                <div>Amount Purchased: {product.GameOrder.quantity}</div>
-              </div>
-            ))}
+      {fullfilledOrders[0] ? (
+        fullfilledOrders.map((orders) => (
+          <div key={orders.id}>
+            <hr />
+            <h3>Order Number: {orders.id}</h3>
+            <div>
+              {orders?.products.map((product) => (
+                <div key={product.id}>
+                  <div>Item Purchased: {product.name}</div>
+                  <div>Item Price: {product.price}</div>
+                  <div>Amount Purchased: {product.GameOrder.quantity}</div>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      )) : <h3>No orders found.</h3>}
+        ))
+      ) : (
+        <h3>No orders found.</h3>
+      )}
     </div>
   );
 };

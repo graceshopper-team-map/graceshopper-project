@@ -16,20 +16,12 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-
 // GET /orders/user/id
 router.get("/:userId", async (req, res, next) => {
   try {
     //make sure the orders we get back for the user is not completed
     const order = await Order.findOne({
       where: { userId: req.params.userId, status: "unfullfilled" },
-      include: Product,
-    });
-
-    const game = await GameOrder.findOne({
-      where: {
-        orderId: order.id,
-      },
       include: Product,
     });
 
@@ -76,10 +68,6 @@ router.delete("/:productId", async (req, res, next) => {
         },
       });
     }
-    // if (game) {
-    //   await game.product.destroy();
-    //   res.json({ success: true });
-    // }
   } catch (e) {
     next(e);
   }

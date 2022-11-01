@@ -22,7 +22,6 @@ const checkAdmin = async (req, res, next) => {
     if (!req.user.isAdmin) throw new Error("You do not have admin privileges");
   } catch (e) {
     next(e);
-    res.send("trash 2");
   }
 };
 

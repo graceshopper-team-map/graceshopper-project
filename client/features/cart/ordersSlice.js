@@ -32,7 +32,7 @@ export const fetchSingleOrder = createAsyncThunk(
 );
 
 export const fetchUserOrder = createAsyncThunk(
-  "/user/:userId",
+  "orders/:userId",
   async (userId) => {
     try {
       const { data } = await axios.get(`/api/orders/${userId}`);
@@ -76,16 +76,9 @@ export const addOrder = createAsyncThunk(
 export const removeProduct = createAsyncThunk(
   "removeItem",
   async (productId) => {
-    const token = window.localStorage.getItem("TOKEN");
     try {
-      if (token) {
-        const { data } = await axios.delete(`/api/orders/${productId}`, {
-          headers: {
-            authorization: token,
-          },
-        });
-        return data;
-      }
+      const { data } = await axios.delete(`/api/orders/${productId}`);
+      return data;
     } catch (e) {
       console.log("oops");
     }
@@ -157,9 +150,9 @@ export const orderSlice = createSlice({
     builder.addCase(fetchUserOrder.fulfilled, (state, action) => {
       state.userOrders = action.payload;
     });
-    builder.addCase(fetchAllUserOrders.fulfilled, (state, action) => {
-      state.allUserOrders = action.payload
-    })
+    // builder.addCase(fetchAllUserOrders.fulfilled, (state, action) => {
+    //   state.allUserOrders = action.payload
+    // })
     builder
       .addCase(addOrder.fulfilled, (state, action) => {
         state.userOrders.push(action.payload);

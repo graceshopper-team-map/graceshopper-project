@@ -20,7 +20,6 @@ export const deleteGameFromCart = createAsyncThunk(
       const { data } = await axios.delete(
         `/api/orderProducts/${userId}/${productId}`
       );
-
       return data;
     } catch (e) {
       console.log("oops");
@@ -42,6 +41,7 @@ export const addGameOrder = createAsyncThunk(
   }
 );
 
+
 export const editGameOrder = createAsyncThunk(
   "editGameOrder",
   async ({ orderId, productId }) => {
@@ -52,6 +52,14 @@ export const editGameOrder = createAsyncThunk(
         `/api/orderProducts/${orderId}/${productId}`
       );
       console.log("axios", data)
+
+export const removeGameOrder = createAsyncThunk(
+  "removeGameOrder",
+  async ({ orderId, productId }) => {
+    try {
+      const { data } = await axios.delete(
+        `/api/orderProducts/${orderId}/${productId}`
+      );
       return data;
     } catch (e) {
       console.log("oops");
@@ -67,9 +75,16 @@ export const orderProductsSlice = createSlice({
     builder.addCase(fetchGameOrder.fulfilled, (state, action) => {
       return action.payload;
     });
+
     builder.addCase(addGameOrder.fulfilled, (state, action) => {
       state.push(action.payload);
     });
+
+      .addCase(deleteGameFromCart.fulfilled, (state, action) => {
+        console.log("ACTIONMAN: ", action.payload);
+        const removeItem = state.filter((item) => item.id !== action.payload);
+        state = removeItem;
+      }); 
   },
 });
 

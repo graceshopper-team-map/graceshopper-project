@@ -25,8 +25,10 @@ const AllProducts = ({ products, userOrder }) => {
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
 
+
   const cartId = userOrder[0]?.GameOrder.orderId
   console.log(userOrder)
+
 
   if (!products) return <Loading message="BRB Loading Games..." />;
   return (
