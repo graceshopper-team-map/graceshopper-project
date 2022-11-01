@@ -2,6 +2,8 @@ const router = require("express").Router();
 const {
   models: { Order, Product, GameOrder, User },
 } = require("../db");
+const { isAdmin, isUser, auth } = require("./auth");
+
 module.exports = router;
 
 // GET /orders
@@ -14,34 +16,24 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// GET /orders/id
-router.get("/:id", async (req, res, next) => {
-  try {
-    const order = await Order.findByPk(req.params.id, {
-      include: Product,
-    });
-    res.json(order);
-  } catch (err) {
-    next(err);
-  }
-});
 
 // GET /orders/user/id
-router.get("/user/:userId", async (req, res, next) => {
+router.get("/:userId", async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.userId);
     //make sure the orders we get back for the user is not completed
-    const order = await user.getOrders({
-      where: { status: "unfullfilled" },
-      include: [
-        { model: Product },
-        {
-          model: User,
-          attributes: ["username"],
-        },
-      ],
+    const order = await Order.findOne({
+      where: { userId: req.params.userId, status: "unfullfilled" },
+      include: Product,
     });
-    const cart = order[0].products;
+
+    const game = await GameOrder.findOne({
+      where: {
+        orderId: order.id,
+      },
+      include: Product,
+    });
+
+    const cart = order.products;
 
     if (cart) res.json(cart);
     else res.sendStatus(404);
@@ -51,3 +43,27 @@ router.get("/user/:userId", async (req, res, next) => {
 });
 
 router.post("/user/:userId", async (req, res, next) => {});
+
+//DELETE
+router.delete("/:productId", async (req, res, next) => {
+  try {
+    const order = await Order.findOne({
+      where: { userId: req.params.userId, status: "unfullfilled" },
+    });
+
+    if (order) {
+      await GameOrder.destroy({
+        where: {
+          orderId: order.id,
+          productId: req.params.productId,
+        },
+      });
+    }
+    // if (game) {
+    //   await game.product.destroy();
+    //   res.json({ success: true });
+    // }
+  } catch (e) {
+    next(e);
+  }
+});

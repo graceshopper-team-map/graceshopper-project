@@ -56,9 +56,7 @@ const AppRoutes = ({ userId, userOrder }) => {
           />
           <Route path="/products/:productId" element={<SingleProduct />} />
           <Route path="/profile" element={<SingleUser />} />
-          {user && user.isAdmin ? (
-            <Route path="/users" element={<AllUsers />} />
-          ) : null}
+          {user.isAdmin ? <Route path="/users" element={<AllUsers />} /> : null}
         </Routes>
       ) : (
         <Routes>
