@@ -25,9 +25,8 @@ const AllProducts = ({ products, userOrder }) => {
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
 
-
-  const cartId = userOrder[0]?.GameOrder.orderId
-  console.log(userOrder)
+  const cartId = userOrder[0]?.GameOrder.orderId;
+  console.log("USERORDER: ", userOrder);
 
   if (!products) return <Loading message="BRB Loading Games..." />;
   return (
@@ -82,11 +81,15 @@ const AllProducts = ({ products, userOrder }) => {
                       className="custom-button"
                       // onClick={() => dispatch(addToCart(product))}
                       onClick={async () => {
-                        console.log(product)
-                        await dispatch(addGameOrder({orderId: cartId, productId: product.id}));
+                        console.log(product);
+                        await dispatch(
+                          addGameOrder({
+                            orderId: cartId,
+                            productId: product.id,
+                          })
+                        );
                       }}
                       // onClick={() => console.log(product.id)}
-
                     >
                       <AddShoppingCartIcon /> Add to Cart
                     </Button>

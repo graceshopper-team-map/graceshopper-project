@@ -69,13 +69,14 @@ router.post("/:orderId", async (req, res, next) => {
   }
 });
 
-
 router.post("/:orderId/:productId", async (req, res, next) => {
   try {
-    const orderProducts = await GameOrder.create({
-      orderId: req.params.orderId,
-      productId: req.params.productId,
-      quantity: 1
+    const orderProducts = await GameOrder.findOrCreate({
+      where: {
+        orderId: req.params.orderId,
+        productId: req.params.productId,
+      },
+      defaults: { quantity: 1 },
     });
     if (orderProducts) res.json(orderProducts);
     else res.sendStatus(404);
@@ -84,3 +85,14 @@ router.post("/:orderId/:productId", async (req, res, next) => {
   }
 });
 
+router.delete("/:orderId/:productId", async (req, res, next) => {
+  try {
+    const gameOrder = await GameOrder.findOne({
+      where: { orderId: req.params.orderId },
+      productId: req.params.productId,
+    });
+    await gameOrder.destroy();
+  } catch (err) {
+    next(err);
+  }
+});
