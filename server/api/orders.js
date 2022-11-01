@@ -68,10 +68,6 @@ router.delete("/:productId", async (req, res, next) => {
         },
       });
     }
-    // if (game) {
-    //   await game.product.destroy();
-    //   res.json({ success: true });
-    // }
   } catch (e) {
     next(e);
   }
