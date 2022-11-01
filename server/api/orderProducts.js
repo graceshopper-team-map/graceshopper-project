@@ -69,4 +69,18 @@ router.post("/:orderId", async (req, res, next) => {
   }
 });
 
-// DELETE
+
+router.post("/:orderId/:productId", async (req, res, next) => {
+  try {
+    const orderProducts = await GameOrder.create({
+      orderId: req.params.orderId,
+      productId: req.params.productId,
+      quantity: 1
+    });
+    if (orderProducts) res.json(orderProducts);
+    else res.sendStatus(404);
+  } catch (err) {
+    next(err);
+  }
+});
+

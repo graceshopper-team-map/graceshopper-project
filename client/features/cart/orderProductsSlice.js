@@ -28,6 +28,20 @@ export const deleteGameFromCart = createAsyncThunk(
   }
 );
 
+export const addGameOrder = createAsyncThunk(
+  "addGameOrder",
+  async ({ orderId, productId }) => {
+    try {
+      const { data } = await axios.post(
+        `/api/orderProducts/${orderId}/${productId}`
+      );
+      return data;
+    } catch (e) {
+      console.log("oops");
+    }
+  }
+);
+
 export const orderProductsSlice = createSlice({
   name: "orderProducts",
   initialState: [],
@@ -36,10 +50,10 @@ export const orderProductsSlice = createSlice({
     builder.addCase(fetchGameOrder.fulfilled, (state, action) => {
       return action.payload;
     });
+    builder.addCase(addGameOrder.fulfilled, (state, action) => {
+      state.push(action.payload);
 
-    builder.addCase(deleteGameFromCart.fulfilled, (state, action) => {
-      console.log("PAYLOAD: ", action.payload);
-      return state.filter((item) => item.id !== action.payload);
+
     });
   },
 });

@@ -30,7 +30,9 @@ router.get("/", async (req, res, next) => {
 
 router.get("/:id", async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.id);
+    const user = await User.findByPk(req.params.id, {
+      include: Order
+    });
     if (user) res.json(user);
     else res.sendStatus(404);
   } catch (err) {

@@ -15,14 +15,18 @@ import {
 } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import AddProduct from "./AddProduct";
+import { addGameOrder } from "../cart/orderProductsSlice";
 
 /*COMPS */
 import Loading from "../loading/Loading.js";
-import { addToCart } from "../cart/ordersSlice";
+import { addToCart, fetchUserOrder } from "../cart/ordersSlice";
 
 const AllProducts = ({ products, userOrder }) => {
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
+
+  const cartId = userOrder[0]?.GameOrder.orderId
+  console.log(cartId)
 
   if (!products) return <Loading message="BRB Loading Games..." />;
   return (
@@ -75,7 +79,13 @@ const AllProducts = ({ products, userOrder }) => {
                     <Button
                       size="large"
                       className="custom-button"
-                      onClick={() => dispatch(addToCart(product))}
+                      // onClick={() => dispatch(addToCart(product))}
+                      onClick={async () => {
+                        console.log(product.id);
+                        await dispatch(addGameOrder({orderId: cartId,productId: product.id}));
+                      }}
+                      // onClick={() => console.log(product.id)}
+
                     >
                       <AddShoppingCartIcon /> Add to Cart
                     </Button>
