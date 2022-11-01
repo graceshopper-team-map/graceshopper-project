@@ -98,6 +98,7 @@ export const orderSlice = createSlice({
     orders: [],
     order: {},
     userOrders: [],
+    allUserOrders: [],
     totalPrice: 0,
     totalItems: 0,
   },

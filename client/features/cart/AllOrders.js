@@ -17,7 +17,6 @@ const AllOrders = () => {
     (order) => order.status === "fullfilled"
   ).reverse();
 
-  console.log(fullfilledOrders);
   return (
     <div>
       <h2>Order History:</h2>
