@@ -90,10 +90,6 @@ User.findByToken = async function (token) {
   }
 };
 
-// like after the user logs in
-// then we want to go to another route
-//
-
 /**
  * hooks
  */
