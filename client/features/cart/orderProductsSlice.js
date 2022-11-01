@@ -41,6 +41,18 @@ export const addGameOrder = createAsyncThunk(
   }
 );
 
+
+export const editGameOrder = createAsyncThunk(
+  "editGameOrder",
+  async ({ orderId, productId }) => {
+    try {
+      // const response = await axios.get(`/api/orderProducts/${orderId}/${productId}`)
+      // console.log(response)
+      const {data} = await axios.put(
+        `/api/orderProducts/${orderId}/${productId}`
+      );
+      console.log("axios", data)
+
 export const removeGameOrder = createAsyncThunk(
   "removeGameOrder",
   async ({ orderId, productId }) => {
@@ -63,10 +75,11 @@ export const orderProductsSlice = createSlice({
     builder.addCase(fetchGameOrder.fulfilled, (state, action) => {
       return action.payload;
     });
-    builder
-      .addCase(addGameOrder.fulfilled, (state, action) => {
-        state.push(action.payload);
-      })
+
+    builder.addCase(addGameOrder.fulfilled, (state, action) => {
+      state.push(action.payload);
+    });
+
       .addCase(deleteGameFromCart.fulfilled, (state, action) => {
         console.log("ACTIONMAN: ", action.payload);
         const removeItem = state.filter((item) => item.id !== action.payload);

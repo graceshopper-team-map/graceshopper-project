@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import AddProduct from "./AddProduct";
-import { addGameOrder } from "../cart/orderProductsSlice";
+import { addGameOrder, editGameOrder } from "../cart/orderProductsSlice";
 
 /*COMPS */
 import Loading from "../loading/Loading.js";
@@ -25,8 +25,10 @@ const AllProducts = ({ products, userOrder }) => {
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
 
-  const cartId = userOrder[0]?.GameOrder.orderId;
-  console.log("USERORDER: ", userOrder);
+
+  const cartId = userOrder[0]?.GameOrder.orderId
+  console.log(userOrder)
+
 
   if (!products) return <Loading message="BRB Loading Games..." />;
   return (
@@ -81,15 +83,13 @@ const AllProducts = ({ products, userOrder }) => {
                       className="custom-button"
                       // onClick={() => dispatch(addToCart(product))}
                       onClick={async () => {
-                        console.log(product);
-                        await dispatch(
-                          addGameOrder({
-                            orderId: cartId,
-                            productId: product.id,
-                          })
-                        );
+                        const userProduct = userOrder.filter(cartProducts => cartProducts.id === product.id)
+                        console.log(userProduct)
+                        userProduct ?
+                          await dispatch(editGameOrder({orderId: cartId, productId: product.id}))
+                        : await dispatch(addGameOrder({orderId: cartId, productId: product.id}));
                       }}
-                      // onClick={() => console.log(product.id)}
+
                     >
                       <AddShoppingCartIcon /> Add to Cart
                     </Button>

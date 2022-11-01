@@ -30,7 +30,7 @@ router.get("/:userId", async (req, res, next) => {
     });
 
     if (game) res.json(game);
-    else status(404).json("No game order found");
+    else sendStatus(404).json("No game order found");
   } catch (err) {
     next(err);
   }
@@ -69,6 +69,22 @@ router.post("/:orderId", async (req, res, next) => {
   }
 });
 
+
+router.get("/:orderId/:productId", async (req, res, next) => {
+  try {
+    const orderProducts = await GameOrder.findAll({
+      where: {
+        orderId: req.params.orderId,
+        productId: req.params.productId
+      }
+    });
+    res.json(orderProducts);
+  } catch (err) {
+    next(err);
+  }
+});
+
+
 router.post("/:orderId/:productId", async (req, res, next) => {
   try {
     const orderProducts = await GameOrder.findOrCreate({
@@ -78,8 +94,24 @@ router.post("/:orderId/:productId", async (req, res, next) => {
       },
       defaults: { quantity: 1 },
     });
-    if (orderProducts) res.json(orderProducts);
-    else res.sendStatus(404);
+    res.json(orderProducts);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put("/:orderId/:productId", async (req, res, next) => {
+  try {
+    const orderProducts = await GameOrder.findAll({
+      where: {
+        orderId: req.params.orderId,
+        productId: req.params.productId
+      }
+    });
+    await orderProducts[0].increment(
+      'quantity', {by: 1}
+    )
+    res.json(orderProducts);
   } catch (err) {
     next(err);
   }
