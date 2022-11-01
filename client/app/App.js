@@ -14,11 +14,12 @@ const App = () => {
     if (userId) {
       dispatch(fetchUserOrder(userId));
     }
-  }, [userId, dispatch]);
+  }, [userId]);
+
   return (
     <div>
-      <Navbar userOrder={userOrder} />
-      <AppRoutes userOrder={userOrder} userId={userId} />
+      <Navbar/>
+      <AppRoutes/>
     </div>
   );
 };

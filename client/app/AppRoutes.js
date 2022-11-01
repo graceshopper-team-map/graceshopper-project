@@ -33,26 +33,20 @@ const AppRoutes = ({ userId, userOrder }) => {
     <div>
       {isLoggedIn ? (
         <Routes>
-          <Route path="/*" element={<Home products={products} />} />
-          <Route to="/home" element={<Home products={products} />} />
+          <Route path="/*" element={<Home/>} />
+          <Route to="/home" element={<Home/>} />
           <Route
             path="/cart"
             element={
               <Cart
                 isLoggedIn={isLoggedIn}
-                products={products}
-                userOrder={userOrder}
               />
             }
           />
           <Route
             path="/products"
             element={
-              <AllProducts
-                products={products}
-                userId={userId}
-                userOrder={userOrder}
-              />
+              <AllProducts />
             }
           />
           <Route path="/products/:productId" element={<SingleProduct />} />
@@ -76,16 +70,12 @@ const AppRoutes = ({ userId, userOrder }) => {
             path="/signup"
             element={<AuthForm name="signup" displayName="Sign Up" />}
           />
-          <Route path="/home" element={<Home products={products} />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/cart" element={<Cart isLoggedIn={isLoggedIn} />} />
           <Route
             path="/products"
             element={
-              <AllProducts
-                products={products}
-                userId={userId}
-                userOrder={userOrder}
-              />
+              <AllProducts/>
             }
           />
           <Route path="/products/:productId" element={<SingleProduct />} />
