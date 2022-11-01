@@ -19,16 +19,14 @@ import { addGameOrder, editGameOrder } from "../cart/orderProductsSlice";
 
 /*COMPS */
 import Loading from "../loading/Loading.js";
+import { fetchUserOrder } from "../cart/ordersSlice";
 // import { addToCart, fetchUserOrder } from "../cart/ordersSlice";
 
-const AllProducts = ({ products, userOrder }) => {
+const AllProducts = () => {
   const user = useSelector((state) => state.user.user);
+  const userOrder = useSelector((state) => state.order.userOrders);
+  const products = useSelector((state) => state.product.products);
   const dispatch = useDispatch();
-
-
-  const cartId = userOrder[0]?.GameOrder.orderId
-  console.log(userOrder)
-
 
   if (!products) return <Loading message="BRB Loading Games..." />;
   return (
@@ -81,15 +79,13 @@ const AllProducts = ({ products, userOrder }) => {
                     <Button
                       size="large"
                       className="custom-button"
-                      // onClick={() => dispatch(addToCart(product))}
                       onClick={async () => {
                         const userProduct = userOrder.filter(cartProducts => cartProducts.id === product.id)
-                        console.log(userProduct)
-                        userProduct ?
-                          await dispatch(editGameOrder({orderId: cartId, productId: product.id}))
-                        : await dispatch(addGameOrder({orderId: cartId, productId: product.id}));
+                        const order = userOrder[0].GameOrder.orderId
+                        userProduct[0] ?
+                          dispatch(editGameOrder({orderNumber: order, productNumber: product.id}))
+                        : dispatch(addGameOrder({orderNumber: order, productNumber: product.id}));
                       }}
-
                     >
                       <AddShoppingCartIcon /> Add to Cart
                     </Button>

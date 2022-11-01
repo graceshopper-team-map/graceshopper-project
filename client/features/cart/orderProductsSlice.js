@@ -1,3 +1,4 @@
+import { DataArrayTwoTone, NextPlan } from "@mui/icons-material";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -29,11 +30,12 @@ export const deleteGameFromCart = createAsyncThunk(
 
 export const addGameOrder = createAsyncThunk(
   "addGameOrder",
-  async ({ orderId, productId }) => {
+  async ({ orderNumber, productNumber }) => {
     try {
       const { data } = await axios.post(
-        `/api/orderProducts/${orderId}/${productId}`
+        `/api/orderProducts/${orderNumber}/${productNumber}`
       );
+      console.log(data);
       return data;
     } catch (e) {
       console.log("oops");
@@ -41,25 +43,25 @@ export const addGameOrder = createAsyncThunk(
   }
 );
 
-
 export const editGameOrder = createAsyncThunk(
   "editGameOrder",
-  async ({ orderId, productId }) => {
+  async ({ orderNumber, productNumber }) => {
     try {
-      // const response = await axios.get(`/api/orderProducts/${orderId}/${productId}`)
-      // console.log(response)
-      const {data} = await axios.put(
-        `/api/orderProducts/${orderId}/${productId}`
+      const { data } = await axios.put(
+        `/api/orderProducts/${orderNumber}/${productNumber}`
       );
-      console.log("axios", data)
+      return data;
+    } catch (e) {
+      next(e);
+    }
+  }
+);
 
 export const removeGameOrder = createAsyncThunk(
   "removeGameOrder",
   async ({ orderId, productId }) => {
     try {
-      const { data } = await axios.delete(
-        `/api/orderProducts/${orderId}/${productId}`
-      );
+      const { data } = await axios.delete(`/api/orderProducts/${orderId}/${productId}`)
       return data;
     } catch (e) {
       console.log("oops");
@@ -75,16 +77,12 @@ export const orderProductsSlice = createSlice({
     builder.addCase(fetchGameOrder.fulfilled, (state, action) => {
       return action.payload;
     });
-
+    builder.addCase(editGameOrder.fulfilled, (state, action) => {
+      return action.payload;
+    });
     builder.addCase(addGameOrder.fulfilled, (state, action) => {
       state.push(action.payload);
-    });
-
-      .addCase(deleteGameFromCart.fulfilled, (state, action) => {
-        console.log("ACTIONMAN: ", action.payload);
-        const removeItem = state.filter((item) => item.id !== action.payload);
-        state = removeItem;
-      }); 
+    })
   },
 });
 

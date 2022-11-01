@@ -34,7 +34,7 @@ const Cart = ({ isLoggedIn }) => {
     if (userId) {
       dispatch(fetchUserOrder(userId));
     }
-  }, [dispatch]);
+  }, []);
 
   /*Calculate Sub-total */
   // let subTotal = 0;
@@ -92,18 +92,18 @@ const Cart = ({ isLoggedIn }) => {
                     <Button
                       size="small"
                       variant="outlined"
-                      onClick={() => {
+                      onClick={async () => {
                         console.log({
                           orderId: product.GameOrder.orderId,
                           productId: product.id,
                         });
-                        dispatch(
+                        await dispatch(
                           removeGameOrder({
                             orderId: product.GameOrder.orderId,
                             productId: product.id,
                           })
                         );
-                        dispatch(fetchUserOrder(userId));
+                        await dispatch(fetchUserOrder(userId));
                       }}
                     >
                       <DeleteIcon />
