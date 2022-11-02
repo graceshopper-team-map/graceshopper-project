@@ -99,6 +99,9 @@ router.put("/:productId/add", auth, findToken, async (req, res, next) => {
     });
 
     await gameOrder.increment("quantity");
+    if (gameOrder.product.quantity > 0) {
+      await gameOrder.product.decrement("quantity");
+    }
     res.send(gameOrder);
   } catch (e) {
     next(e);
@@ -118,6 +121,7 @@ router.put("/:productId/sub", auth, findToken, async (req, res, next) => {
     });
 
     await gameOrder.decrement("quantity");
+    // await gameOrder.product.increment("quantity");
     res.send(gameOrder);
   } catch (e) {
     next(e);

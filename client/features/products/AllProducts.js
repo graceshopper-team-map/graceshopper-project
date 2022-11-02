@@ -80,7 +80,7 @@ const AllProducts = () => {
                       size="large"
                       className="custom-button"
                       onClick={() =>
-                        dispatch(editGameOrder({ productId: product.id }))
+                        dispatch(addOrder({ productId: product.id }))
                       }
                     >
                       <AddShoppingCartIcon /> Add to Cart
