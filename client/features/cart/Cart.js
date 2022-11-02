@@ -21,7 +21,11 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Loading from "../loading/Loading";
-import { deleteGameFromCart, removeGameOrder } from "./orderProductsSlice";
+import {
+  deleteGameFromCart,
+  removeGameOrder,
+  addGameOrder,
+} from "./orderProductsSlice";
 
 const Cart = ({ isLoggedIn }) => {
   const dispatch = useDispatch();
@@ -34,7 +38,16 @@ const Cart = ({ isLoggedIn }) => {
     if (userId) {
       dispatch(fetchUserOrder(userId));
     }
-  }, [dispatch]);
+  }, []);
+
+  const handleDelete = (productId) => {
+    dispatch(
+      removeProduct({
+        productId,
+      })
+    );
+    dispatch(fetchUserOrder());
+  };
 
   /*Calculate Sub-total */
   // let subTotal = 0;
@@ -92,19 +105,7 @@ const Cart = ({ isLoggedIn }) => {
                     <Button
                       size="small"
                       variant="outlined"
-                      onClick={() => {
-                        console.log({
-                          orderId: product.GameOrder.orderId,
-                          productId: product.id,
-                        });
-                        dispatch(
-                          removeGameOrder({
-                            orderId: product.GameOrder.orderId,
-                            productId: product.id,
-                          })
-                        );
-                        dispatch(fetchUserOrder(userId));
-                      }}
+                      onClick={() => handleDelete(product.id)}
                     >
                       <DeleteIcon />
                     </Button>

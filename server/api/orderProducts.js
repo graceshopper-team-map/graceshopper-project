@@ -120,10 +120,13 @@ router.put("/:orderId/:productId", async (req, res, next) => {
 router.delete("/:orderId/:productId", async (req, res, next) => {
   try {
     const gameOrder = await GameOrder.findOne({
-      where: { orderId: req.params.orderId },
-      productId: req.params.productId,
+      where: { 
+        orderId: req.params.orderId,
+        productId: req.params.productId,
+      }
     });
-    await gameOrder.destroy();
+    await gameOrder.destroy()
+    res.send(gameOrder)
   } catch (err) {
     next(err);
   }

@@ -33,10 +33,15 @@ export const fetchSingleOrder = createAsyncThunk(
 
 export const fetchUserOrder = createAsyncThunk(
   "orders/:userId",
-  async (userId) => {
+  async () => {
     try {
-      const { data } = await axios.get(`/api/orders/${userId}`);
-      return data;
+      const token = window.localStorage.getItem("token");
+      if (token) {
+        const { data } = await axios.get(`/api/orders/cart`, {
+          headers: { authorization: token },
+        });
+        return data;
+      }
     } catch (e) {
       console.log("oops");
     }

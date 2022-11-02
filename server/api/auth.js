@@ -26,7 +26,7 @@ const checkAdmin = async (req, res, next) => {
 };
 
 // Check if user
-const findUserById = async (req, res, next) => {
+const findToken = async (req, res, next) => {
   try {
     const token = req.headers.authorization; // contains the Headers object associated with the authorization request
     const user = await User.findByToken(token);
@@ -39,6 +39,6 @@ const findUserById = async (req, res, next) => {
 
 module.exports = {
   checkAdmin,
-  findUserById,
+  findToken,
   auth,
 };

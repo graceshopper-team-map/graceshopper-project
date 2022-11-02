@@ -2,7 +2,7 @@ const router = require("express").Router();
 const {
   models: { Order, Product, GameOrder, User },
 } = require("../db");
-const { isAdmin, isUser, auth } = require("./auth");
+const { checkAdmin, findToken, auth } = require("./auth");
 
 module.exports = router;
 
@@ -16,12 +16,13 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// GET /orders/user/id
-router.get("/:userId", async (req, res, next) => {
+// GET /orders/user/id *Get the user's cart info
+router.get("/cart", auth, findToken, async (req, res, next) => {
   try {
+    console.log(req.user.id);
     //make sure the orders we get back for the user is not completed
     const order = await Order.findOne({
-      where: { userId: req.params.userId, status: "unfullfilled" },
+      where: { userId: req.user.id, status: "unfullfilled" },
       include: Product,
     });
 
