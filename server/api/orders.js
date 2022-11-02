@@ -55,7 +55,7 @@ router.get("/user2/:userId", async (req, res, next) => {
 router.post("/user/:userId", async (req, res, next) => {});
 
 //DELETE
-router.delete("/:productId", async (req, res, next) => {
+router.delete("/:productId", auth, findToken, async (req, res, next) => {
   try {
     const order = await Order.findOne({
       where: { userId: req.params.userId, status: "unfullfilled" },

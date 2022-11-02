@@ -42,7 +42,7 @@ const Cart = ({ isLoggedIn }) => {
 
   const handleDelete = (productId) => {
     dispatch(
-      removeProduct({
+      removeGameOrder({
         productId,
       })
     );
