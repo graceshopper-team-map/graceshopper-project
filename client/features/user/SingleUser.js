@@ -31,7 +31,7 @@ const SingleUser = () => {
       <div>
         <img src={imageUrl} />
       </div>
-      <div className="product-info">
+      <div className="info-page">
         <h3>Name: {`${firstName} ${lastName}`}</h3>
         <p>Username: {username}</p>
         <p>Email: {email}</p>

@@ -18,7 +18,7 @@ const AllUsers = () => {
     <>
         {users?.map((user) => {
             return (
-                <div key = {user.id}>
+                <div key = {user.id} className = "info-page">
                     <hr/>
                     <p>User Name: {user.username}</p>
                     <p>First Name: {user.firstName}</p>
