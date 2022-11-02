@@ -2,6 +2,7 @@ const router = require("express").Router();
 const {
   models: { GameOrder, User, Order, Product },
 } = require("../db");
+const { checkAdmin, findToken, auth } = require("./auth");
 
 module.exports = router;
 
@@ -69,24 +70,6 @@ router.post("/:orderId", async (req, res, next) => {
   }
 });
 
-// PUT to checkout cart
-router.put("/:userId", async (req, res, next) => {
-  try {
-    const order = await Order.findOne({
-      where: { userId: req.params.userId, status: "unfullfilled" },
-    });
-
-    const unfulfilledOrder = await GameOrder.findAll({
-      where: { orderId: order.id },
-      include: Product,
-    });
-    // console.log(unfulfilledOrder);
-    res.json(unfulfilledOrder);
-  } catch (err) {
-    next(err);
-  }
-});
-
 router.get("/:orderId/:productId", async (req, res, next) => {
   try {
     const orderProducts = await GameOrder.findAll({
@@ -101,47 +84,40 @@ router.get("/:orderId/:productId", async (req, res, next) => {
   }
 });
 
-router.post("/:orderId/:productId", async (req, res, next) => {
+router.put("/:productId", auth, findToken, async (req, res, next) => {
   try {
-    const orderProducts = await GameOrder.findOrCreate({
-      where: {
-        orderId: req.params.orderId,
-        productId: req.params.productId,
-      },
-      defaults: { quantity: 1 },
+    const order = await Order.findOne({
+      where: { userId: req.user.id, status: "unfullfilled" },
     });
-    res.json(orderProducts);
-  } catch (err) {
-    next(err);
-  }
-});
-
-// route to increment item in backend
-router.put("/:orderId/:productId", async (req, res, next) => {
-  try {
     const orderProducts = await GameOrder.findAll({
       where: {
-        orderId: req.params.orderId,
+        orderId: order.id,
         productId: req.params.productId,
       },
+      include: Product,
     });
-    await orderProducts[0].increment("quantity", { by: 1 });
+    await orderProducts[0].increment("quantity");
     res.json(orderProducts);
   } catch (err) {
     next(err);
   }
 });
 
-router.delete("/:orderId/:productId", async (req, res, next) => {
+//DELETE delete item from cart
+router.delete("/:productId", auth, findToken, async (req, res, next) => {
   try {
+    const order = await Order.findOne({
+      where: { userId: req.user.id, status: "unfullfilled" },
+    });
+
     const gameOrder = await GameOrder.findOne({
       where: {
-        orderId: req.params.orderId,
+        orderId: order.id,
         productId: req.params.productId,
       },
     });
-    await gameOrder.destroy();
-    res.send(gameOrder);
+
+    if (gameOrder) await gameOrder.destroy(), res.send(gameOrder);
   } catch (err) {
     next(err);
   }

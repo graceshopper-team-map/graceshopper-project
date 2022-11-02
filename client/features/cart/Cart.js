@@ -6,6 +6,8 @@ import {
   incrementQuantity,
   removeItem,
   removeProduct,
+  incrementGame,
+  decrementGame,
 } from "./ordersSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -21,8 +23,11 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Loading from "../loading/Loading";
-import { deleteGameFromCart, removeGameOrder } from "./orderProductsSlice";
-import { useNavigate } from "react-router-dom";
+import {
+  deleteGameFromCart,
+  removeGameOrder,
+  addGameOrder,
+} from "./orderProductsSlice";
 
 const Cart = ({ isLoggedIn }) => {
   const dispatch = useDispatch();
@@ -37,6 +42,15 @@ const Cart = ({ isLoggedIn }) => {
       dispatch(fetchUserOrder(userId));
     }
   }, []);
+
+  const handleDelete = (productId) => {
+    dispatch(
+      removeGameOrder({
+        productId,
+      })
+    );
+    dispatch(fetchUserOrder());
+  };
 
   /*Calculate Sub-total */
   // let subTotal = 0;
@@ -89,24 +103,14 @@ const Cart = ({ isLoggedIn }) => {
                       component="h2"
                     >
                       {"$" +
-                        (product.price * product.GameOrder.quantity).toFixed(2)}
+                        (product.price * product.GameOrder?.quantity).toFixed(
+                          2
+                        )}
                     </Typography>
                     <Button
                       size="small"
                       variant="outlined"
-                      onClick={async () => {
-                        console.log({
-                          orderId: product.GameOrder.orderId,
-                          productId: product.id,
-                        });
-                        await dispatch(
-                          removeGameOrder({
-                            orderId: product.GameOrder.orderId,
-                            productId: product.id,
-                          })
-                        );
-                        await dispatch(fetchUserOrder(userId));
-                      }}
+                      onClick={() => handleDelete(product.id)}
                     >
                       <DeleteIcon />
                     </Button>
@@ -114,18 +118,24 @@ const Cart = ({ isLoggedIn }) => {
                       size="small"
                       variant="outlined"
                       className="decrease-product-btn"
-                      onClick={() => dispatch(decrementQuantity(product.id))}
+                      onClick={() => {
+                        dispatch(decrementGame({ productId: product.id }));
+                        dispatch(fetchUserOrder());
+                      }}
                     >
                       -
                     </Button>
                     <Typography>
-                      &nbsp;{product.GameOrder.quantity}&nbsp;
+                      &nbsp;{product.GameOrder?.quantity}&nbsp;
                     </Typography>
                     <Button
                       size="small"
                       variant="outlined"
                       className="increase-product-btn"
-                      onClick={() => dispatch(incrementQuantity(product.id))}
+                      onClick={() => {
+                        dispatch(incrementGame({ productId: product.id }));
+                        dispatch(fetchUserOrder());
+                      }}
                     >
                       +
                     </Button>
