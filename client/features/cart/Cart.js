@@ -6,6 +6,7 @@ import {
   incrementQuantity,
   removeItem,
   removeProduct,
+  incrementGame,
 } from "./ordersSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -126,7 +127,10 @@ const Cart = ({ isLoggedIn }) => {
                       size="small"
                       variant="outlined"
                       className="increase-product-btn"
-                      onClick={() => dispatch(incrementQuantity(product.id))}
+                      onClick={() => {
+                        dispatch(incrementGame({ productId: product.id }));
+                        dispatch(fetchUserOrder());
+                      }}
                     >
                       +
                     </Button>

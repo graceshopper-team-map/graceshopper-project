@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const { Rotate90DegreesCcw } = require("@mui/icons-material");
 const {
   models: { Order, Product, GameOrder, User },
 } = require("../db");
@@ -83,5 +84,23 @@ router.post("/cart", auth, findToken, async (req, res, next) => {
     res.json(gameOrder);
   } catch (err) {
     next(err);
+  }
+});
+
+router.put("/:productId", auth, findToken, async (req, res, next) => {
+  try {
+    const order = await Order.findOne({
+      where: { userId: req.user.id, status: "unfullfilled" },
+    });
+
+    const gameOrder = await GameOrder.findOne({
+      where: { orderId: order.id, productId: req.params.productId },
+      include: Product,
+    });
+
+    await gameOrder.increment("quantity");
+    res.send(gameOrder);
+  } catch (e) {
+    next(e);
   }
 });

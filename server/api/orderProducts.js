@@ -94,6 +94,7 @@ router.put("/:productId", auth, findToken, async (req, res, next) => {
         orderId: order.id,
         productId: req.params.productId,
       },
+      include: Product,
     });
     await orderProducts[0].increment("quantity");
     res.json(orderProducts);

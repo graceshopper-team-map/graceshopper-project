@@ -78,6 +78,40 @@ export const addOrder = createAsyncThunk(
   }
 );
 
+//increment order
+export const incrementGame = createAsyncThunk(
+  "incrementGame",
+  async ({ productId, quantity }) => {
+    const token = window.localStorage.getItem("token");
+    if (token) {
+      const { data } = await axios.put(
+        `/api/orders/${productId}`,
+        { quantity },
+        { headers: { authorization: token } }
+      );
+      return data;
+    }
+  }
+);
+
+export const decrementGame = createAsyncThunk(
+  "incrementGame",
+  async ({ productId, quantity }) => {
+    const token = window.localStorage.getItem("token");
+    if (token) {
+      if (quantity > 0) {
+        const { data } = await axios.put(
+          `/api/orders/${productId}`,
+          { quantity },
+          { headers: { authorization: token } }
+        );
+      } else {
+      }
+      return data;
+    }
+  }
+);
+
 export const removeProduct = createAsyncThunk(
   "removeItem",
   async (productId) => {
