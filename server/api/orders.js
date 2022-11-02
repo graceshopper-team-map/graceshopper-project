@@ -52,24 +52,36 @@ router.get("/user2/:userId", async (req, res, next) => {
   }
 });
 
-router.post("/user/:userId", async (req, res, next) => {});
-
-//DELETE
-router.delete("/:productId", auth, findToken, async (req, res, next) => {
+//POST *add item to cart
+router.post("/cart", auth, findToken, async (req, res, next) => {
   try {
+    const { productId } = req.body;
     const order = await Order.findOne({
-      where: { userId: req.params.userId, status: "unfullfilled" },
+      where: { userId: req.user.id, status: "unfullfilled" },
     });
 
-    if (order) {
-      await GameOrder.destroy({
-        where: {
-          orderId: order.id,
-          productId: req.params.productId,
-        },
-      });
-    }
-  } catch (e) {
-    next(e);
+    // const game = await GameOrder.findAll({
+    //   where: {
+    //     orderId: order.id,
+    //   },
+    //   include: Product,
+    // });
+
+    // const match = game.find((game) => game.productId === productId);
+
+    // if (match) {
+    // } else {
+    // }
+    const gameOrder = await GameOrder.findOrCreate({
+      where: {
+        orderId: order.id,
+        productId,
+      },
+      defaults: { quantity: 1, subtotal: 0 },
+      include: Product,
+    });
+    res.json(gameOrder);
+  } catch (err) {
+    next(err);
   }
 });

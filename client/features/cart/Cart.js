@@ -100,7 +100,9 @@ const Cart = ({ isLoggedIn }) => {
                       component="h2"
                     >
                       {"$" +
-                        (product.price * product.GameOrder.quantity).toFixed(2)}
+                        (product.price * product.GameOrder?.quantity).toFixed(
+                          2
+                        )}
                     </Typography>
                     <Button
                       size="small"
@@ -118,7 +120,7 @@ const Cart = ({ isLoggedIn }) => {
                       -
                     </Button>
                     <Typography>
-                      &nbsp;{product.GameOrder.quantity}&nbsp;
+                      &nbsp;{product.GameOrder?.quantity}&nbsp;
                     </Typography>
                     <Button
                       size="small"

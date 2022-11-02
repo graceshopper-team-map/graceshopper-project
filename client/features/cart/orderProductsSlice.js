@@ -16,13 +16,15 @@ export const fetchGameOrder = createAsyncThunk(
 
 export const addGameOrder = createAsyncThunk(
   "addGameOrder",
-  async ({ orderNumber, productNumber }) => {
+  async ({ productId }) => {
     try {
-      const { data } = await axios.post(
-        `/api/orderProducts/${orderNumber}/${productNumber}`
-      );
-      console.log(data);
-      return data;
+      const token = window.localStorage.getItem("token");
+      if (token) {
+        const { data } = await axios.post(`/api/orderProducts/${productId}`, {
+          headers: { authorization: token },
+        });
+        return data;
+      }
     } catch (e) {
       console.log("oops");
     }
@@ -31,14 +33,17 @@ export const addGameOrder = createAsyncThunk(
 
 export const editGameOrder = createAsyncThunk(
   "editGameOrder",
-  async ({ orderNumber, productNumber }) => {
+  async ({ productId }) => {
     try {
-      const { data } = await axios.put(
-        `/api/orderProducts/${orderNumber}/${productNumber}`
-      );
-      return data;
+      const token = window.localStorage.getItem("token");
+      if (token) {
+        const { data } = await axios.put(`/api/orderProducts/${productId}`, {
+          headers: { authorization: token },
+        });
+        return data;
+      }
     } catch (e) {
-      next(e);
+      console.log(e);
     }
   }
 );

@@ -31,22 +31,19 @@ export const fetchSingleOrder = createAsyncThunk(
   }
 );
 
-export const fetchUserOrder = createAsyncThunk(
-  "orders/:userId",
-  async () => {
-    try {
-      const token = window.localStorage.getItem("token");
-      if (token) {
-        const { data } = await axios.get(`/api/orders/cart`, {
-          headers: { authorization: token },
-        });
-        return data;
-      }
-    } catch (e) {
-      console.log("oops");
+export const fetchUserOrder = createAsyncThunk("orders/:userId", async () => {
+  try {
+    const token = window.localStorage.getItem("token");
+    if (token) {
+      const { data } = await axios.get(`/api/orders/cart`, {
+        headers: { authorization: token },
+      });
+      return data;
     }
+  } catch (e) {
+    console.log("oops");
   }
-);
+});
 
 export const fetchAllUserOrders = createAsyncThunk(
   "orderHistory",
@@ -62,16 +59,19 @@ export const fetchAllUserOrders = createAsyncThunk(
 
 export const addOrder = createAsyncThunk(
   "addOrder",
-  async (userId, orderId, productId) => {
+  async ({ productId, quantity }) => {
     try {
-      const { data } = await axios.post(
-        `/api/orders/user/${userId}/${orderId}}`,
-        {
-          productId,
-          quantity,
-        }
-      );
-      return data;
+      const token = window.localStorage.getItem("token");
+      if (token) {
+        const { data } = await axios.post(
+          `/api/orders/cart`,
+          { productId, quantity },
+          {
+            headers: { authorization: token },
+          }
+        );
+        return data;
+      }
     } catch (e) {
       console.log("oops");
     }

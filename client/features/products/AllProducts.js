@@ -19,7 +19,7 @@ import { addGameOrder, editGameOrder } from "../cart/orderProductsSlice";
 
 /*COMPS */
 import Loading from "../loading/Loading.js";
-import { fetchUserOrder } from "../cart/ordersSlice";
+import { addOrder, fetchUserOrder } from "../cart/ordersSlice";
 // import { addToCart, fetchUserOrder } from "../cart/ordersSlice";
 
 const AllProducts = () => {
@@ -79,13 +79,9 @@ const AllProducts = () => {
                     <Button
                       size="large"
                       className="custom-button"
-                      onClick={async () => {
-                        const userProduct = userOrder.filter(cartProducts => cartProducts.id === product.id)
-                        const order = userOrder[0].GameOrder.orderId
-                        userProduct[0] ?
-                          dispatch(editGameOrder({orderNumber: order, productNumber: product.id}))
-                        : dispatch(addGameOrder({orderNumber: order, productNumber: product.id}));
-                      }}
+                      onClick={() =>
+                        dispatch(addOrder({ productId: product.id }))
+                      }
                     >
                       <AddShoppingCartIcon /> Add to Cart
                     </Button>

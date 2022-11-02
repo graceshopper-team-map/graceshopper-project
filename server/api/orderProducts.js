@@ -84,36 +84,25 @@ router.get("/:orderId/:productId", async (req, res, next) => {
   }
 });
 
-router.post("/:orderId/:productId", async (req, res, next) => {
+router.put("/:productId", auth, findToken, async (req, res, next) => {
   try {
-    const orderProducts = await GameOrder.findOrCreate({
-      where: {
-        orderId: req.params.orderId,
-        productId: req.params.productId,
-      },
-      defaults: { quantity: 1 },
+    const order = await Order.findOne({
+      where: { userId: req.user.id, status: "unfullfilled" },
     });
-    res.json(orderProducts);
-  } catch (err) {
-    next(err);
-  }
-});
-
-router.put("/:orderId/:productId", async (req, res, next) => {
-  try {
     const orderProducts = await GameOrder.findAll({
       where: {
-        orderId: req.params.orderId,
+        orderId: order.id,
         productId: req.params.productId,
       },
     });
-    await orderProducts[0].increment("quantity", { by: 1 });
+    await orderProducts[0].increment("quantity");
     res.json(orderProducts);
   } catch (err) {
     next(err);
   }
 });
 
+//DELETE delete item from cart
 router.delete("/:productId", auth, findToken, async (req, res, next) => {
   try {
     const order = await Order.findOne({
