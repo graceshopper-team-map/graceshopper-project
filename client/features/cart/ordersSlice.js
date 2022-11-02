@@ -133,6 +133,18 @@ export const checkoutCart = createAsyncThunk(
   }
 );
 
+export const createNewCart = createAsyncThunk(
+  "createNewCart",
+  async (userId) => {
+    try {
+      const { data } = await axios.post(`/api/orders/${userId}`);
+      return data;
+    } catch (e) {
+      console.log("oops");
+    }
+  }
+);
+
 export const orderSlice = createSlice({
   name: "order",
   initialState: {
@@ -198,9 +210,15 @@ export const orderSlice = createSlice({
     builder.addCase(fetchUserOrder.fulfilled, (state, action) => {
       state.userOrders = action.payload;
     });
-    // builder.addCase(fetchAllUserOrders.fulfilled, (state, action) => {
-    //   state.allUserOrders = action.payload
-    // })
+    builder.addCase(fetchAllUserOrders.fulfilled, (state, action) => {
+      state.allUserOrders = action.payload
+    })
+     builder.addCase(checkoutCart.fulfilled, (state, action) => {
+      state.userOrders = []
+    })
+    builder.addCase(createNewCart.fulfilled, (state, action) => {
+      state.userOrders = action.payload
+    }) 
     builder
       .addCase(addOrder.fulfilled, (state, action) => {
         state.userOrders.push(action.payload);
@@ -213,9 +231,7 @@ export const orderSlice = createSlice({
         );
         state.userOrders = removeItem;
       });
-    builder.addCase(checkoutCart.fulfilled, (state, action) => {
-      console.log(action.payload);
-    });
+   
   },
 });
 

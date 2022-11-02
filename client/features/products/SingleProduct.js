@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchSingleProduct } from "./productSlice.js";
 import EditProduct from "./EditProduct.js";
 import Loading from "../loading/Loading.js";
+import { addOrder } from "../cart/ordersSlice.js";
 
 const SingleProduct = () => {
   const product = useSelector((state) => state.product.product);
@@ -28,7 +29,9 @@ const SingleProduct = () => {
         <p>Quantity: {quantity}</p>
         <p>Description: {description}</p>
         <p>Genre: {genre}</p>
-        <button>Add to Cart</button>
+        <button onClick={() => dispatch(addOrder({ productId: productId }))}>
+          Add to Cart
+        </button>
       </div>
     </div>
   );
