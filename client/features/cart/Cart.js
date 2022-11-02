@@ -9,6 +9,7 @@ import {
   incrementGame,
   decrementGame,
   checkoutCart,
+  createNewCart
 } from "./ordersSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -30,14 +31,15 @@ import {
   addGameOrder,
 } from "./orderProductsSlice";
 
-const Cart = ({ isLoggedIn }) => {
+const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userOrder = useSelector((state) => state.order.userOrders);
   const userId = useSelector((state) => state.auth.me.id);
   console.log("I am user: ", userId);
   console.log("IAMUSERORDER: ", userOrder);
-  const cartOrderId = userOrder[0]?.GameOrder.orderId;
+  const cartOrderId = userOrder[0]?.GameOrder?.orderId;
+
   useEffect(() => {
     if (userId) {
       dispatch(fetchUserOrder(userId));
@@ -155,6 +157,8 @@ const Cart = ({ isLoggedIn }) => {
             <Button
               onClick={() => {
                 dispatch(checkoutCart(cartOrderId));
+                dispatch(createNewCart(userId))
+                dispatch(fetchUserOrder());
                 navigate("/checkout");
               }}
             >
