@@ -18,6 +18,8 @@ async function seed() {
     User.create({ username: "cody", password: "123" }),
     User.create({ username: "murphy", password: "123" }),
     User.create({ username: "lucy", password: "123", isAdmin: true }),
+    User.create({ username: "joey", password: "123" }),
+    User.create({ username: "tony", password: "123", isAdmin: true }),
   ]);
 
   const products = await Promise.all([
@@ -74,7 +76,7 @@ async function seed() {
     Product.create({
       name: "Fortnite",
       imageUrl:
-        "https://www.freepnglogos.com/uploads/fortnite-png/fortnite-png-logo-download-clip-art-clip-art-0.jpg",
+        "https://assets1.ignimgs.com/2018/03/06/fortnite---button-1520296499714.jpg?width=300&crop=1%3A1%2Csmart",
       price: 25.99,
       quantity: 13,
       description:
@@ -82,57 +84,222 @@ async function seed() {
       genre: "Survival",
     }),
     Product.create({
-      name: "Game1",
+      name: "Doom",
       imageUrl:
-        "https://png.pngtree.com/element_our/20190528/ourmid/pngtree-gamepad-for-playing-video-games-image_1132236.jpg",
-      price: 21.99,
-      quantity: 8,
-      description: "Game1 is a random game that's just created.",
-      genre: "Multiplayer",
+        "https://assets-prd.ignimgs.com/2021/12/06/doom-1993-id-1638823790037.png?width=300&crop=1%3A1%2Csmart",
+      price: 4.99,
+      quantity: 50,
+      description: "A Classic Shooter.",
+      genre: "First-person Shooter",
     }),
     Product.create({
-      name: "Game2",
+      name: "Animal Crossing",
       imageUrl:
-        "https://png.pngtree.com/element_our/20190528/ourmid/pngtree-gamepad-for-playing-video-games-image_1132236.jpg",
-      price: 20.0,
-      quantity: 21,
-      description: "Game2 is a random game that's just created.",
-      genre: "Puzzle",
+        "https://assets-prd.ignimgs.com/2021/12/14/acnewleaf-1639515817356.jpg?width=300&crop=1%3A1%2Csmart",
+      price: 49.99,
+      quantity: 100,
+      description: "Animal Crossing is a social simulation video game.",
+      genre: "Simulation",
     }),
     Product.create({
-      name: "Game3",
+      name: "Grand Theft Auto V",
       imageUrl:
-        "https://png.pngtree.com/element_our/20190528/ourmid/pngtree-gamepad-for-playing-video-games-image_1132236.jpg",
-      price: 14.0,
-      quantity: 3,
-      description: "Game3 is a random game that's just created.",
-      genre: "Sandbox",
+        "https://assets-prd.ignimgs.com/2021/12/17/gta-5-button-2021-1639777058682.jpg?width=300&crop=1%3A1%2Csmart",
+      price: 29.99,
+      quantity: 100,
+      description: "Third-Person Shooter.",
+      genre: "Shooter",
     }),
     Product.create({
-      name: "Game4",
+      name: "Call of Duty: Modern Warfare 2",
       imageUrl:
-        "https://png.pngtree.com/element_our/20190528/ourmid/pngtree-gamepad-for-playing-video-games-image_1132236.jpg",
-      price: 15.75,
-      quantity: 11,
-      description: "Game4 is a random game that's just created.",
-      genre: "Role-Playing",
+        "https://assets-prd.ignimgs.com/2022/05/24/call-of-duty-modern-warfare-2-button-02-1653417394041.jpg?width=300&crop=1%3A1%2Csmart",
+      price: 69.99,
+      quantity: 50,
+      description: "First-person shooter.",
+      genre: "Shooter Multiplayer",
     }),
     Product.create({
-      name: "Game5",
+      name: "FIFA 23",
       imageUrl:
-        "https://png.pngtree.com/element_our/20190528/ourmid/pngtree-gamepad-for-playing-video-games-image_1132236.jpg",
+        "https://assets-prd.ignimgs.com/2022/07/19/fifa-23-button-02-1658265594101.jpg?width=300&crop=1%3A1%2Csmart",
+      price: 59.99,
+      quantity: 50,
+      description: "Soccer Simulation.",
+      genre: "Sports Simulation",
+    }),
+    Product.create({
+      name: "Red Dead Redemption 2",
+      imageUrl:
+        "https://assets1.ignimgs.com/2016/10/18/red-dead-redemption-2-buttonjpg-f9ad35.jpg?width=300&crop=1%3A1%2Csmart",
+      price: 39.99,
+      quantity: 100,
+      description: "Western-themed Third-person Shooter.",
+      genre: "Shooter",
+    }),
+    Product.create({
+      name: "Assassin's Creed Valhalla",
+      imageUrl:
+        "https://assets1.ignimgs.com/2020/04/30/assassins-creed-valhalla---button-fin-1588268099443.jpg?width=300&crop=1%3A1%2Csmart",
+      price: 29.99,
+      quantity: 100,
+      description: "Open-world Viking Action-adventure game.",
+      genre: "Adventure",
+    }),
+    Product.create({
+      name: "Battlefield: 2042",
+      imageUrl:
+        "https://assets-prd.ignimgs.com/2021/06/09/battlefield-2042-button-fin-1623262719242.jpg?width=300&crop=1%3A1%2Csmart",
+      price: 24.99,
+      quantity: 100,
+      description: "Futuristic First-person shooter.",
+      genre: "First-person shooter",
+    }),
+    Product.create({
+      name: "Elden Ring",
+      imageUrl:
+        "https://assets-prd.ignimgs.com/2021/06/12/elden-ring-button-03-1623460560664.jpg?width=300&crop=1%3A1%2Csmart",
+      price: 39.99,
+      quantity: 100,
+      description: "Open-world third person action game.",
+      genre: "Adventure",
+    }),
+    Product.create({
+      name: "God of War: Ragnarok",
+      imageUrl:
+        "https://assets-prd.ignimgs.com/2021/09/09/god-of-war-ragnarok-button-1631231879154.jpg?width=300&crop=1%3A1%2Csmart",
+      price: 59.99,
+      quantity: 50,
+      description: "Third-person action game themed around norse mythology.",
+      genre: "Action-Adventure",
+    }),
+    Product.create({
+      name: "Cyberpunk 2077",
+      imageUrl:
+        "https://assets-prd.ignimgs.com/2020/07/16/cyberpunk-2077-button-fin-1594877291453.jpg?width=300&crop=1%3A1%2Csmart",
+      price: 19.99,
+      quantity: 150,
+      description: "Cyberpunk-themed RPG",
+      genre: "Role-playing Game",
+    }),
+    Product.create({
+      name: "Sonic Frontiers",
+      imageUrl:
+        "https://assets-prd.ignimgs.com/2022/10/12/sonic-frontiers-button-fin-1665602954137.jpg?width=300&crop=1%3A1%2Csmart",
+      price: 49.99,
+      quantity: 50,
+      description: "3D Platformer",
+      genre: "Platformer",
+    }),
+    Product.create({
+      name: "Gotham Knights",
+      imageUrl:
+        "https://assets-prd.ignimgs.com/2022/01/28/gothamknights-png-1643333007694.jpeg?width=300&crop=1%3A1%2Csmart",
+      price: 59.99,
+      quantity: 50,
+      description: "Third-person action game set in the Batman universe.",
+      genre: "Action",
+    }),
+    Product.create({
+      name: "Splatoon 3",
+      imageUrl:
+        "https://sm.ign.com/t/ign_ap/cover/s/splatoon-3/splatoon-3_spu1.300.jpg",
+      price: 49.99,
+      quantity: 75,
+      description: "Shooter Platformer hybrid from Nintendo.",
+      genre: "Shooter Multiplayer",
+    }),
+    Product.create({
+      name: "Resident Evil: Village",
+      imageUrl:
+        "https://assets-prd.ignimgs.com/2021/01/22/re-village-button-fin-1611277715193.jpg?width=300&crop=1%3A1%2Csmart",
+      price: 39.99,
+      quantity: 100,
+      description: "First-person horror game.",
+      genre: "Shooter Horror",
+    }),
+    Product.create({
+      name: "Halo: Infinite",
+      imageUrl:
+        "https://assets-prd.ignimgs.com/2020/07/24/halo-infinite-button-2020-1595617876660.jpg?width=300&crop=1%3A1%2Csmart",
+      price: 24.99,
+      quantity: 75,
+      description:
+        "First Person shooter where you play the iconic Master Chief.",
+      genre: "FPS Multiplayer",
+    }),
+    Product.create({
+      name: "Forza Horizon 5",
+      imageUrl:
+        "https://assets-prd.ignimgs.com/2021/08/24/forza-horizon-5-button-fin-1629830068379.jpg?width=300&crop=1%3A1%2Csmart",
+      price: 29.99,
+      quantity: 50,
+      description: "Driving simulation game.",
+      genre: "Racing Simulation",
+    }),
+    Product.create({
+      name: "Metroid: Dread",
+      imageUrl:
+        "https://assets-prd.ignimgs.com/2021/06/16/metroid-dread-button-1623828978724.jpg?width=300&crop=1%3A1%2Csmart",
+      price: 49.99,
+      quantity: 75,
+      description:
+        "2D side-scrolling adventure where you play as Samus Aran in a dangerous world.",
+      genre: "2D Side-scroller",
+    }),
+    Product.create({
+      name: "Ratchet & Clank: Rift Apart",
+      imageUrl:
+        "https://assets-prd.ignimgs.com/2021/04/15/ratchet-and-clank-rift-apart-button-2021-1618517968604.jpg?width=300&crop=1%3A1%2Csmart",
+      price: 39.99,
+      quantity: 50,
+      description: "Sci-fi action adventure platformer.",
+      genre: "Adventure Platformer",
+    }),
+    Product.create({
+      name: "Duck Hunt",
+      imageUrl:
+        "https://assets-prd.ignimgs.com/2022/02/03/duckhunt-sq-1643929325298.jpg?width=300&crop=1%3A1%2Csmart",
       price: 9.99,
-      quantity: 90,
-      description: "Game5 is a random game that's just created.",
-      genre: "Shooters",
+      quantity: 25,
+      description: "Light-gun shooter for the NES.",
+      genre: "Shooter",
     }),
     Product.create({
-      name: "Game6",
+      name: "Super Smash Bros. Ultimate",
       imageUrl:
-        "https://png.pngtree.com/element_our/20190528/ourmid/pngtree-gamepad-for-playing-video-games-image_1132236.jpg",
-      price: 18.99,
-      quantity: 1,
-      description: "Game6 is a random game that's just created.",
+        "https://assets1.ignimgs.com/2018/06/13/super-smash-btros-ultimate---button-0001-1528851298611.jpg?width=300&crop=1%3A1%2Csmart",
+      price: 39.99,
+      quantity: 75,
+      description: "Nintendo-themed fighting game.",
+      genre: "Fighting",
+    }),
+    Product.create({
+      name: "Bayonetta 3",
+      imageUrl:
+        "https://assets-prd.ignimgs.com/2022/07/13/bayonetta-3-button-fin-1657727125568.jpg?width=300&crop=1%3A1%2Csmart",
+      price: 59.99,
+      quantity: 50,
+      description: "Action-adventure game.",
+      genre: "Adventure Action",
+    }),
+    Product.create({
+      name: "NBA 2K23",
+      imageUrl:
+        "https://assets-prd.ignimgs.com/2022/08/25/nba-2k23-button-v2-1661451145664.jpg?width=300&crop=1%3A1%2Csmart",
+      price: 69.99,
+      quantity: 50,
+      description: "Basketball simulation sports game.",
+      genre: "Sports Simulation",
+    }),
+    Product.create({
+      name: "JUMANJI: The Video Game",
+      imageUrl:
+        "https://assets1.ignimgs.com/2019/11/09/jumanji-the-video-game---button-fin-1573262896460.jpg?width=300&crop=1%3A1%2Csmart",
+      price: 19.99,
+      quantity: 150,
+      description:
+        "Unite in adventure and laughter in the action-packed game of Jumanji, the ultimate team challenge for those seeking to leave their world behind.",
       genre: "Adventure",
     }),
   ]);
@@ -218,7 +385,7 @@ async function seed() {
   await orders[1].setUser(users[0].id);
   await orders[2].setUser(users[1].id);
   await orders[3].setUser(users[0].id);
-  await orders[4].setUser(users[2].id)
+  await orders[4].setUser(users[2].id);
 
   console.log(`seeded ${users.length} users`);
   console.log(`seeded successfully`);
@@ -227,6 +394,8 @@ async function seed() {
       cody: users[0],
       murphy: users[1],
       lucy: users[2],
+      joey: users[3],
+      tony: users[4],
     },
     products,
     orders,

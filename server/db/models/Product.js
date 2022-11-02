@@ -10,7 +10,7 @@ const Product = db.define("product", {
   imageUrl: {
     type: Sequelize.STRING,
     defaultValue:
-      "https://images.nintendolife.com/games/nes/super_mario_bros/cover_large.jpg",
+      "https://png.pngtree.com/element_our/20190528/ourmid/pngtree-gamepad-for-playing-video-games-image_1132236.jpg",
   },
   price: {
     type: Sequelize.NUMERIC(10, 2),

@@ -22,15 +22,16 @@ const AllOrders = () => {
       <h2>Order History:</h2>
       {fullfilledOrders[0] ? (
         fullfilledOrders.map((orders) => (
-          <div key={orders.id}>
+          <div key={orders.id} className = "info-page">
             <hr />
             <h3>Order Number: {orders.id}</h3>
             <div>
               {orders?.products.map((product) => (
                 <div key={product.id}>
                   <div>Item Purchased: {product.name}</div>
-                  <div>Item Price: {product.price}</div>
+                  <div>Item Price: ${product.price}</div>
                   <div>Amount Purchased: {product.GameOrder.quantity}</div>
+                  <hr/>
                 </div>
               ))}
             </div>
