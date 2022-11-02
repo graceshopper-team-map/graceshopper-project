@@ -2,13 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   fetchUserOrder,
-  decrementQuantity,
-  incrementQuantity,
-  removeItem,
-  removeProduct,
   incrementGame,
   decrementGame,
   checkoutCart,
+  createNewCart
 } from "./ordersSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -25,19 +22,18 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import Loading from "../loading/Loading";
 import {
-  deleteGameFromCart,
   removeGameOrder,
-  addGameOrder,
 } from "./orderProductsSlice";
 
-const Cart = ({ isLoggedIn }) => {
+const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userOrder = useSelector((state) => state.order.userOrders);
   const userId = useSelector((state) => state.auth.me.id);
   console.log("I am user: ", userId);
   console.log("IAMUSERORDER: ", userOrder);
-  const cartOrderId = userOrder[0]?.GameOrder.orderId;
+  const cartOrderId = userOrder[0]?.GameOrder?.orderId;
+
   useEffect(() => {
     if (userId) {
       dispatch(fetchUserOrder(userId));
@@ -69,7 +65,7 @@ const Cart = ({ isLoggedIn }) => {
       </div>
       <Container id="custom-cart">
         <Grid container justify="center" spacing={4}>
-          {userOrder?.map((product) => {
+          {userOrder ? userOrder?.map((product) => {
             return (
               <Grid key={product.id} item xs={12} sm={6} md={4}>
                 <Card className="custom-card">
@@ -144,7 +140,7 @@ const Cart = ({ isLoggedIn }) => {
                 </Card>
               </Grid>
             );
-          })}
+          }) : null}
         </Grid>
         <div style={{ margin: "25px" }}>
           <h1>TOTAL ITEMS: {0}</h1>
@@ -155,6 +151,8 @@ const Cart = ({ isLoggedIn }) => {
             <Button
               onClick={() => {
                 dispatch(checkoutCart(cartOrderId));
+                dispatch(createNewCart(userId))
+                dispatch(fetchUserOrder());
                 navigate("/checkout");
               }}
             >

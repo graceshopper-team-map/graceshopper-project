@@ -147,3 +147,13 @@ router.put("/:orderId", async (req, res, next) => {
     next(e);
   }
 });
+
+router.post("/:userId", async (req, res, next) => {
+  try {
+    const order = await Order.create({});
+    await order.setUser(req.params.userId)
+    res.send(order);
+  } catch (e) {
+    next(e);
+  }
+});
