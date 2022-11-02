@@ -99,14 +99,12 @@ export const decrementGame = createAsyncThunk(
   async ({ productId, quantity }) => {
     const token = window.localStorage.getItem("token");
     if (token) {
-      if (quantity > 0) {
-        const { data } = await axios.put(
-          `/api/orders/${productId}/sub`,
-          { quantity },
-          { headers: { authorization: token } }
-        );
-        return data;
-      }
+      const { data } = await axios.put(
+        `/api/orders/${productId}/sub`,
+        { quantity },
+        { headers: { authorization: token } }
+      );
+      return data;
     }
   }
 );

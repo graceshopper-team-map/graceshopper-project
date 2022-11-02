@@ -117,9 +117,10 @@ const Cart = ({ isLoggedIn }) => {
                       size="small"
                       variant="outlined"
                       className="decrease-product-btn"
-                      onClick={() =>
-                        dispatch(decrementGame({ productId: product.id }))
-                      }
+                      onClick={() => {
+                        dispatch(decrementGame({ productId: product.id }));
+                        dispatch(fetchUserOrder());
+                      }}
                     >
                       -
                     </Button>
