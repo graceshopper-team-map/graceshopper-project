@@ -14,29 +14,17 @@ export const fetchGameOrder = createAsyncThunk(
   }
 );
 
-export const deleteGameFromCart = createAsyncThunk(
-  "/orderProducts/:userId/:productId",
-  async ({ userId, productId }) => {
-    try {
-      const { data } = await axios.delete(
-        `/api/orderProducts/${userId}/${productId}`
-      );
-      return data;
-    } catch (e) {
-      console.log("oops");
-    }
-  }
-);
-
 export const addGameOrder = createAsyncThunk(
   "addGameOrder",
-  async ({ orderNumber, productNumber }) => {
+  async ({ productId }) => {
     try {
-      const { data } = await axios.post(
-        `/api/orderProducts/${orderNumber}/${productNumber}`
-      );
-      console.log(data);
-      return data;
+      const token = window.localStorage.getItem("token");
+      if (token) {
+        const { data } = await axios.post(`/api/orderProducts/${productId}`, {
+          headers: { authorization: token },
+        });
+        return data;
+      }
     } catch (e) {
       console.log("oops");
     }
@@ -45,24 +33,33 @@ export const addGameOrder = createAsyncThunk(
 
 export const editGameOrder = createAsyncThunk(
   "editGameOrder",
-  async ({ orderNumber, productNumber }) => {
+  async ({ productId }) => {
     try {
-      const { data } = await axios.put(
-        `/api/orderProducts/${orderNumber}/${productNumber}`
-      );
-      return data;
+      const token = window.localStorage.getItem("token");
+      if (token) {
+        const { data } = await axios.put(`/api/orderProducts/${productId}`, {
+          headers: { authorization: token },
+        });
+        return data;
+      }
     } catch (e) {
-      next(e);
+      console.log(e);
     }
   }
 );
 
 export const removeGameOrder = createAsyncThunk(
   "removeGameOrder",
-  async ({ orderId, productId }) => {
+  async ({ productId }) => {
     try {
-      const { data } = await axios.delete(`/api/orderProducts/${orderId}/${productId}`)
-      return data;
+      const token = window.localStorage.getItem("token");
+
+      if (token) {
+        const { data } = await axios.delete(`/api/orderProducts/${productId}`, {
+          headers: { authorization: token },
+        });
+        return data;
+      }
     } catch (e) {
       console.log("oops");
     }
@@ -82,7 +79,10 @@ export const orderProductsSlice = createSlice({
     });
     builder.addCase(addGameOrder.fulfilled, (state, action) => {
       state.push(action.payload);
-    })
+    });
+    builder.addCase(removeGameOrder.fulfilled, (state, action) => {
+      state = state.filter((product) => product.id !== product);
+    });
   },
 });
 
