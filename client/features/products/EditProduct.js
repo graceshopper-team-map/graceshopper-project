@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { editProduct } from "./productSlice";
+import { fetchProducts } from "./productSlice";
 
 const EditProduct = () => {
   const [name, setName] = useState("");
@@ -11,9 +12,10 @@ const EditProduct = () => {
   const dispatch = useDispatch();
   const { productId } = useParams();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    dispatch(editProduct({ productId, name, price, quantity, description }));
+    await dispatch(editProduct({ productId, name, price, quantity, description }));
+    await dispatch(fetchProducts())
     setName("");
     setPrice("");
     setQuantity("");

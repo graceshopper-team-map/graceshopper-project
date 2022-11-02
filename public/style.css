@@ -109,3 +109,11 @@ form div {
   color: #8b0000;
 }
 /*END OF CART STYLING*/
+
+.info-page {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  color: black;
+  margin: 2%;
+}
