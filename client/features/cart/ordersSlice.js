@@ -121,6 +121,18 @@ export const removeProduct = createAsyncThunk(
   }
 );
 
+export const checkoutCart = createAsyncThunk(
+  "checkoutCart",
+  async (orderId) => {
+    try {
+      const { data } = await axios.put(`/api/orders/${orderId}`);
+      return data;
+    } catch (e) {
+      console.log("oops");
+    }
+  }
+);
+
 export const orderSlice = createSlice({
   name: "order",
   initialState: {
@@ -201,6 +213,9 @@ export const orderSlice = createSlice({
         );
         state.userOrders = removeItem;
       });
+    builder.addCase(checkoutCart.fulfilled, (state, action) => {
+      console.log(action.payload);
+    });
   },
 });
 
