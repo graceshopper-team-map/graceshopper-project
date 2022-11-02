@@ -31,7 +31,7 @@ router.get("/:userId", async (req, res, next) => {
     });
 
     if (game) res.json(game);
-    else sendStatus(404).json("No game order found");
+    else res.sendStatus(404).json("No game order found");
   } catch (err) {
     next(err);
   }

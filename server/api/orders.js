@@ -123,3 +123,6 @@ router.put("/:productId/sub", auth, findToken, async (req, res, next) => {
     next(e);
   }
 });
+
+// PUT
+// fulfilling the checkout

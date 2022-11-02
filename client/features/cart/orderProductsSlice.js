@@ -1,4 +1,3 @@
-import { DataArrayTwoTone, NextPlan } from "@mui/icons-material";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -31,6 +30,7 @@ export const addGameOrder = createAsyncThunk(
   }
 );
 
+// corresponding thunk to incrementing of item in cart
 export const editGameOrder = createAsyncThunk(
   "editGameOrder",
   async ({ productId }) => {

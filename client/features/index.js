@@ -5,5 +5,6 @@ export { default as Home } from "./home/Home";
 export { default as Cart } from "./cart/Cart";
 export { default as Loading } from "./loading/Loading";
 export { default as AllUsers } from "./user/AllUsers";
-export { default as SingleUser } from "./user/SingleUser"
-export { default as AllOrders } from "./cart/AllOrders"
+export { default as SingleUser } from "./user/SingleUser";
+export { default as AllOrders } from "./cart/AllOrders";
+export { default as Checkout } from "./cart/Checkout";

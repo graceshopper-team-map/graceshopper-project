@@ -14,7 +14,8 @@ import {
   SingleProduct,
   AllUsers,
   SingleUser,
-  AllOrders
+  AllOrders,
+  Checkout,
 } from "../features";
 import { fetchProducts } from "../features/products/productSlice";
 
@@ -33,28 +34,15 @@ const AppRoutes = ({ userId, userOrder }) => {
     <div>
       {isLoggedIn ? (
         <Routes>
-          <Route path="/*" element={<Home/>} />
-          <Route to="/home" element={<Home/>} />
-          <Route
-            path="/cart"
-            element={
-              <Cart
-                isLoggedIn={isLoggedIn}
-              />
-            }
-          />
-          <Route
-            path="/products"
-            element={
-              <AllProducts />
-            }
-          />
+          <Route path="/*" element={<Home />} />
+          <Route to="/home" element={<Home />} />
+          <Route path="/cart" element={<Cart isLoggedIn={isLoggedIn} />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/products" element={<AllProducts />} />
           <Route path="/products/:productId" element={<SingleProduct />} />
           <Route path="/profile" element={<SingleUser />} />
           <Route path="/orders" element={<AllOrders />} />
-          {user.isAdmin ? (
-            <Route path="/users" element={<AllUsers />} />
-          ) : null}
+          {user.isAdmin ? <Route path="/users" element={<AllUsers />} /> : null}
         </Routes>
       ) : (
         <Routes>
@@ -72,12 +60,7 @@ const AppRoutes = ({ userId, userOrder }) => {
           />
           <Route path="/home" element={<Home />} />
           <Route path="/cart" element={<Cart isLoggedIn={isLoggedIn} />} />
-          <Route
-            path="/products"
-            element={
-              <AllProducts/>
-            }
-          />
+          <Route path="/products" element={<AllProducts />} />
           <Route path="/products/:productId" element={<SingleProduct />} />
         </Routes>
       )}
