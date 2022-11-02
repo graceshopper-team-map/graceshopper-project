@@ -7,6 +7,7 @@ import {
   removeItem,
   removeProduct,
   incrementGame,
+  decrementGame,
 } from "./ordersSlice";
 import { useSelector, useDispatch } from "react-redux";
 import {
@@ -116,7 +117,9 @@ const Cart = ({ isLoggedIn }) => {
                       size="small"
                       variant="outlined"
                       className="decrease-product-btn"
-                      onClick={() => dispatch(decrementQuantity(product.id))}
+                      onClick={() =>
+                        dispatch(decrementGame({ productId: product.id }))
+                      }
                     >
                       -
                     </Button>

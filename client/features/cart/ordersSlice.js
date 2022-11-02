@@ -85,7 +85,7 @@ export const incrementGame = createAsyncThunk(
     const token = window.localStorage.getItem("token");
     if (token) {
       const { data } = await axios.put(
-        `/api/orders/${productId}`,
+        `/api/orders/${productId}/add`,
         { quantity },
         { headers: { authorization: token } }
       );
@@ -95,19 +95,18 @@ export const incrementGame = createAsyncThunk(
 );
 
 export const decrementGame = createAsyncThunk(
-  "incrementGame",
+  "decrementGame",
   async ({ productId, quantity }) => {
     const token = window.localStorage.getItem("token");
     if (token) {
       if (quantity > 0) {
         const { data } = await axios.put(
-          `/api/orders/${productId}`,
+          `/api/orders/${productId}/sub`,
           { quantity },
           { headers: { authorization: token } }
         );
-      } else {
+        return data;
       }
-      return data;
     }
   }
 );

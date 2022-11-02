@@ -87,7 +87,7 @@ router.post("/cart", auth, findToken, async (req, res, next) => {
   }
 });
 
-router.put("/:productId", auth, findToken, async (req, res, next) => {
+router.put("/:productId/add", auth, findToken, async (req, res, next) => {
   try {
     const order = await Order.findOne({
       where: { userId: req.user.id, status: "unfullfilled" },
@@ -99,6 +99,25 @@ router.put("/:productId", auth, findToken, async (req, res, next) => {
     });
 
     await gameOrder.increment("quantity");
+    res.send(gameOrder);
+  } catch (e) {
+    next(e);
+  }
+});
+
+//PUT Decrement Game
+router.put("/:productId/sub", auth, findToken, async (req, res, next) => {
+  try {
+    const order = await Order.findOne({
+      where: { userId: req.user.id, status: "unfullfilled" },
+    });
+
+    const gameOrder = await GameOrder.findOne({
+      where: { orderId: order.id, productId: req.params.productId },
+      include: Product,
+    });
+
+    await gameOrder.decrement("quantity");
     res.send(gameOrder);
   } catch (e) {
     next(e);
