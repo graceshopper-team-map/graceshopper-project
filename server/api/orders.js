@@ -16,7 +16,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// GET /orders/user/id
+// GET /orders/:userId
 router.get("/:userId", async (req, res, next) => {
   try {
     //make sure the orders we get back for the user is not completed
@@ -72,3 +72,6 @@ router.delete("/:productId", async (req, res, next) => {
     next(e);
   }
 });
+
+// PUT
+// fulfilling the checkout

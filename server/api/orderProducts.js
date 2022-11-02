@@ -30,7 +30,7 @@ router.get("/:userId", async (req, res, next) => {
     });
 
     if (game) res.json(game);
-    else sendStatus(404).json("No game order found");
+    else res.sendStatus(404).json("No game order found");
   } catch (err) {
     next(err);
   }
@@ -69,21 +69,37 @@ router.post("/:orderId", async (req, res, next) => {
   }
 });
 
+// PUT to checkout cart
+router.put("/:userId", async (req, res, next) => {
+  try {
+    const order = await Order.findOne({
+      where: { userId: req.params.userId, status: "unfullfilled" },
+    });
+
+    const unfulfilledOrder = await GameOrder.findAll({
+      where: { orderId: order.id },
+      include: Product,
+    });
+    // console.log(unfulfilledOrder);
+    res.json(unfulfilledOrder);
+  } catch (err) {
+    next(err);
+  }
+});
 
 router.get("/:orderId/:productId", async (req, res, next) => {
   try {
     const orderProducts = await GameOrder.findAll({
       where: {
         orderId: req.params.orderId,
-        productId: req.params.productId
-      }
+        productId: req.params.productId,
+      },
     });
     res.json(orderProducts);
   } catch (err) {
     next(err);
   }
 });
-
 
 router.post("/:orderId/:productId", async (req, res, next) => {
   try {
@@ -100,17 +116,16 @@ router.post("/:orderId/:productId", async (req, res, next) => {
   }
 });
 
+// route to increment item in backend
 router.put("/:orderId/:productId", async (req, res, next) => {
   try {
     const orderProducts = await GameOrder.findAll({
       where: {
         orderId: req.params.orderId,
-        productId: req.params.productId
-      }
+        productId: req.params.productId,
+      },
     });
-    await orderProducts[0].increment(
-      'quantity', {by: 1}
-    )
+    await orderProducts[0].increment("quantity", { by: 1 });
     res.json(orderProducts);
   } catch (err) {
     next(err);
@@ -120,13 +135,13 @@ router.put("/:orderId/:productId", async (req, res, next) => {
 router.delete("/:orderId/:productId", async (req, res, next) => {
   try {
     const gameOrder = await GameOrder.findOne({
-      where: { 
+      where: {
         orderId: req.params.orderId,
         productId: req.params.productId,
-      }
+      },
     });
-    await gameOrder.destroy()
-    res.send(gameOrder)
+    await gameOrder.destroy();
+    res.send(gameOrder);
   } catch (err) {
     next(err);
   }

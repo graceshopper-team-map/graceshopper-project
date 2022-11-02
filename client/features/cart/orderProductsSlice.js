@@ -1,4 +1,3 @@
-import { DataArrayTwoTone, NextPlan } from "@mui/icons-material";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
@@ -9,6 +8,18 @@ export const fetchGameOrder = createAsyncThunk(
       const { data } = await axios.get(`/api/orderProducts/${userId}`);
       return data;
     } catch (e) {
+      console.log("oops");
+    }
+  }
+);
+
+export const checkoutCart = createAsyncThunk(
+  "checkoutCart",
+  async (orderId) => {
+    try {
+      const { data } = await axios.put(`/api/orderProducts/${orderId}`);
+      return data;
+    } catch (err) {
       console.log("oops");
     }
   }
@@ -43,6 +54,7 @@ export const addGameOrder = createAsyncThunk(
   }
 );
 
+// corresponding thunk to incrementing of item in cart
 export const editGameOrder = createAsyncThunk(
   "editGameOrder",
   async ({ orderNumber, productNumber }) => {
@@ -52,7 +64,7 @@ export const editGameOrder = createAsyncThunk(
       );
       return data;
     } catch (e) {
-      next(e);
+      console.log("oops");
     }
   }
 );
@@ -61,7 +73,9 @@ export const removeGameOrder = createAsyncThunk(
   "removeGameOrder",
   async ({ orderId, productId }) => {
     try {
-      const { data } = await axios.delete(`/api/orderProducts/${orderId}/${productId}`)
+      const { data } = await axios.delete(
+        `/api/orderProducts/${orderId}/${productId}`
+      );
       return data;
     } catch (e) {
       console.log("oops");
@@ -82,7 +96,7 @@ export const orderProductsSlice = createSlice({
     });
     builder.addCase(addGameOrder.fulfilled, (state, action) => {
       state.push(action.payload);
-    })
+    });
   },
 });
 
