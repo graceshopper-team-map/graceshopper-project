@@ -2,10 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   fetchUserOrder,
-  decrementQuantity,
-  incrementQuantity,
-  removeItem,
-  removeProduct,
   incrementGame,
   decrementGame,
   checkoutCart,
@@ -26,9 +22,7 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import Loading from "../loading/Loading";
 import {
-  deleteGameFromCart,
   removeGameOrder,
-  addGameOrder,
 } from "./orderProductsSlice";
 
 const Cart = () => {
@@ -71,7 +65,7 @@ const Cart = () => {
       </div>
       <Container id="custom-cart">
         <Grid container justify="center" spacing={4}>
-          {userOrder?.map((product) => {
+          {userOrder ? userOrder?.map((product) => {
             return (
               <Grid key={product.id} item xs={12} sm={6} md={4}>
                 <Card className="custom-card">
@@ -146,7 +140,7 @@ const Cart = () => {
                 </Card>
               </Grid>
             );
-          })}
+          }) : null}
         </Grid>
         <div style={{ margin: "25px" }}>
           <h1>TOTAL ITEMS: {0}</h1>

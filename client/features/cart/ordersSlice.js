@@ -210,9 +210,9 @@ export const orderSlice = createSlice({
     builder.addCase(fetchUserOrder.fulfilled, (state, action) => {
       state.userOrders = action.payload;
     });
-    // builder.addCase(fetchAllUserOrders.fulfilled, (state, action) => {
-    //   state.allUserOrders = action.payload
-    // })
+    builder.addCase(fetchAllUserOrders.fulfilled, (state, action) => {
+      state.allUserOrders = action.payload
+    })
      builder.addCase(checkoutCart.fulfilled, (state, action) => {
       state.userOrders = []
     })

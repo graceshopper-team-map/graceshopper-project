@@ -15,16 +15,13 @@ import {
 } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import AddProduct from "./AddProduct";
-import { addGameOrder, editGameOrder } from "../cart/orderProductsSlice";
 
 /*COMPS */
 import Loading from "../loading/Loading.js";
-import { addOrder, fetchUserOrder } from "../cart/ordersSlice";
-// import { addToCart, fetchUserOrder } from "../cart/ordersSlice";
+import { addOrder } from "../cart/ordersSlice";
 
 const AllProducts = () => {
   const user = useSelector((state) => state.user.user);
-  const userOrder = useSelector((state) => state.order.userOrders);
   const products = useSelector((state) => state.product.products);
   const dispatch = useDispatch();
 
