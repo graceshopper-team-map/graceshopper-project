@@ -20,7 +20,7 @@ export const addGameOrder = createAsyncThunk(
       const token = window.localStorage.getItem("token");
       if (token) {
         const { data } = await axios.post(`/api/orderProducts/${productId}`, {
-          headers: { authorization: token },
+            headers: { authorization: token },
         });
         return data;
       }
@@ -40,7 +40,7 @@ export const editGameOrder = createAsyncThunk(
         const { data } = await axios.put(`/api/orderProducts/${productId}`, {
           headers: { authorization: token },
         });
-        return data;
+      return data;
       }
     } catch (e) {
       console.log(e);
@@ -53,7 +53,6 @@ export const removeGameOrder = createAsyncThunk(
   async ({ productId }) => {
     try {
       const token = window.localStorage.getItem("token");
-
       if (token) {
         const { data } = await axios.delete(`/api/orderProducts/${productId}`, {
           headers: { authorization: token },

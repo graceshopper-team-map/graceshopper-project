@@ -14,7 +14,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useEffect } from "react";
 import { fetchSingleUser } from "../user/userSlice";
 
-const Navbar = () => {
+const Navbar = ({ totalItems }) => {
   const isLoggedIn = useSelector((state) => !!state.auth.me.id);
   const userId = useSelector((state) => state.auth.me.id);
   const user = useSelector((state) => state.user.user);
@@ -52,9 +52,6 @@ const Navbar = () => {
                 <Link className="custom-a" to="/home">
                   Home
                 </Link>
-                <Link className="custom-a" to="/products">
-                  Products
-                </Link>
                 <Link className="custom-a" to="/profile">
                   Profile
                 </Link>
@@ -87,9 +84,7 @@ const Navbar = () => {
                 <Link className="custom-a" to="/signup">
                   Sign Up
                 </Link>
-                <Link className="custom-a" to="/products">
-                  Products
-                </Link>
+
                 <IconButton component={Link} to="/cart">
                   <Badge badgeContent={"0"} color="secondary">
                     <ShoppingCartIcon className="custom-cart" />

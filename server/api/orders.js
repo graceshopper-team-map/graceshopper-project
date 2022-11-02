@@ -56,23 +56,11 @@ router.get("/user2/:userId", async (req, res, next) => {
 //POST *add item to cart
 router.post("/cart", auth, findToken, async (req, res, next) => {
   try {
-    const { productId } = req.body;
+    const { productId, quantity } = req.body;
     const order = await Order.findOne({
       where: { userId: req.user.id, status: "unfullfilled" },
     });
 
-    // const game = await GameOrder.findAll({
-    //   where: {
-    //     orderId: order.id,
-    //   },
-    //   include: Product,
-    // });
-
-    // const match = game.find((game) => game.productId === productId);
-
-    // if (match) {
-    // } else {
-    // }
     const gameOrder = await GameOrder.findOrCreate({
       where: {
         orderId: order.id,
@@ -81,6 +69,7 @@ router.post("/cart", auth, findToken, async (req, res, next) => {
       defaults: { quantity: 1, subtotal: 0 },
       include: Product,
     });
+
     res.json(gameOrder);
   } catch (err) {
     next(err);
@@ -121,7 +110,6 @@ router.put("/:productId/sub", auth, findToken, async (req, res, next) => {
     });
 
     await gameOrder.decrement("quantity");
-    // await gameOrder.product.increment("quantity");
     res.send(gameOrder);
   } catch (e) {
     next(e);
@@ -151,7 +139,7 @@ router.put("/:orderId", async (req, res, next) => {
 router.post("/:userId", async (req, res, next) => {
   try {
     const order = await Order.create({});
-    await order.setUser(req.params.userId)
+    await order.setUser(req.params.userId);
     res.send(order);
   } catch (e) {
     next(e);

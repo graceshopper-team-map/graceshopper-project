@@ -46,10 +46,10 @@ const AppRoutes = ({ userId, userOrder }) => {
         </Routes>
       ) : (
         <Routes>
-          {/* <Route
+          <Route
             path="/*"
             element={<AuthForm name="login" displayName="Login" />}
-          /> */}
+          />
           <Route
             path="/login"
             element={<AuthForm name="login" displayName="Login" />}

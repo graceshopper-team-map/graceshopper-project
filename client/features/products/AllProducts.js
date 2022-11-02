@@ -19,11 +19,22 @@ import AddProduct from "./AddProduct";
 /*COMPS */
 import Loading from "../loading/Loading.js";
 import { addOrder } from "../cart/ordersSlice";
+import { addGameOrder, editGameOrder } from "../cart/orderProductsSlice";
 
 const AllProducts = () => {
   const user = useSelector((state) => state.user.user);
+  const userOrder = useSelector((state) => state.order.userOrders);
   const products = useSelector((state) => state.product.products);
   const dispatch = useDispatch();
+
+  const handleAdd = (productId) => {
+    const userProduct = userOrder.filter(
+      (cartProducts) => cartProducts.id === productId
+    );
+    userProduct[0]
+      ? dispatch(editGameOrder({ productId }))
+      : dispatch(addGameOrder({ productId }));
+  };
 
   if (!products) return <Loading message="BRB Loading Games..." />;
   return (
@@ -73,15 +84,19 @@ const AllProducts = () => {
                     >
                       {"$" + product.price}
                     </Typography>
-                    <Button
-                      size="large"
-                      className="custom-button"
-                      onClick={() =>
-                        dispatch(addOrder({ productId: product.id }))
-                      }
-                    >
-                      <AddShoppingCartIcon /> Add to Cart
-                    </Button>
+                    {product.quantity > 0 ? (
+                      <Button
+                        size="large"
+                        className="custom-button"
+                        onClick={() =>
+                          dispatch(addOrder({ productId: product.id }))
+                        }
+                      >
+                        <AddShoppingCartIcon /> Add to Cart
+                      </Button>
+                    ) : (
+                      "OUT OF STOCK"
+                    )}
                   </CardActions>
                   {user.isAdmin ? (
                     <div>

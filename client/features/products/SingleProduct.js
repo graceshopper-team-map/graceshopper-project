@@ -6,11 +6,24 @@ import EditProduct from "./EditProduct.js";
 import Loading from "../loading/Loading.js";
 import { addOrder } from "../cart/ordersSlice.js";
 
+import {
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions,
+  Typography,
+  CardActionArea,
+  Button,
+  Grid,
+  Container,
+} from "@mui/material";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+
 const SingleProduct = () => {
-  const product = useSelector((state) => state.product.product);
-  const user = useSelector((state) => state.user.user);
   const { productId } = useParams();
   const dispatch = useDispatch();
+  const product = useSelector((state) => state.product.product);
+  const user = useSelector((state) => state.user.user);
 
   const { name, imageUrl, description, price, quantity, genre } = product;
 
@@ -26,12 +39,20 @@ const SingleProduct = () => {
       </div>
       <div className="product-info">
         <h3>{name + "    " + `$${price}`}</h3>
-        <p>Quantity: {quantity}</p>
+        <p>Quantity: {quantity > 0 ?? "OUT OF STOCK"}</p>
         <p>Description: {description}</p>
         <p>Genre: {genre}</p>
-        <button onClick={() => dispatch(addOrder({ productId: productId }))}>
-          Add to Cart
-        </button>
+        {quantity > 0 ? (
+          <Button
+            size="large"
+            className="custom-button"
+            onClick={() => dispatch(addOrder({ productId: productId }))}
+          >
+            <AddShoppingCartIcon /> Add to Cart
+          </Button>
+        ) : (
+          "OUT OF STOCK, COME BACK LATER"
+        )}
       </div>
     </div>
   );
