@@ -33,7 +33,6 @@ export const fetchSingleOrder = createAsyncThunk(
 );
 
 export const fetchUserOrder = createAsyncThunk("orders/:userId", async () => {
-  const cart = window.localStorage.getItem("cart");
   try {
     const token = window.localStorage.getItem("token");
     if (token) {
@@ -41,8 +40,6 @@ export const fetchUserOrder = createAsyncThunk("orders/:userId", async () => {
         headers: { authorization: token },
       });
       return data;
-    } else if (cart) {
-      console.log("Im a cart my dude");
     }
   } catch (e) {
     console.log("oops");

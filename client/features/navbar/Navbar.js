@@ -46,21 +46,21 @@ const Navbar = ({ totalCount }) => {
               <Box className="nav-wrapper">
                 {/* The navbar will show these links after you log in */}
                 <Link
-                  style={{ "margin-top": "10px" }}
+                  style={{ marginTop: "10px" }}
                   className="custom-a"
                   to="/home"
                 >
                   Home
                 </Link>
                 <Link
-                  style={{ "margin-top": "10px" }}
+                  style={{ marginTop: "10px" }}
                   className="custom-a"
                   to="/profile"
                 >
                   Profile
                 </Link>
                 <Link
-                  style={{ "margin-top": "10px" }}
+                  style={{ marginTop: "10px" }}
                   className="custom-a"
                   to="/orders"
                 >
@@ -68,7 +68,7 @@ const Navbar = ({ totalCount }) => {
                 </Link>
                 {user.isAdmin ? (
                   <Link
-                    style={{ "margin-top": "10px" }}
+                    style={{ marginTop: "10px" }}
                     className="custom-a"
                     to="/users"
                   >
@@ -77,7 +77,7 @@ const Navbar = ({ totalCount }) => {
                 ) : null}
                 <IconButton component={Link} to="/cart">
                   <Badge
-                    style={{ "margin-left": "5px" }}
+                    style={{ marginLeft: "5px" }}
                     badgeCount={totalCount}
                     color="secondary"
                   >
@@ -96,14 +96,14 @@ const Navbar = ({ totalCount }) => {
               <div className="nav-wrapper">
                 {/* The navbar will show these links before you log in */}
                 <Link
-                  style={{ "margin-top": "10px" }}
+                  style={{ marginTop: "10px" }}
                   className="custom-a"
                   to="/login"
                 >
                   Login
                 </Link>
                 <Link
-                  style={{ "margin-top": "10px" }}
+                  style={{ marginTop: "10px" }}
                   className="custom-a"
                   to="/signup"
                 >

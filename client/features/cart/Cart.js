@@ -34,8 +34,7 @@ const Cart = () => {
   const userOrder = useSelector((state) => state.order.userOrders);
 
   const userId = useSelector((state) => state.auth.me.id);
-  console.log("I am user: ", userId);
-  console.log("IAMUSERORDER: ", userOrder);
+
   const cartOrderId = userOrder[0]?.GameOrder?.orderId;
 
   const handleDelete = (productId) => {
