@@ -119,7 +119,7 @@ router.put("/:productId/sub", auth, findToken, async (req, res, next) => {
 // PUT
 // fulfilling the checkout
 // we get order id from cart
-router.put("/:orderId", async (req, res, next) => {
+router.put("/:orderId", auth, findToken, async (req, res, next) => {
   try {
     const order = await Order.findOne({
       where: { id: req.params.orderId },

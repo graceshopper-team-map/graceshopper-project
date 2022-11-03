@@ -39,13 +39,7 @@ const Navbar = ({ totalCount }) => {
       <AppBar position="fixed" className="custom-navbar">
         <Container>
           <Toolbar>
-            <Typography
-              component={Link}
-              to="/products"
-              variant="h5"
-              color="inherit"
-              className="custom-title"
-            >
+            <Typography variant="h5" color="inherit" className="custom-title">
               GameMap
             </Typography>
             {isLoggedIn ? (
