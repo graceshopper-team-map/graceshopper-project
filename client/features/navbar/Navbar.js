@@ -90,17 +90,29 @@ const Navbar = ({ totalCount }) => {
                     <ShoppingCartIcon className="custom-cart" />
                   </Badge>
                 </IconButton>
-                <Button type="button" onClick={logoutAndRedirectHome}>
+                <Button
+                  type="button"
+                  className="logout"
+                  onClick={logoutAndRedirectHome}
+                >
                   Logout
                 </Button>
               </Box>
             ) : (
               <div className="nav-wrapper">
                 {/* The navbar will show these links before you log in */}
-                <Link className="custom-a" to="/login">
+                <Link
+                  style={{ "margin-top": "10px" }}
+                  className="custom-a"
+                  to="/login"
+                >
                   Login
                 </Link>
-                <Link className="custom-a" to="/signup">
+                <Link
+                  style={{ "margin-top": "10px" }}
+                  className="custom-a"
+                  to="/signup"
+                >
                   Sign Up
                 </Link>
               </div>

@@ -36,6 +36,10 @@ form div {
   display: inline-block;
 }
 
+.logout {
+  margin-left: 50px;
+}
+
 /* START OF CARD CSS*/
 .product-wrapper {
   padding-top: 40px;
