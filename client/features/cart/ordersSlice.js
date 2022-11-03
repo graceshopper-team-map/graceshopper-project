@@ -6,6 +6,7 @@ import {
 } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { removeGameOrder } from "./orderProductsSlice";
 
 // Action types
 // fetch, add, remove, empty
@@ -32,6 +33,7 @@ export const fetchSingleOrder = createAsyncThunk(
 );
 
 export const fetchUserOrder = createAsyncThunk("orders/:userId", async () => {
+  const cart = window.localStorage.getItem("cart");
   try {
     const token = window.localStorage.getItem("token");
     if (token) {
@@ -39,6 +41,8 @@ export const fetchUserOrder = createAsyncThunk("orders/:userId", async () => {
         headers: { authorization: token },
       });
       return data;
+    } else if (cart) {
+      console.log("Im a cart my dude");
     }
   } catch (e) {
     console.log("oops");
@@ -99,19 +103,21 @@ export const decrementGame = createAsyncThunk(
   async ({ productId, quantity }) => {
     const token = window.localStorage.getItem("token");
     if (token) {
-      const { data } = await axios.put(
-        `/api/orders/${productId}/sub`,
-        { quantity },
-        { headers: { authorization: token } }
-      );
-      return data;
+      if (quantity > 1) {
+        const { data } = await axios.put(
+          `/api/orders/${productId}/sub`,
+          { quantity },
+          { headers: { authorization: token } }
+        );
+        return data;
+      }
     }
   }
 );
 
 export const removeProduct = createAsyncThunk(
   "removeItem",
-  async (productId) => {
+  async ({ productId }) => {
     try {
       const { data } = await axios.delete(`/api/orders/${productId}`);
       return data;
@@ -152,54 +158,8 @@ export const orderSlice = createSlice({
     order: {},
     userOrders: [],
     allUserOrders: [],
-    totalPrice: 0,
-    totalItems: 0,
   },
-  reducers: {
-    addToCart: (state, action) => {
-      const itemInCart = state.userOrders.find(
-        (item) => item.id === action.payload.id
-      );
-      if (itemInCart) {
-        itemInCart.quantity--;
-        itemInCart.GameOrder.quantity++;
-      } else {
-        state.userOrders.push({
-          ...action.payload,
-          GameOrder: { quantity: 1 },
-        });
-      }
-    },
-    incrementQuantity: (state, action) => {
-      const item = state.userOrders.find((item) => item.id === action.payload);
-      if (item.quantity === 1) {
-        item.GameOrder.quantity = 1;
-      } else {
-        item.GameOrder.quantity++;
-      }
-    },
-    decrementQuantity: (state, action) => {
-      const item = state.userOrders.find((item) => item.id === action.payload);
-      if (item.quantity === 1) {
-        item.GameOrder.quantity = 1;
-      } else {
-        item.GameOrder.quantity--;
-        if (item.GameOrder.quantity <= 0) {
-          const removeItem = state.userOrders.filter(
-            (item) => item.id !== action.payload
-          );
-
-          state.userOrders = removeItem;
-        }
-      }
-    },
-    removeItem: (state, action) => {
-      const removeItem = state.userOrders.filter(
-        (item) => item.id !== action.payload
-      );
-      state.userOrders = removeItem;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchAllOrders.fulfilled, (state, action) => {
       state.orders = action.payload;
@@ -211,37 +171,37 @@ export const orderSlice = createSlice({
       state.userOrders = action.payload;
     });
     builder.addCase(fetchAllUserOrders.fulfilled, (state, action) => {
-      state.allUserOrders = action.payload
-    })
-     builder.addCase(checkoutCart.fulfilled, (state, action) => {
-      state.userOrders = []
-    })
+      state.allUserOrders = action.payload;
+    });
+    builder.addCase(checkoutCart.fulfilled, (state, action) => {
+      state.userOrders = [];
+    });
     builder.addCase(createNewCart.fulfilled, (state, action) => {
-      state.userOrders = action.payload
-    }) 
+      state.userOrders = action.payload;
+    });
     builder
       .addCase(addOrder.fulfilled, (state, action) => {
         state.userOrders.push(action.payload);
       })
+      .addCase(decrementGame.fulfilled, (state, action) => {
+        state.userOrders = state.userOrders.filter((product) =>
+          product.id === action.payload ? product : product
+        );
+      })
+      .addCase(incrementGame.fulfilled, (state, action) => {
+        state.userOrders = state.userOrders.filter((product) =>
+          product.id === action.payload ? product : product
+        );
+      })
       .addCase(removeProduct.fulfilled, (state, action) => {
-        console.log("ACTION BABY: ", action.payload);
-        console.log("action meta: ", action.meta.arg);
         const removeItem = state.userOrders.filter(
-          (item) => item.id !== action.meta.arg
+          (item) => item.id !== action.payload
         );
         state.userOrders = removeItem;
       });
-   
   },
 });
 
 export const selectOrder = (state) => state.order;
 export const selectOrders = (state) => state.orders;
 export default orderSlice.reducer;
-export const {
-  addToCart,
-  incrementQuantity,
-  decrementQuantity,
-  removeItem,
-  subTotal,
-} = orderSlice.actions;

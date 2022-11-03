@@ -56,20 +56,6 @@ router.get("/:userId/:orderId", async (req, res, next) => {
   }
 });
 
-// POST api/orderproducts/:orderId
-router.post("/:orderId", async (req, res, next) => {
-  try {
-    const orderProducts = await GameOrder.create({
-      orderId: req.params.orderId,
-      productId: req.params.productId,
-    });
-    if (orderProducts) res.json(orderProducts);
-    else res.sendStatus(404);
-  } catch (err) {
-    next(err);
-  }
-});
-
 router.get("/:orderId/:productId", async (req, res, next) => {
   try {
     const orderProducts = await GameOrder.findAll({
@@ -84,8 +70,24 @@ router.get("/:orderId/:productId", async (req, res, next) => {
   }
 });
 
-router.put("/:productId", auth, findToken, async (req, res, next) => {
+// POST api/orderproducts/:orderId
+router.post("/:orderId/:productId", async (req, res, next) => {
   try {
+    const orderProducts = await GameOrder.findAll({
+      where: {
+        orderId: req.params.orderId,
+        productId: req.params.productId,
+      },
+    });
+    res.json(orderProducts);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.put("/:orderId/:productId", async (req, res, next) => {
+  try {
+    console.log("put", req.user.id);
     const order = await Order.findOne({
       where: { userId: req.user.id, status: "unfullfilled" },
     });
@@ -94,8 +96,8 @@ router.put("/:productId", auth, findToken, async (req, res, next) => {
         orderId: order.id,
         productId: req.params.productId,
       },
-      include: Product,
     });
+    console.log("I am orderprod: ", orderProducts);
     await orderProducts[0].increment("quantity");
     res.json(orderProducts);
   } catch (err) {

@@ -9,17 +9,18 @@ const App = () => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.auth.me.id);
   const userOrder = useSelector((state) => state.order.userOrders);
+  console.log("APP USER ORDER:", userOrder);
 
   useEffect(() => {
     if (userId) {
       dispatch(fetchUserOrder(userId));
     }
-  }, [userId]);
+  }, []);
 
   return (
     <div>
-      <Navbar/>
-      <AppRoutes/>
+      <Navbar />
+      <AppRoutes />
     </div>
   );
 };
