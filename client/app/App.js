@@ -17,17 +17,9 @@ const App = () => {
     }
   }, []);
 
-  const accum = () => {
-    let totalItems = 0;
-    userOrder.forEach((product) => {
-      totalItems += product?.GameOrder?.quantity;
-    });
-    return totalItems;
-  };
-
   return (
     <div>
-      <Navbar totalItems={accum()} />
+      <Navbar />
       <AppRoutes />
     </div>
   );

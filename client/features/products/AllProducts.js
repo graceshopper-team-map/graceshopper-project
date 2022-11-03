@@ -27,15 +27,6 @@ const AllProducts = () => {
   const products = useSelector((state) => state.product.products);
   const dispatch = useDispatch();
 
-  const handleAdd = (productId) => {
-    const userProduct = userOrder.filter(
-      (cartProducts) => cartProducts.id === productId
-    );
-    userProduct[0]
-      ? dispatch(editGameOrder({ productId }))
-      : dispatch(addGameOrder({ productId }));
-  };
-
   if (!products) return <Loading message="BRB Loading Games..." />;
   return (
     <Container className="product-wrapper">

@@ -18,6 +18,7 @@ import {
   Container,
 } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import { Box } from "@mui/system";
 
 const SingleProduct = () => {
   const { productId } = useParams();
@@ -32,14 +33,25 @@ const SingleProduct = () => {
   }, []);
 
   return (
-    <div className="single-product-wrapper">
+    <div className="single-product-wrapper" style={{ margin: "50px" }}>
       {user.isAdmin ? <EditProduct /> : null}
-      <div className="product-image-container">
-        <img className="product-image" src={imageUrl} />
-      </div>
+      <Grid container spacing={1}>
+        <Grid item={5}>
+          <img
+            className="product-image"
+            src={imageUrl}
+            width="500px"
+            height="500px"
+          />
+        </Grid>
+        <Grid container direction="column" style={{ height: "100%" }}>
+          <Box mt={2}>
+            <Typography variant="h4">{name + "    " + `$${price}`}</Typography>
+          </Box>
+        </Grid>
+      </Grid>
+      <div className="product-image-container"></div>
       <div className="product-info">
-        <h3>{name + "    " + `$${price}`}</h3>
-        <p>Quantity: {quantity > 0 ?? "OUT OF STOCK"}</p>
         <p>Description: {description}</p>
         <p>Genre: {genre}</p>
         {quantity > 0 ? (

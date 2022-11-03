@@ -58,12 +58,26 @@ const Cart = () => {
   }, [userOrder]);
 
   /*Calculate Sub-total */
-  let subTotal = 0;
-  let totalItems = 0;
-  userOrder.forEach((product) => {
-    subTotal += product.price * product?.GameOrder?.quantity;
-    totalItems += product?.GameOrder?.quantity;
-  });
+  // let subTotal = 0;
+  // let totalItems = 0;
+  // userOrder?.forEach((product) => {
+  //   subTotal += product.price * product?.GameOrder?.quantity;
+  //   totalItems += product?.GameOrder?.quantity;
+  // });
+
+  const totalCount = (items) => {
+    return items.reduce((acc, item) => {
+      acc += item?.GameOrder?.quantity;
+      return acc;
+    }, 0);
+  };
+
+  const subTotal = (items) => {
+    return items.reduce((acc, item) => {
+      acc += item?.price * item?.GameOrder?.quantity;
+      return acc;
+    }, 0);
+  };
 
   if (!userOrder) return <Loading message="BRB Loading Order..." />;
   return (
@@ -164,8 +178,8 @@ const Cart = () => {
           )}
         </Grid>
         <div style={{ margin: "25px" }}>
-          <h1>TOTAL ITEMS: {totalItems}</h1>
-          <h1>SUBTOTAL: {`$ ${subTotal.toFixed(2)}`}</h1>
+          <h1>TOTAL ITEMS: {totalCount(userOrder)}</h1>
+          <h1>SUBTOTAL: {`$ ${subTotal(userOrder).toFixed(2)}`}</h1>
         </div>
         <div>
           <h1>
