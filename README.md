@@ -4,7 +4,7 @@
 <br>
 <br>
 
-### Developed with the PERN stack, GameMap is an e-commerce website that sells video games. Users can view all products, add games to their cart, and checkout.
+Developed with the PERN stack, GameMap is an e-commerce website that sells video games. Users can view all products, add games to their cart, and checkout.
 
 ## Features
 
@@ -60,7 +60,7 @@ npm install
 npm run seed
 ```
 
-4. Start the application in development mode or start normally.
+5. Start the application in development mode or start normally.
 
 ```bash
 npm run start:dev or npm run start
