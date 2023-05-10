@@ -87,7 +87,7 @@ router.post("/:orderId/:productId", async (req, res, next) => {
 
 router.put("/:orderId/:productId", async (req, res, next) => {
   try {
-    console.log("put", req.user.id);
+
     const order = await Order.findOne({
       where: { userId: req.user.id, status: "unfullfilled" },
     });
@@ -97,7 +97,7 @@ router.put("/:orderId/:productId", async (req, res, next) => {
         productId: req.params.productId,
       },
     });
-    console.log("I am orderprod: ", orderProducts);
+
     await orderProducts[0].increment("quantity");
     res.json(orderProducts);
   } catch (err) {

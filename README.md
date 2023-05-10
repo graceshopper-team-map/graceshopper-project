@@ -1,44 +1,75 @@
-# FS-App-Template
+# GameMap
 
-## Setup
+<img src="./public/gameMap.gif" width="955" height="439.5" />
+<br>
+<br>
 
-To use this as boilerplate, you'll need to take the following steps:
+### Developed with the PERN stack, GameMap is an e-commerce website that sells video games. Users can view all products, add games to their cart, and checkout.
 
-- Don't fork or clone this repo! Instead, create a new, empty
-  directory on your machine and `git init` (or create an empty repo on
-  Github and clone it to your local machine)
+## Features
 
-- Now you will have to add the fs-app-template as a remote and merge it into your own repository.
+- View single page for each product
+- Browse all video game products
+- Add items to cart
+- Increment, decrement or delete products in the cart
+- Checkout cart
+- Users can create an account to save their cart
+- Admin accounts can view all current users on the site and look up detailed order numbers
 
+## Tech Stack
+
+This application is built with the following technologies:
+
+- Frontend: [React.js](https://reactjs.org/), [Redux](https://redux.js.org/), [Material UI](https://material-ui.com/)
+- Backend: [Node.js](https://nodejs.org/), [Express](https://expressjs.com/), [Sequelize](https://sequelize.org/), [PostgreSQL](https://www.postgresql.org/)
+
+## Getting Started
+
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+Before you begin, ensure you have installed:
+
+- [Node.js](https://nodejs.org/)
+- [npm](https://www.npmjs.com/)
+
+### Installation
+
+1. Clone the repo
+
+```bash
+git clone https://github.com/yourusername/gamemap.git
 ```
-git remote add boilermaker git@github.com:FullstackAcademy/fs-app-template.git
-git fetch boilermaker
-git merge boilermaker/main
-git branch -m master main
+
+2. Navigate to the project directory
+
+```bash
+cd gamemap
 ```
 
-## Customize
+3. Install packages
 
-Now that you've got the code, follow these steps to get acclimated:
-
-- Update project name and description in `package.json`
-- `npm install`
-- Create two postgres databases (`MY_APP_NAME` should match the `name`
-  parameter in `package.json`):
-- These commands will create both your **development** and **test** databases
-
-```
-createdb <YOUR APP NAME HERE FROM package.json>
-createdb <YOUR APP NAME HERE FROM package.json>-test
+```bash
+npm install
 ```
 
-- By default, running `npm test` will use your test database, while
-  regular development uses development database
+4. Sync and seed your database
 
-## Start
+```bash
+npm run seed
+```
 
-Sync and seed your database by running `npm run seed`. Running `npm run start:dev` will make great things happen!
+4. Start the application in development mode or start normally.
 
-- start:dev will both start your server and build your client side files using webpack
-- start:dev:logger is the same as start:dev, but you will see your SQL queries (can be helpful for debugging)
-- start:dev:seed will start your server and also seed your database (this is useful when you are making schema changes and you don't want to run your seed script separately)
+```bash
+npm run start:dev or npm run start
+```
+
+## Authors
+
+| Name          | LinkedIn                                              | GitHub                                    |
+| ------------- | ----------------------------------------------------- | ----------------------------------------- |
+| Anthony Feliz | [LinkedIn](http://www.linkedin.com/in/anthonyfeliz)   | [GitHub](https://github.com/arfgit)       |
+| Prince Karim  | [LinkedIn](https://www.linkedin.com/in/prince-karim/) | [GitHub](https://github.com/princegkarim) |
+| Min Liu       | [LinkedIn](http://www.linkedin.com/in/minliu64)       | [GitHub](http://github.com/MLiu64)        |
